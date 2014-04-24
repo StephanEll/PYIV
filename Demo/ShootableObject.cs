@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-namespace Assets.Scripts.ProtectVillage
+
+namespace PYIV.Demo
 {
     public abstract class ShootableObject : MonoBehaviour
     {

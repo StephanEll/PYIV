@@ -1,17 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class AlignmentController : MonoBehaviour {
+namespace PYIV.Demo
+{
 
-    public GameObject Tree;
+    public class AlignmentController : MonoBehaviour
+    {
 
-	// Use this for initialization
-	void Start () {
-        Tree.transform.position = new Vector3(Camera.main.orthographicSize * -Camera.main.aspect,0,0);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+        public GameObject Tree;
+
+        // Use this for initialization
+        void Start()
+        {
+            Tree.transform.position = new Vector3(Camera.main.orthographicSize * -Camera.main.aspect, 0, 0);
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+
+        }
+    }
 }
