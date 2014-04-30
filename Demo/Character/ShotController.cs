@@ -49,6 +49,11 @@ namespace PYIV.Demo.Character
                 startTime = Time.time;
             }
         }
+
+        public void ChangeShootableObject()
+        {
+            Debug.Log("ChangeShootable");
+        }
     }
 
 }
