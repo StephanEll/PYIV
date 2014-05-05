@@ -3,4 +3,7 @@
   <directory>
     <enemy value="Preafabs/Enemy" />
   </directory>
+  <server>
+    <url value="localhost:9080" />
+  </server>
 </configuration>
