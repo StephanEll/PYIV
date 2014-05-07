@@ -1,43 +1,69 @@
 using UnityEngine;
+using System;
 using System.Collections;
-
+using System.Collections.Generic;
 
 namespace PYIV.Menu
 {
 	public class ViewRouter : MonoBehaviour
 	{
+		
+		private Dictionary<Type, BaseView> viewCache;
+		
 		private const string GUI_PARENT_TAG = "GuiParent";
 		private const string SCENE_PARENT_TAG = "SceneParent";
 		
 		private GameObject guiParent;
 		private GameObject sceneParent;
 		
+		private BaseView activeView;
+		
 		void Start(){
 			guiParent = GameObject.FindGameObjectWithTag(GUI_PARENT_TAG);
 			sceneParent = GameObject.FindGameObjectWithTag(SCENE_PARENT_TAG);
+			viewCache = new Dictionary<Type, BaseView>();
 			
-			var gameObject = new GameObject();
-			gameObject.AddComponent("RegisterView");
+			ShowView(typeof(ButtonView));
+						
+		}
+		
+		public void ShowView(Type type){
+			BaseView view = GetFromCacheOrCreate(type);
 			
-			RegisterView view = gameObject.GetComponent<RegisterView>();
 			
-			view.transform.parent = guiParent.transform;
+			
+			if(activeView != null){
+				activeView.RemoveFromScreen();
+			}
+			
+			view.AddToScreen(guiParent, sceneParent);
+			activeView = view;
+			
+
 			
 		}
 		
-		public void ShowView(string type){
-			//reflection
+		private BaseView GetFromCacheOrCreate(Type type){
+			BaseView view;
+			bool isInCache = viewCache.TryGetValue(type, out view);
 			
+			if(!isInCache){
+				view = (BaseView)Activator.CreateInstance(type);
+				if(view.ShouldBeCached())
+					viewCache.Add(type, view);
+			}
+			
+			return view;
 		}
 		
-		public void ShowViewWithId(string type, string id){
-			//reflection
+		public void ShowViewWithParameters(Type type, System.Object parameter){
+			throw new NotImplementedException();
 			
 			
 		}
 		
 		public void DestroyView(string type){
-			
+			throw new NotImplementedException();
 		}
 		
 	

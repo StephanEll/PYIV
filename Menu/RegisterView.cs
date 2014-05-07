@@ -4,29 +4,18 @@ using System.Collections;
 
 namespace PYIV.Menu
 {
-	public class RegisterView : UIPanel, BaseView{
+	public class RegisterView : GuiView{
 		
-		private GameObject login;
-		
-		
-		void Start()
-		{
-			login = Instantiate((GameObject)Resources.Load("login")) as GameObject;
-			login.transform.parent = this.transform;
-		}
-		
-		
-		public void OnAddedToScreen (UIAnchor guiParent, UnityEngine.GameObject sceneParent)
-		{
-			throw new NotImplementedException ();
-		}
 
-		public void OnRemovedFromScreen ()
+		public RegisterView() : base("Login")
 		{
-			throw new NotImplementedException ();
+			
 		}
+		
+		
+		
 
-		public bool ShouldBeCached ()
+		public override bool ShouldBeCached ()
 		{
 			return true;
 		}

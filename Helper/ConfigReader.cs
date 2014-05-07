@@ -9,7 +9,7 @@ namespace PYIV.Helper
     public class ConfigReader
     {
 
-        private const string URI = ".\\Assets\\Scripts/PYIV/config.xml";
+        private const string URI = ".\\Assets\\Scripts/config.xml";
 
         private XPathNavigator navigator;
 

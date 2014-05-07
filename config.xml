@@ -2,6 +2,7 @@
 <configuration>
   <directory>
     <enemy value="Preafabs/Enemy" />
+	<menu-prefab value="UI/" />
   </directory>
   <server>
     <url value="localhost:9080" />
