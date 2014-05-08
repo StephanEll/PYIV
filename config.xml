@@ -5,6 +5,6 @@
 	<menu-prefab value="UI/" />
   </directory>
   <server>
-    <url value="localhost:9080" />
+    <url value="http://localhost:8080" />
   </server>
 </configuration>

@@ -5,13 +5,13 @@ namespace PYIV.Persistence.Errors
 	public class ServerError
 	{
 		
-		public string ErrorMessage { get; set; }
+		public string Message { get; set; }
 		
-		private ErrorType errorType;
+		private ErrorType type;
 
-		public ErrorType ErrorType {
-			get { return errorType; }
-			set { errorType = (ErrorType)value; }
+		public ErrorType Type {
+			get { return type; }
+			set { type = (ErrorType)value; }
 		}
 
 	}

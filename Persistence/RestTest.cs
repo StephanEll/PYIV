@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using RestSharp;
 using PYIV.Persistence;
+using System;
 
 public class RestTest : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class RestTest : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		
+
+		
 		Player player = new Player();
-		player.Name = "Heinzo";
+		player.Name = "Heinzo";//+DateTime.Now.ToString();
 		player.Password = "123456";
-		player.Mail = "Heinzo@gmx.de";
+		player.Mail = "Heinzo@gmx.de";//+DateTime.Now.ToString();
 		player.Save();
 	}
 	
