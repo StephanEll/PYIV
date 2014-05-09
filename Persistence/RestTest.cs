@@ -14,9 +14,9 @@ public class RestTest : MonoBehaviour
 
 		
 		Player player = new Player();
-		player.Name = "Heinzo";//+DateTime.Now.ToString();
+		player.Name = "Heinzo"+DateTime.Now.ToString();
 		player.Password = "123456";
-		player.Mail = "Heinzo@gmx.de";//+DateTime.Now.ToString();
+		player.Mail = "Heinzo@gmx.de"+DateTime.Now.ToString();
 		player.Save();
 	}
 	

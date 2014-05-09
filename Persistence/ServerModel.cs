@@ -13,6 +13,7 @@ namespace PYIV.Persistence{
 		
 		public string Id { get; set; }
 		protected string resource;
+		
 		private static string urlRoot;
 		private static string UrlRoot 
 		{
@@ -26,14 +27,23 @@ namespace PYIV.Persistence{
 			}
 		}
 		
+		private RestSharp.Deserializers.JsonDeserializer deserializer;
+		protected RestSharp.Deserializers.JsonDeserializer Deserializer{
+			get
+			{
+				if(deserializer == null){
+					deserializer = new RestSharp.Deserializers.JsonDeserializer();
+				}
+				return deserializer;
+			}
+			
+		}
+		
+		
 		
 		public ServerModel(){
 		}
 		
-		protected string Url(){
-			return "/"+resource;
-			
-		}
 		
 		public void Save(){
 			IRestClient restClient = new RestClient(UrlRoot);
@@ -60,10 +70,12 @@ namespace PYIV.Persistence{
 			
 		}
 		
-		protected void ParseOnCreate(IRestResponse response){
+		protected virtual void ParseOnCreate(IRestResponse response){
 			var dict = SimpleJson.DeserializeObject<Dictionary<string, string>>(response.Content);
 			this.Id = dict["id"];
 		}
+		
+		
 		
 		private void HandlePossibleErrors(IRestResponse response){
 			if(response.StatusCode == 0){
@@ -76,6 +88,7 @@ namespace PYIV.Persistence{
 				throw RestExceptionFactory.CreateExceptionFromError(error);
 				
 			}
+			
 		}
 		
 		
