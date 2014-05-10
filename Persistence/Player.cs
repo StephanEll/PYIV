@@ -21,6 +21,7 @@ namespace PYIV.Persistence
 			PlayerPrefs.DeleteAll();
 			PlayerPrefs.SetString(AuthData.KEY_ID, authData.Id);
 			PlayerPrefs.SetString(AuthData.KEY_TOKEN, authData.Token);
+			PlayerPrefs.Save();
 			
 			
 			
