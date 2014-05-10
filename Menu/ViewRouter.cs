@@ -23,7 +23,7 @@ namespace PYIV.Menu
 			sceneParent = GameObject.FindGameObjectWithTag(SCENE_PARENT_TAG);
 			viewCache = new Dictionary<Type, BaseView>();
 			
-			ShowView(typeof(ButtonView));
+			ShowView(typeof(StartView));
 						
 		}
 		
