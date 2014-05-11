@@ -6,91 +6,122 @@ using RestSharp;
 using PYIV.Helper;
 using PYIV.Persistence.Errors;
 
-namespace PYIV.Persistence{
-
-	public abstract class ServerModel {
+namespace PYIV.Persistence
+{
+	public abstract class ServerModel
+	{
 		
 		
 		public string Id { get; set; }
+
 		protected string resource;
 		
+		
+		public delegate void OnSuccess (ServerModel model);
+
+		public delegate void OnError (ServerModel model,RestException error);
+		
 		private static string urlRoot;
-		private static string UrlRoot 
-		{
-			get
-			{
-				if(urlRoot == null){
-					urlRoot = ConfigReader.Instance.GetSetting("server", "url");
-					Debug.Log (urlRoot);
+
+		protected static string UrlRoot {
+			get {
+				if (urlRoot == null) {
+					urlRoot = ConfigReader.Instance.GetSetting ("server", "url");
 				}
 				return urlRoot;
 			}
 		}
 		
 		private RestSharp.Deserializers.JsonDeserializer deserializer;
-		protected RestSharp.Deserializers.JsonDeserializer Deserializer{
-			get
-			{
-				if(deserializer == null){
-					deserializer = new RestSharp.Deserializers.JsonDeserializer();
+
+		protected RestSharp.Deserializers.JsonDeserializer Deserializer {
+			get {
+				if (deserializer == null) {
+					deserializer = new RestSharp.Deserializers.JsonDeserializer ();
 				}
 				return deserializer;
 			}
 			
 		}
 		
-		
-		
-		public ServerModel(){
+		public ServerModel ()
+		{
+			
 		}
 		
-		
-		public void Save(){
-			IRestClient restClient = new RestClient(UrlRoot);
+		/**
+		 * Syncs the model with the Server. 
+		 * Will create a new Model on the server if it has no Id,
+		 * otherwise it will update the existing one
+		 * */
+		public void Save (OnSuccess successCallback, OnError errorCallback)
+		{
+			IRestClient restClient = new RestClient (UrlRoot);
 			
-			if(this.Id == null){
-				Create(restClient);
+			if (this.Id == null) {
+				Create (restClient, successCallback, errorCallback);
 			}
 			
 		}
 		
+		protected virtual void ParseOnCreate (IRestResponse response, OnSuccess successCallback)
+		{
+			var dict = SimpleJson.DeserializeObject<Dictionary<string, string>> (response.Content);
+			this.Id = dict ["id"];
+			
+			if (successCallback != null) {
+				successCallback (this);	
+			}
+		}
 		
-		
-		private void Create(IRestClient restClient){
-			IRestRequest request = new RestRequest(resource, Method.POST);
+		private void Create (IRestClient restClient, OnSuccess successCallback, OnError errorCallback)
+		{
+			IRestRequest request = new RestRequest (resource, Method.POST);
 			request.RequestFormat = DataFormat.Json;
 			
 			
-			request.AddBody(this);
-			IRestResponse response = restClient.Execute(request);
-			
-			HandlePossibleErrors(response);
-			ParseOnCreate (response);
+			request.AddBody (this);
+			restClient.ExecuteAsync (request, (response) => {
+				OnAsyncRequestComplete (response, successCallback, errorCallback);
+			});
 			
 			
 		}
 		
-		protected virtual void ParseOnCreate(IRestResponse response){
-			var dict = SimpleJson.DeserializeObject<Dictionary<string, string>>(response.Content);
-			this.Id = dict["id"];
+		private void OnAsyncRequestComplete (IRestResponse response, OnSuccess successCallback, OnError errorCallback)
+		{
+			UnityThreadHelper.Dispatcher.Dispatch (() => {
+				bool hasNoErrors = HandlePossibleErrors (response, errorCallback);
+				if (hasNoErrors)
+					ParseOnCreate (response, successCallback);
+			});
 		}
 		
 		
 		
-		private void HandlePossibleErrors(IRestResponse response){
-			if(response.StatusCode == 0){
-				throw RestExceptionFactory.CreateNoConnectionException();
+		protected bool HandlePossibleErrors (IRestResponse response, OnError errorCallback)
+		{
+			RestException exception = CreateException(response);
+
+			if (exception == null) {
+				return true;
+			} else if (errorCallback != null) {	
+				errorCallback (this, exception);	
 			}
-			else if(response.StatusCode == (System.Net.HttpStatusCode.BadRequest)){
-				var deserializer = new RestSharp.Deserializers.JsonDeserializer();
-				ServerError error = deserializer.Deserialize<ServerError>(response);
-				
-				throw RestExceptionFactory.CreateExceptionFromError(error);
-				
-			}
-			
+			return false;	
+
 		}
 		
+		private RestException CreateException(IRestResponse response){
+			if (response.StatusCode == 0) {
+				return RestExceptionFactory.CreateNoConnectionException ();
+			} else if (response.StatusCode == (System.Net.HttpStatusCode.BadRequest)) {
+				var deserializer = new RestSharp.Deserializers.JsonDeserializer ();
+				ServerError error = deserializer.Deserialize<ServerError> (response);
+				return RestExceptionFactory.CreateExceptionFromError (error);
+			}
+			return null;
+		}
 		
 	}
 }

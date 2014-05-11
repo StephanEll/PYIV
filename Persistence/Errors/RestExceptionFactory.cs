@@ -9,10 +9,11 @@ namespace PYIV.Persistence.Errors
 				
 			case ErrorType.NOT_UNIQUE:
 				return new NotUniqueException(error.Type, error.Message);
-				
+			case ErrorType.INVALID_LOGIN:
+				return new LoginFailedException(error.Type, error.Message);
 				
 			}
-			return null;
+			return new RestException(error.Message);
 			
 		}
 		

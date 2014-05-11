@@ -1,6 +1,9 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using PYIV.Persistence;
+using PYIV.Persistence.Errors;
+using PYIV.Helper;
 
 namespace PYIV.Menu
 {
@@ -15,7 +18,6 @@ namespace PYIV.Menu
 
 		public RegisterView() : base("RegisterPrefab")
 		{
-			
 		}
 
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent) {
@@ -40,12 +42,46 @@ namespace PYIV.Menu
 		}
 		
 		private void OnClick(GameObject button){
-			Debug.Log("Name:" + name.value);
-			Debug.Log("Email:" + email.value);
-			Debug.Log("Password:" + password.value);
+			
+			Player registeringPlayer = new Player();
+			
+			try{	
+				registeringPlayer.Name = name.value;
+				
+				if(email.value != "")
+					registeringPlayer.Mail = email.value;
+				
+				registeringPlayer.Password = password.value;
+				
+				registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
+				
+			}
+			catch(InvalidMailException e){
+				Debug.Log(e.Message);
+			}
+			catch(InvalidUsernameException e){
+				Debug.Log(e.Message);
+			}
+			catch(InvalidPasswordException e){
+				Debug.Log(e.Message);
+			}
+			
+			
+			
+			
+			
+			
 		}
 		
-		
+		private void OnSuccessfulRegistration(ServerModel player){
+			UnityThreadHelper.Dispatcher.Dispatch(()=>{
+				this.GetViewRouter().ShowView(typeof(StartView));
+				Debug.Log("successfully registered");
+			});
+		}
+		private void OnErrorAtRegistration(ServerModel player, RestException e){
+			Debug.Log(e.Message);
+		}
 		
 
 		public override bool ShouldBeCached ()
