@@ -16,6 +16,7 @@ namespace PYIV.Menu
 			return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
 		}
 		
+		
 	}
 
 }

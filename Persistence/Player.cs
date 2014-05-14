@@ -9,36 +9,10 @@ namespace PYIV.Persistence
 {
 	public class Player : User
 	{
-		private string mail;
 
-		public string Mail { 
-			get {
-				return mail;	
-			}
-			set {
-				if (Player.IsValidEmailAddress (value)) {
-					mail = value;
-				} else {
-					throw new InvalidMailException ("The entered email is invalid.");
-				}
-			}
-		}
+		public string Mail { get; set;	}
 		
-		private string password;
-
-		public string Password { 
-			get{
-				return password;
-			}
-			set{
-				if(Player.IsValidPassword(value)){
-					password = value;
-				}
-				else{
-					throw new InvalidPasswordException("Your password must be at least 6 digits long");
-				}
-			}
-		}
+		public string Password { get; set;	}
 		
 		public Player ()
 		{
@@ -88,11 +62,8 @@ namespace PYIV.Persistence
 		
 		public static bool IsValidEmailAddress (string mailAddress)
 		{
-			
 			Regex mailIDPattern = new Regex(@"[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}", RegexOptions.IgnoreCase);
-
 			return (!string.IsNullOrEmpty (mailAddress) && mailIDPattern.IsMatch (mailAddress)) ? true : false;
-		   
 		}
 		
 		public static bool IsValidPassword(string rawPassword)
@@ -100,6 +71,19 @@ namespace PYIV.Persistence
 			return rawPassword.Length >= 6;
 		}
 		
+		public override void Validate(){
+			base.Validate();
+			
+			bool passwordIsSetButNotValid = Password != null && !Player.IsValidPassword(Password);
+			if(passwordIsSetButNotValid)
+				throw new InvalidPasswordException("Your password must be at least 6 digits long");
+			
+			bool mailIsSetButNotValid = Mail != null && !Player.IsValidEmailAddress(Mail);
+			if(mailIsSetButNotValid)
+				throw new InvalidMailException("Your Mail isn't a valid address.");
+					
+			
+		}
 		
 		
 	}

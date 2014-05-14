@@ -6,20 +6,8 @@ namespace PYIV.Persistence{
 
 	public class User : ServerModel
 	{
-		private string name;
-		public string Name {
-			get{
-				return name;
-			}
-			set{
-				if(User.IsValidUsername(value)){
-					name = value;
-				}
-				else{
-					throw new InvalidUsernameException("Your nickname must be at least 4 digits long.");
-				}
-			}
-		}
+		public string Name {get; set;}
+		
 		public IList<string> Wins {get; set;}
 		public IList<string> Defeats {get; set;}
 	
@@ -31,6 +19,13 @@ namespace PYIV.Persistence{
 		public static bool IsValidUsername(string username){
 			return username.Length >= 4;
 		}
+		
+		public virtual void Validate(){
+			if(this.Name != null && !User.IsValidUsername(Name))
+				throw new InvalidUsernameException("Your nickname must be at least 4 digits long.");
+				
+		}
+		
 		
 	}
 

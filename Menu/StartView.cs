@@ -13,9 +13,6 @@ namespace PYIV.Menu
 			
 		}
 		
-		public void AddToScreen (GameObject guiParent, GameObject sceneParent) {
-			base.AddToScreen(guiParent, sceneParent);
-		}
 		
 		protected override void OnPanelCreated ()
 		{

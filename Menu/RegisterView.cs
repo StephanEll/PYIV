@@ -10,10 +10,10 @@ namespace PYIV.Menu
 	public class RegisterView : GuiView{
 
 		private GameObject sprite;
-		private GameObject button;
-		private UIInput name;
-		private UIInput email;
-		private UIInput password;
+		private GameObject registerButton;
+		private UIInput nameField;
+		private UIInput emailField;
+		private UIInput passwordField;
 
 
 		public RegisterView() : base("RegisterPrefab")
@@ -21,9 +21,7 @@ namespace PYIV.Menu
 			TouchScreenKeyboard.hideInput = true;
 		}
 
-		public void AddToScreen (GameObject guiParent, GameObject sceneParent) {
-			base.AddToScreen(guiParent, sceneParent);
-		}
+
 		
 		protected override void OnPanelCreated ()
 		{
@@ -31,13 +29,13 @@ namespace PYIV.Menu
 
 			// Getting Components of View
 			sprite = panel.transform.FindChild("Sprite").gameObject;
-			button = sprite.transform.FindChild("Register_Button").gameObject;
-			name = sprite.transform.FindChild("Name_Textfield").gameObject.GetComponent<UIInput>();
-			email = sprite.transform.FindChild("Email_Textfield").gameObject.GetComponent<UIInput>();
-			password = sprite.transform.FindChild("Password_Textfield").gameObject.GetComponent<UIInput>();
+			registerButton = sprite.transform.FindChild("Register_Button").gameObject;
+			nameField = sprite.transform.FindChild("Name_Textfield").gameObject.GetComponent<UIInput>();
+			emailField = sprite.transform.FindChild("Email_Textfield").gameObject.GetComponent<UIInput>();
+			passwordField = sprite.transform.FindChild("Password_Textfield").gameObject.GetComponent<UIInput>();
 
 
-			UIEventListener.Get(button).onClick += OnClick;
+			UIEventListener.Get(registerButton).onClick += OnClick;
 
 			
 		}
@@ -45,17 +43,13 @@ namespace PYIV.Menu
 		private void OnClick(GameObject button){
 			
 			Player registeringPlayer = new Player();
+			registeringPlayer.Name = nameField.value;	
+			if(emailField.value != "")
+				registeringPlayer.Mail = emailField.value;
+			registeringPlayer.Password = passwordField.value;
 			
 			try{	
-				registeringPlayer.Name = name.value;
-				
-				if(email.value != "")
-					registeringPlayer.Mail = email.value;
-				
-				registeringPlayer.Password = password.value;
-				
-				registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
-				
+				registeringPlayer.Validate();
 			}
 			catch(InvalidMailException e){
 				Debug.Log(e.Message);
@@ -67,18 +61,14 @@ namespace PYIV.Menu
 				Debug.Log(e.Message);
 			}
 			
+			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			
-			
-			
-			
-			
+
 		}
 		
 		private void OnSuccessfulRegistration(ServerModel player){
-			UnityThreadHelper.Dispatcher.Dispatch(()=>{
-				this.GetViewRouter().ShowView(typeof(StartView));
-				Debug.Log("successfully registered");
-			});
+			this.GetViewRouter().ShowView(typeof(StartView));
+			Debug.Log("successfully registered");
 		}
 		private void OnErrorAtRegistration(ServerModel player, RestException e){
 			Debug.Log(e.Message);

@@ -5,29 +5,26 @@ namespace PYIV.Menu
 	public class PopupView : GuiView
 	{
 		private GameObject sprite;
-		private GameObject Close_Button;
-		private UILabel Popup_Text;
+		private GameObject closeButton;
+		private UILabel popupLabel;
 		
 		public PopupView () : base("PopupPrefab")
 		{
 			
 		}
-		
-		public void AddToScreen (GameObject guiParent, GameObject sceneParent) {
-			base.AddToScreen(guiParent, sceneParent);
-		}
+
 		
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
 			
 			sprite = panel.transform.FindChild("Sprite").gameObject;
-			Close_Button = sprite.transform.FindChild("Close_Button").gameObject;
-			Popup_Text = sprite.transform.FindChild("Popup_Text").GetComponent<UILabel>();
+			closeButton = sprite.transform.FindChild("Close_Button").gameObject;
+			popupLabel = sprite.transform.FindChild("Popup_Text").GetComponent<UILabel>();
 
-			Popup_Text.text = "Das indianische Wort fuer Windows? 'Weisser-Mann-starrt-wartend-auf-Sanduhr'";
+			popupLabel.text = "Das indianische Wort fuer Windows? 'Weisser-Mann-starrt-wartend-auf-Sanduhr'";
 			
-			UIEventListener.Get(Close_Button).onClick += OnClick;
+			UIEventListener.Get(closeButton).onClick += OnClick;
 
 			
 		}
