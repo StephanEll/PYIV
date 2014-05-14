@@ -18,6 +18,7 @@ namespace PYIV.Menu
 
 		public RegisterView() : base("RegisterPrefab")
 		{
+			TouchScreenKeyboard.hideInput = true;
 		}
 
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent) {

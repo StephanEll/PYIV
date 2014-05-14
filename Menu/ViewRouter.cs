@@ -42,6 +42,15 @@ namespace PYIV.Menu
 
 			
 		}
+
+		public void ShowPopup(Type type){
+			BaseView view = GetFromCacheOrCreate(type);
+
+			view.AddToScreen(guiParent, sceneParent);
+			//activeView = view;
+			
+		
+		}
 		
 		private BaseView GetFromCacheOrCreate(Type type){
 			BaseView view;
@@ -65,6 +74,12 @@ namespace PYIV.Menu
 		public void DestroyView(string type){
 			throw new NotImplementedException();
 		}
+
+		public void DestroyPopup(BaseView popup){
+			popup.RemoveFromScreen();
+		}
+
+
 		
 	
 	

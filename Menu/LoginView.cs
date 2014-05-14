@@ -2,13 +2,14 @@ using System;
 using UnityEngine;
 namespace PYIV.Menu
 {
-	public class StartView : GuiView
+	public class LoginView : GuiView
 	{
 		private GameObject sprite;
 		private GameObject Login_Button;
-		private GameObject Register_Button;
+		private GameObject Register_Link;
+		private GameObject ForgotPW_Link;
 		
-		public StartView () : base("StartPrefab")
+		public LoginView () : base("LoginPrefab")
 		{
 			
 		}
@@ -20,27 +21,31 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-
+			
 			sprite = panel.transform.FindChild("Sprite").gameObject;
 			Login_Button = sprite.transform.FindChild("Login_Button").gameObject;
-			Register_Button = sprite.transform.FindChild("Register_Button").gameObject;
-
-			UIEventListener.Get(Register_Button).onClick += OnClick;
+			Register_Link = sprite.transform.FindChild("register_link").gameObject;
+			ForgotPW_Link = sprite.transform.FindChild("lost_link").gameObject;
+			
 			UIEventListener.Get(Login_Button).onClick += OnClick;
+			UIEventListener.Get(Register_Link).onClick += OnClick;
+			UIEventListener.Get(ForgotPW_Link).onClick += OnClick;
 			
 		}
 		
 		private void OnClick(GameObject button){
-			if(button.name == "Register_Button") {
+			if(button.name == "Login_Button") {
+				this.GetViewRouter().ShowView(typeof(StartView));
+			} else if(button.name == "register_link") {
 				this.GetViewRouter().ShowView(typeof(RegisterView));
-			} else if(button.name == "Login_Button") {
-				this.GetViewRouter().ShowView(typeof(LoginView));
+			} else if(button.name == "lost_link") {
+				this.GetViewRouter().ShowPopup(typeof(PopupView));
 			}
 		}
 		
 		public override bool ShouldBeCached ()
 		{
-			return false;
+			return true;
 		}
 	}
 }
