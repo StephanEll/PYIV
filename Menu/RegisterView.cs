@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Helper;
@@ -48,8 +49,11 @@ namespace PYIV.Menu
 				registeringPlayer.Mail = emailField.value;
 			registeringPlayer.Password = passwordField.value;
 			
+			
+			
 			try{	
 				registeringPlayer.Validate();
+				registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			}
 			catch(InvalidMailException e){
 				Debug.Log(e.Message);
@@ -61,16 +65,16 @@ namespace PYIV.Menu
 				Debug.Log(e.Message);
 			}
 			
-			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
+			
 			
 
 		}
 		
-		private void OnSuccessfulRegistration(ServerModel player){
+		private void OnSuccessfulRegistration(object responseObject){
 			this.GetViewRouter().ShowView(typeof(StartView));
 			Debug.Log("successfully registered");
 		}
-		private void OnErrorAtRegistration(ServerModel player, RestException e){
+		private void OnErrorAtRegistration(RestException e){
 			Debug.Log(e.Message);
 		}
 		

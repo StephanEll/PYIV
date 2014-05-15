@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using PYIV.Persistence.Errors;
+using PYIV.Persistence.Validators;
 
 namespace PYIV.Persistence{
 
-	public class User : ServerModel
+	public class User<S> : ServerModel<User<S>>
 	{
 		public string Name {get; set;}
 		
@@ -15,14 +16,10 @@ namespace PYIV.Persistence{
 			resource = "user";
 		}
 		
-		
-		public static bool IsValidUsername(string username){
-			return username.Length >= 4;
-		}
+
 		
 		public virtual void Validate(){
-			if(this.Name != null && !User.IsValidUsername(Name))
-				throw new InvalidUsernameException("Your nickname must be at least 4 digits long.");
+			NicknameValidator.Instance.Validate(Name);
 				
 		}
 		

@@ -52,11 +52,11 @@ namespace PYIV.Menu
 			
 		}
 		
-		private void OnSuccessfulLogin(ServerModel player){
+		private void OnSuccessfulLogin(AuthData authData){
 			Debug.Log("Login successful!");
 		}
 		
-		private void OnErrorAtLogin(ServerModel player, RestException e){
+		private void OnErrorAtLogin(RestException e){
 			Debug.Log(e.Message);
 		}
 		
