@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <directory>
+    <enemy value="Preafabs/Enemy" />
+    <enemy-config-xml value=".\\Assets\\Scripts/_configs/enemydata.xml" />
+	  <menu-prefab value="UI/" />
+  </directory>
+  <server>
+    <url value="localhost:9080" />
+  </server>
+</configuration>

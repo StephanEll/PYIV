@@ -16,7 +16,7 @@ namespace PYIV.Demo.Enemy
                 Camera.main.orthographicSize * Camera.main.aspect, 
                 spornContainer.transform.position.y, 
                 0);
-            InvokeRepeating("CreateNewEnemy", distanceBetweenEnemysInSec, distanceBetweenEnemysInSec);
+            Invoke("CreateNewEnemy", distanceBetweenEnemysInSec);
         }
 
         private void CreateNewEnemy()
@@ -26,6 +26,12 @@ namespace PYIV.Demo.Enemy
                     spornContainer.transform.position,
                     Quaternion.EulerAngles(0, 0, 0));
             enemy.transform.parent = spornContainer.transform;
+            distanceBetweenEnemysInSec = Random.Range(0.8f, 3.0f);
+            Invoke("CreateNewEnemy", distanceBetweenEnemysInSec);
+        }
+
+        void Update()
+        {
             
         }
 

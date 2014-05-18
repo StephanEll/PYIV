@@ -23,7 +23,7 @@ namespace PYIV.Menu
 			sceneParent = GameObject.FindGameObjectWithTag(SCENE_PARENT_TAG);
 			viewCache = new Dictionary<Type, BaseView>();
 			
-			ShowView(typeof(StartView));
+			ShowView(typeof(RegisterView));
 						
 		}
 		
@@ -43,10 +43,10 @@ namespace PYIV.Menu
 			
 		}
 
-		public void ShowPopup(Type type){
-			BaseView view = GetFromCacheOrCreate(type);
+		public void ShowPopup(PopupView popup){
+			//BaseView view = GetFromCacheOrCreate(type);
 
-			view.AddToScreen(guiParent, sceneParent);
+			popup.AddToScreen(guiParent, sceneParent);
 			//activeView = view;
 			
 		

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace PYIV.Gameplay
+namespace PYIV.Gameplay.Enemy
 {
 
     public class Enemy : MonoBehaviour
