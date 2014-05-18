@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Helper;
@@ -12,6 +11,7 @@ namespace PYIV.Menu
 
 		private GameObject sprite;
 		private GameObject registerButton;
+		private GameObject loginLink;
 		private UIInput nameField;
 		private UIInput emailField;
 		private UIInput passwordField;
@@ -31,51 +31,81 @@ namespace PYIV.Menu
 			// Getting Components of View
 			sprite = panel.transform.FindChild("Sprite").gameObject;
 			registerButton = sprite.transform.FindChild("Register_Button").gameObject;
+			loginLink = sprite.transform.FindChild("login_link").gameObject;
 			nameField = sprite.transform.FindChild("Name_Textfield").gameObject.GetComponent<UIInput>();
 			emailField = sprite.transform.FindChild("Email_Textfield").gameObject.GetComponent<UIInput>();
 			passwordField = sprite.transform.FindChild("Password_Textfield").gameObject.GetComponent<UIInput>();
 
 
-			UIEventListener.Get(registerButton).onClick += OnClick;
+			UIEventListener.Get(registerButton).onClick += OnRegisterButtonClick;
+			UIEventListener.Get(loginLink).onClick += OnLoginLinkClick;
 
 			
 		}
 		
-		private void OnClick(GameObject button){
+		private void OnRegisterButtonClick(GameObject button){
+
+			setBackHighlighting();
 			
 			Player registeringPlayer = new Player();
 			registeringPlayer.Name = nameField.value;	
-			if(emailField.value != "")
+			if(emailField.value != "") {
 				registeringPlayer.Mail = emailField.value;
+			} else {
+				highlightTextfield(emailField);
+			}
 			registeringPlayer.Password = passwordField.value;
-			
-			
 			
 			try{	
 				registeringPlayer.Validate();
-				registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			}
 			catch(InvalidMailException e){
+				highlightTextfield(emailField);
 				Debug.Log(e.Message);
 			}
 			catch(InvalidUsernameException e){
+				highlightTextfield(nameField);
 				Debug.Log(e.Message);
 			}
 			catch(InvalidPasswordException e){
+				highlightTextfield(passwordField);
 				Debug.Log(e.Message);
 			}
 			
-			
+			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			
 
 		}
 		
-		private void OnSuccessfulRegistration(object responseObject){
-			this.GetViewRouter().ShowView(typeof(StartView));
+		private void OnSuccessfulRegistration(ServerModel player){
+
+			// Defer to Gamelist-View
 			Debug.Log("successfully registered");
 		}
-		private void OnErrorAtRegistration(RestException e){
+		private void OnErrorAtRegistration(ServerModel player, RestException e){
 			Debug.Log(e.Message);
+		}
+
+
+		private void OnLoginLinkClick(GameObject button){
+			this.GetViewRouter().ShowView(typeof(LoginView));
+		}
+
+
+		private void highlightTextfield(UIInput textfield) {
+			UISprite emailSprite = textfield.GetComponent<UISprite>();
+			emailSprite.spriteName = "textfield_error";
+		}
+
+		private void setBackHighlighting() {
+			UISprite sprite = nameField.GetComponent<UISprite>();
+			sprite.spriteName = "textfield";
+
+			sprite = emailField.GetComponent<UISprite>();
+			sprite.spriteName = "textfield";
+
+			sprite = passwordField.GetComponent<UISprite>();
+			sprite.spriteName = "textfield";
 		}
 		
 

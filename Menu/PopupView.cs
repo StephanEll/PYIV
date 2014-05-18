@@ -7,10 +7,11 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject closeButton;
 		private UILabel popupLabel;
+		private String text;
 		
-		public PopupView () : base("PopupPrefab")
+		public PopupView (String text) : base("PopupPrefab")
 		{
-			
+			this.text = text;
 		}
 
 		
@@ -22,7 +23,7 @@ namespace PYIV.Menu
 			closeButton = sprite.transform.FindChild("Close_Button").gameObject;
 			popupLabel = sprite.transform.FindChild("Popup_Text").GetComponent<UILabel>();
 
-			popupLabel.text = "Das indianische Wort fuer Windows? 'Weisser-Mann-starrt-wartend-auf-Sanduhr'";
+			popupLabel.text = this.text;
 			
 			UIEventListener.Get(closeButton).onClick += OnClick;
 

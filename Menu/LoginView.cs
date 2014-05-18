@@ -16,7 +16,7 @@ namespace PYIV.Menu
 		
 		public LoginView () : base("LoginPrefab")
 		{
-			
+			TouchScreenKeyboard.hideInput = true;
 		}
 		
 		
@@ -52,11 +52,11 @@ namespace PYIV.Menu
 			
 		}
 		
-		private void OnSuccessfulLogin(AuthData authData){
+		private void OnSuccessfulLogin(ServerModel player){
 			Debug.Log("Login successful!");
 		}
 		
-		private void OnErrorAtLogin(RestException e){
+		private void OnErrorAtLogin(ServerModel player, RestException e){
 			Debug.Log(e.Message);
 		}
 		
@@ -65,7 +65,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			this.GetViewRouter().ShowPopup(typeof(PopupView));
+			this.GetViewRouter().ShowPopup(new PopupView("Passwort vergessen?"));
 		}
 		
 		
