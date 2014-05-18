@@ -2,9 +2,10 @@
 using System.Collections;
 using PYIV.Helper;
 
-namespace PYIV.Gameplay {
+namespace PYIV.Gameplay.Enemy
+{
 
-    public class EnemyBuilder : MonoBehaviour {
+    public class EnemyBuilder {
 
         public static Enemy CreateEnemy(EnemyType enemyType)
         {

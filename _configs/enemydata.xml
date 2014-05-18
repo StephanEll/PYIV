@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<!-- config file for Enemy behaviour and appealing -->
+
+
+<root>
+  
+<!-- demo Data -->
+  
+	<EnemyDataCollection>
+	  <EnemyData>
+      <Id>1</Id>
+	    <MoveSpeed>60</MoveSpeed>
+	    <AttackPower>20</AttackPower>
+	    <LivePoints>400</LivePoints>
+	    <PreafabName>Rat</PreafabName>
+	  </EnemyData>
+	  <EnemyData>
+      <Id>2</Id>
+	    <MoveSpeed>60</MoveSpeed>
+	    <AttackPower>20</AttackPower>
+	    <LivePoints>400</LivePoints>
+	    <PreafabName>Elephant</PreafabName>
+	  </EnemyData>
+	</EnemyDataCollection>
+  
+  
+	<EnemyTypeCollection>
+    <EnemyType>
+      <Id>testType</Id>
+      <Price>12</Price>
+      <Name>100 Ratten</Name>
+      <Description>Kaufe 200 Ratten zum Preis von 12 Goldstücken</Description>
+      <Count>100</Count>
+      <EnemyDataId>1</EnemyDataId>
+    </EnemyType>
+    
+	</EnemyTypeCollection>
+  
+  
+</root>

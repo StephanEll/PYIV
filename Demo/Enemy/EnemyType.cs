@@ -6,14 +6,9 @@ namespace PYIV.Demo.Enemy
 {
     public class EnemyType : MonoBehaviour
     {
-        public float speed = 0.05f;
+        public float speed = 0.5f;
 
-        void Start()
-        {
-            
-        }
-
-        void Update()
+        void FixedUpdate()
         {
             transform.position = new Vector3(transform.position.x - speed, transform.position.y);
             CheckDestroy();
