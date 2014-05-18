@@ -77,18 +77,18 @@ namespace PYIV.Menu
 
 		}
 		
-		private void OnSuccessfulRegistration(ServerModel player){
+		private void OnSuccessfulRegistration(Player serverResponseObject){
 
 			// Defer to Gamelist-View
 			Debug.Log("successfully registered");
 		}
-		private void OnErrorAtRegistration(ServerModel player, RestException e){
+		private void OnErrorAtRegistration(RestException e){
 			Debug.Log(e.Message);
 		}
 
 
 		private void OnLoginLinkClick(GameObject button){
-			this.GetViewRouter().ShowView(typeof(LoginView));
+			this.ViewRouter.ShowView(typeof(LoginView));
 		}
 
 

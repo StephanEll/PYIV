@@ -12,8 +12,13 @@ namespace PYIV.Menu
 		public abstract void RemoveFromScreen ();
 		public abstract bool ShouldBeCached();
 		
-		protected ViewRouter GetViewRouter(){
-			return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
+		protected ViewRouter ViewRouter{
+			
+			get{
+				return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
+			}
+			
+			
 		}
 		
 		

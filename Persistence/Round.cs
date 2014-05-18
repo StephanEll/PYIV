@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using PYIV.Gameplay;
+using PYIV.Gameplay.Enemy;
 using PYIV.Persistence;
 using PYIV.Helper;
 using PYIV.Menu;

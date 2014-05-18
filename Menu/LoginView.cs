@@ -52,20 +52,20 @@ namespace PYIV.Menu
 			
 		}
 		
-		private void OnSuccessfulLogin(ServerModel player){
+		private void OnSuccessfulLogin(AuthData authData){
 			Debug.Log("Login successful!");
 		}
 		
-		private void OnErrorAtLogin(ServerModel player, RestException e){
+		private void OnErrorAtLogin(RestException e){
 			Debug.Log(e.Message);
 		}
 		
 		private void OnRegisterButtonClicked(GameObject button){
-			this.GetViewRouter().ShowView(typeof(RegisterView));
+			this.ViewRouter.ShowView(typeof(RegisterView));
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			this.GetViewRouter().ShowPopup(new PopupView("Passwort vergessen?"));
+			this.ViewRouter.ShowPopup(new PopupView("Passwort vergessen?"));
 		}
 		
 		
