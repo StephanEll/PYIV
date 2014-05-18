@@ -22,7 +22,7 @@ namespace PYIV.Persistence.Errors
 		}
 		
 		private RestException CreateException(){
-			if (response.StatusCode == 0) {
+			if (response.ResponseStatus != ResponseStatus.Completed) {
 				
 				return RestExceptionFactory.CreateNoConnectionException ();
 				

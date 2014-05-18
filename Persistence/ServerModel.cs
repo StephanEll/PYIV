@@ -5,12 +5,19 @@ using System;
 using RestSharp;
 using PYIV.Helper;
 using PYIV.Persistence.Errors;
+using System.Runtime.Serialization;
 
 namespace PYIV.Persistence
 {
-	
+	/// <summary>
+	/// Abstract baseclass to be inherited from by models which
+	/// communicate with server
+	/// </summary>
+	/// 
+	[DataContract]
 	public abstract class ServerModel{
 		
+		[DataMember]
 		public string Id { get; set; }
 
 		protected string resource;
@@ -42,13 +49,14 @@ namespace PYIV.Persistence
 	}
 	
 	
-	
+	/// <summary>
+	/// Generic version of ServerModel
+	/// </summary>
 	public abstract class ServerModel<T> : ServerModel where T : ServerModel<T>, new()
 	{
 		
 		
-		
-		
+
 		/**
 		 * Syncs the model with the Server. 
 		 * Will create a new Model on the server if it has no Id,
@@ -64,10 +72,16 @@ namespace PYIV.Persistence
 			
 		}
 		
-		protected void ParseOnCreate (T responseObject)
-		{		
-			this.Id = responseObject.Id;
+		public void Fetch(Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError){
+			if (this.Id != null) {
+				Load (OnSuccess, OnError);
+			}
+			else{
+				throw new ModelNotInitializedException();
+			}
 		}
+		
+		
 		
 		private void Create (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
 		{
@@ -78,14 +92,25 @@ namespace PYIV.Persistence
 			
 			postRequest.AddBody(this);
 			postRequest.ExecuteAsync();
-
-			
-			
 		}
 		
+		protected void ParseOnCreate (T responseObject)
+		{		
+			this.Id = responseObject.Id;
+		}
 		
+		private void Load (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
+		{
+			var getRequest = new Request<T>(resource+"/{id}",Method.GET);
+			getRequest.OnError += OnError;
+			getRequest.OnSuccess += OnSuccess;
+			getRequest.OnSuccess += UpdateModel;
+			
+			getRequest.AddId(this.Id);
+			getRequest.ExecuteAsync();
+		}
 		
-		
+		protected abstract void UpdateModel (T responseObject);
 		
 		
 		

@@ -1,9 +1,15 @@
 using System;
 using RestSharp;
+using PYIV.Helper;
 using PYIV.Persistence.Errors;
+using UnityEngine;
 
 namespace PYIV.Persistence
 {
+	/// <summary>
+	/// Performes a async REST-Request an calls success- or failure-callbacks 
+	/// with a response-object or a exception 
+	/// </summary>
 	public class Request<T>
 	{
 		public delegate void SuccessDelegate (T responseObject);
@@ -20,13 +26,35 @@ namespace PYIV.Persistence
 		public Request (string resource, RestSharp.Method method)
 		{
 			restClient = new RestClient (ServerModel.UrlRoot);
-			request = new RestRequest (resource, Method.POST);
+			
+			
+			AddAuthentication();
+			
+			request = new RestRequest (resource, method);
+			request.AddHeader("content-type", "application/json; charset=utf-8");
 			request.RequestFormat = DataFormat.Json;
+			
 
 		}
+			
+		private void AddAuthentication(){
+			
+			string auth_id = PlayerPrefs.GetString(AuthData.KEY_ID, "");
+			string auth_token = PlayerPrefs.GetString(AuthData.KEY_TOKEN, "");
+			
+			restClient.Authenticator = new SimpleAuthenticator("user_id", auth_id, "token", auth_token);
+		}
 		
+		//Add payload, the object will be json-serialized
 		public void AddBody(object model){
-			request.AddBody (model);
+			
+			request.AddParameter("model", SimpleJson.SimpleJson.SerializeObject(model));
+		
+		}
+		
+		public void AddId(string id){
+			request.AddParameter("id", id, ParameterType.UrlSegment);
+			
 		}
 		
 		public void ExecuteAsync(){
@@ -39,6 +67,7 @@ namespace PYIV.Persistence
 		{
 			
 			UnityThreadHelper.Dispatcher.Dispatch (() => {
+				Debug.Log ("CONTENT: "+response.Content);
 				RestException exception = new ResponseErrorHandler(response).HandlePossibleErrors();
 				if (exception == null)
 					ParseResponse (response);

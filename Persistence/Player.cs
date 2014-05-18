@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using RestSharp;
 using System;
 
@@ -8,8 +9,16 @@ using PYIV.Persistence.Validators;
 
 namespace PYIV.Persistence
 {
-	public class Player : User<Player>
+	/// <summary>
+	/// Represents the player sitting infront of the phone
+	/// </summary>
+	public class Player : ServerModel<Player>
 	{
+		
+		public string Name {get; set;}
+		
+		public IList<string> Wins {get; set;}
+		public IList<string> Defeats {get; set;}
 
 		public string Mail { get; set;	}
 		
@@ -30,7 +39,7 @@ namespace PYIV.Persistence
 			loginRequest.AddBody (this);
 			loginRequest.ExecuteAsync();
 		}
-		
+
 		
 		private void ParseAndSaveAuthData(AuthData authData){
 			
@@ -40,8 +49,8 @@ namespace PYIV.Persistence
 			PlayerPrefs.Save ();
 		}
 
-		public override void Validate(){
-			base.Validate();
+		public void Validate(){
+			NicknameValidator.Instance.Validate(Name);	
 			
 			PasswordValidator.Instance.Validate(Password);
 
@@ -51,6 +60,10 @@ namespace PYIV.Persistence
 			
 		}
 		
+		protected override void UpdateModel (Player responseObject)
+		{
+			
+		}
 		
 	}
 

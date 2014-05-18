@@ -2,6 +2,9 @@ using System;
 
 namespace PYIV.Persistence
 {
+	/// <summary>
+	/// Dataobject containing authentification information
+	/// </summary>
 	public class AuthData
 	{
 		
