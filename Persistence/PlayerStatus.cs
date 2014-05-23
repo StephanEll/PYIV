@@ -18,29 +18,22 @@ namespace PYIV.Persistence
 		private Player player;
 		
 		[DataMember]
-		public string PlayerId {
-			get {
-				return player.Id;
-			}
-			
-			set{
-				Debug.Log(value + "has not been set");
-			}
-		}
+		public readonly string playerId;
 		
-		public PlayerStatus() : this(null){
-			
-		}
-		
-		public PlayerStatus (Player player)
-		{
+		public PlayerStatus(){
 			resource = "playerStatus";
+		}
+		
+		public PlayerStatus (Player player) : this()
+		{
+			
 			this.player = player;
+			playerId = player.Id;
 			
 			Rounds = new List<Round>();
 		}
 		
-		protected override void UpdateModel (PlayerStatus responseObject)
+		protected override void PopulateModel (PlayerStatus responseObject)
 		{
 			throw new NotImplementedException ();
 		}

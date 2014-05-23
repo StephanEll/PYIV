@@ -32,8 +32,9 @@ namespace PYIV.Persistence
 		
 		public void Login(Request<AuthData>.SuccessDelegate OnSuccess, Request<AuthData>.ErrorDelegate OnError){
 			var loginRequest = new Request<AuthData>(resource+"/login", Method.POST);
-			loginRequest.OnSuccess += OnSuccess;
 			loginRequest.OnSuccess += ParseAndSaveAuthData;
+			loginRequest.OnSuccess += OnSuccess;
+			
 			loginRequest.OnError += OnError;
 			
 			loginRequest.AddBody (this);
@@ -47,6 +48,7 @@ namespace PYIV.Persistence
 			PlayerPrefs.SetString (AuthData.KEY_ID, authData.Id);
 			PlayerPrefs.SetString (AuthData.KEY_TOKEN, authData.Token);
 			PlayerPrefs.Save ();
+			this.Id = authData.Id;
 		}
 
 		public void Validate(){
@@ -60,7 +62,7 @@ namespace PYIV.Persistence
 			
 		}
 		
-		protected override void UpdateModel (Player responseObject)
+		protected override void PopulateModel (Player responseObject)
 		{
 			
 		}

@@ -18,16 +18,6 @@ public class ConfigsOnStart : MonoBehaviour
 		
 		
 		
-		
-		
-		Player player = new Player();
-		player.Name = "Manfred"+DateTime.Now.Millisecond;
-		player.Password = "123456";
-		player.Save(PlayerSaved, null);
-		
-		
-		
-		
 	}
 	
 	

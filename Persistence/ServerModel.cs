@@ -104,13 +104,13 @@ namespace PYIV.Persistence
 			var getRequest = new Request<T>(resource+"/{id}",Method.GET);
 			getRequest.OnError += OnError;
 			getRequest.OnSuccess += OnSuccess;
-			getRequest.OnSuccess += UpdateModel;
+			getRequest.OnSuccess += PopulateModel;
 			
 			getRequest.AddId(this.Id);
 			getRequest.ExecuteAsync();
 		}
 		
-		protected abstract void UpdateModel (T responseObject);
+		protected abstract void PopulateModel (T responseObject);
 		
 		
 		
