@@ -13,34 +13,38 @@ namespace PYIV.Persistence
 	{
 		
 		[DataMember]
-		public List<Round> Rounds { get; set; }
+		public IList<Round> Rounds { get; set; }
 		
-		private Player player;
 		
 		[DataMember]
-		public readonly string playerId;
+		public Player Player {get; set;}
 		
 		public PlayerStatus(){
-			resource = "playerStatus";
+			Rounds = new List<Round>();
 		}
 		
 		public PlayerStatus (Player player) : this()
 		{
 			
-			this.player = player;
-			playerId = player.Id;
+			this.Player = player;
 			
-			Rounds = new List<Round>();
+			
 		}
 		
-		protected override void PopulateModel (PlayerStatus responseObject)
+		public override void ParseOnCreate (PlayerStatus responseObject)
 		{
-			throw new NotImplementedException ();
+			base.ParseOnCreate (responseObject);
+			this.Rounds = responseObject.Rounds;
+			this.Player.ParseOnCreate(responseObject.Player);
 		}
 		
 		public void AddRound(Round round){
 			Rounds.Add(round);
 			
+		}
+		public override string ToString ()
+		{
+			return string.Format ("[PlayerStatus: Rounds={0}, Player={1}]", Rounds.Count, Player.ToString());
 		}
 		
 	}

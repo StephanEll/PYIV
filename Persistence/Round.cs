@@ -42,7 +42,6 @@ namespace PYIV.Persistence{
 		
 		private List<EnemyType> ConvertIdsToEnemyTypes(List<int> enemyIds){
 			
-			//TODO: Use XML-Parser to generate EnemyTypes from Ids
 			return new List<EnemyType>();
 		}
 		

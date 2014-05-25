@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using UnityEngine;
 
 namespace PYIV.Persistence
 {
@@ -9,7 +10,7 @@ namespace PYIV.Persistence
 	public class GameData : ServerModel<GameData>
 	{		
 		[DataMember]
-		public PlayerStatus[] PlayerStatus { get; set; }
+		public List<PlayerStatus> PlayerStatus { get; set; }		
 		
 		[IgnoreDataMember]
 		public DateTime CreatedAt { get; set; }
@@ -19,23 +20,37 @@ namespace PYIV.Persistence
 		
 		
 		public GameData(){
-			resource = "gameData";
+			PlayerStatus = new List<PlayerStatus>(2);
 
 		}
 		
 		public GameData(Player challenger, Player defender) : this(){
 			
-			PlayerStatus = new PlayerStatus[2];
-			PlayerStatus[0] = new PlayerStatus(challenger);
-			PlayerStatus[1] = new PlayerStatus(defender);
+			
+			PlayerStatus.Add(new PlayerStatus(challenger));
+			PlayerStatus.Add(new PlayerStatus(defender));
 			
 		}
 		
-		protected override void PopulateModel (GameData responseObject)
+		public override void ParseOnCreate (GameData responseObject)
 		{
+			base.ParseOnCreate (responseObject);
+			this.CreatedAt = responseObject.CreatedAt;
+			this.UpdatedAt = responseObject.UpdatedAt;
+			
+			Debug.Log(PlayerStatus.Count + ".::."+responseObject.PlayerStatus.Count);
+			
+			for(int i = 0; i < PlayerStatus.Count; i++){
+				PlayerStatus[i].ParseOnCreate(responseObject.PlayerStatus[i]);
+			}
 			
 		}
 		
+		
+		public override string ToString ()
+		{
+			return string.Format ("[GameData: PlayerStatus={0}, CreatedAt={1}, UpdatedAt={2}]", PlayerStatus.Count, CreatedAt, UpdatedAt);
+		}
 		
 		
 	}

@@ -54,14 +54,16 @@ namespace PYIV.Menu
 		}
 		
 		private void OnSuccessfulLogin(AuthData authData){
-			Player secondPlayer = new Player();
-			secondPlayer.Id = "4642138092470272";
-			secondPlayer.Name = "Manfred";
-			secondPlayer.Mail = "Manfred@fhd.de";
-			
-			GameData data = new GameData(playerToBeLoggedIn, secondPlayer);
-			data.Save(null, null);
-			
+
+		}
+		
+
+	
+		private void OnSucess(GameData data){
+			Debug.Log(data.ToString());
+		}
+		private void OnError(RestException e){
+			Debug.Log(e.Message);
 		}
 		
 		private void OnErrorAtLogin(RestException e){

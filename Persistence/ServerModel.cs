@@ -18,9 +18,7 @@ namespace PYIV.Persistence
 	public abstract class ServerModel{
 		
 		[DataMember]
-		public string Id { get; set; }
-
-		protected string resource;
+		public string Id { get; set; }		
 		
 		private static string urlRoot;
 
@@ -28,6 +26,7 @@ namespace PYIV.Persistence
 		
 		public ServerModel (){	}
 		
+		[IgnoreDataMember]
 		public static string UrlRoot {
 			get {
 				if (urlRoot == null) {
@@ -72,45 +71,44 @@ namespace PYIV.Persistence
 			
 		}
 		
-		public void Fetch(Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError){
-			if (this.Id != null) {
-				Load (OnSuccess, OnError);
-			}
-			else{
-				throw new ModelNotInitializedException();
-			}
+		public static void Fetch(string Id, Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError){
+
+			var getRequest = new Request<T>(ComputeResourceName()+"/{id}",Method.GET);
+			getRequest.OnError += OnError;
+			getRequest.OnSuccess += OnSuccess;
+			
+			
+			getRequest.AddId(Id);
+			getRequest.ExecuteAsync();
+			
+		}
+		
+		protected static string ComputeResourceName(){
+			var className = typeof(T).Name;
+			//fist letter to lower
+			return Char.ToLowerInvariant(className[0]) + className.Substring(1);
 		}
 		
 		
 		
 		private void Create (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
 		{
-			var postRequest = new Request<T>(resource,Method.POST);
+			var postRequest = new Request<T>(ComputeResourceName(),Method.POST);
+			postRequest.OnSuccess += ParseOnCreate;
 			postRequest.OnError += OnError;
 			postRequest.OnSuccess += OnSuccess;
-			postRequest.OnSuccess += ParseOnCreate;
+			
 			
 			postRequest.AddBody(this);
 			postRequest.ExecuteAsync();
 		}
 		
-		protected void ParseOnCreate (T responseObject)
+		public virtual void ParseOnCreate (T responseObject)
 		{		
 			this.Id = responseObject.Id;
 		}
 		
-		private void Load (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
-		{
-			var getRequest = new Request<T>(resource+"/{id}",Method.GET);
-			getRequest.OnError += OnError;
-			getRequest.OnSuccess += OnSuccess;
-			getRequest.OnSuccess += PopulateModel;
-			
-			getRequest.AddId(this.Id);
-			getRequest.ExecuteAsync();
-		}
-		
-		protected abstract void PopulateModel (T responseObject);
+
 		
 		
 		

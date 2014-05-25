@@ -15,7 +15,30 @@ namespace PYIV.Persistence
 	public class Player : ServerModel<Player>
 	{
 		
-		public string Name {get; set;}
+		public string Name {
+			get{
+				return Auth_ids[0];
+			}
+			
+			set{
+				if(Auth_ids.Count == 0){
+					Auth_ids.Add(value);
+				}
+				else{
+					Auth_ids[0] = value;
+				}
+			}
+		}
+		
+		private List<String> auth_ids;
+		public List<String> Auth_ids {
+			get{
+				return auth_ids;
+			}
+			set{
+				auth_ids = value;
+			}
+		}
 		
 		public IList<string> Wins {get; set;}
 		public IList<string> Defeats {get; set;}
@@ -26,12 +49,12 @@ namespace PYIV.Persistence
 		
 		public Player ()
 		{
-			resource = "player";
+			Auth_ids = new List<string>(1);
 		}
 		
 		
 		public void Login(Request<AuthData>.SuccessDelegate OnSuccess, Request<AuthData>.ErrorDelegate OnError){
-			var loginRequest = new Request<AuthData>(resource+"/login", Method.POST);
+			var loginRequest = new Request<AuthData>(ComputeResourceName()+"/login", Method.POST);
 			loginRequest.OnSuccess += ParseAndSaveAuthData;
 			loginRequest.OnSuccess += OnSuccess;
 			
@@ -62,9 +85,19 @@ namespace PYIV.Persistence
 			
 		}
 		
-		protected override void PopulateModel (Player responseObject)
+		public override void ParseOnCreate (Player responseObject)
 		{
+			base.ParseOnCreate (responseObject);
+			this.Auth_ids = responseObject.Auth_ids;
+			this.Mail = responseObject.Mail;
+			this.Wins = responseObject.Wins;
+			this.Defeats = responseObject.Defeats;
 			
+		}
+
+		public override string ToString ()
+		{
+			return string.Format ("[Player: Name={0}, Auth_ids={1}, Wins={2}, Defeats={3}, Mail={4}, Password={5}]", Name, Auth_ids, Wins, Defeats, Mail, Password);
 		}
 		
 	}

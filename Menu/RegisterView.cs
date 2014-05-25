@@ -45,15 +45,13 @@ namespace PYIV.Menu
 		
 		private void OnRegisterButtonClick(GameObject button){
 
-			setBackHighlighting();
+			SetBackHighlighting();
 			
 			Player registeringPlayer = new Player();
 			registeringPlayer.Name = nameField.value;	
 			if(emailField.value != "") {
 				registeringPlayer.Mail = emailField.value;
-			} else {
-				highlightTextfield(emailField);
-			}
+			} 
 			registeringPlayer.Password = passwordField.value;
 			
 			try{	
@@ -97,7 +95,7 @@ namespace PYIV.Menu
 			emailSprite.spriteName = "textfield_error";
 		}
 
-		private void setBackHighlighting() {
+		private void SetBackHighlighting() {
 			UISprite sprite = nameField.GetComponent<UISprite>();
 			sprite.spriteName = "textfield";
 

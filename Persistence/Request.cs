@@ -31,6 +31,7 @@ namespace PYIV.Persistence
 			AddAuthentication();
 			
 			request = new RestRequest (resource, method);
+			
 			request.AddHeader("content-type", "application/json; charset=utf-8");
 			request.RequestFormat = DataFormat.Json;
 			
