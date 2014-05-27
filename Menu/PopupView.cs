@@ -32,7 +32,7 @@ namespace PYIV.Menu
 		
 		private void OnClick(GameObject button){
 			if(button.name == "Close_Button") {
-				this.ViewRouter.DestroyPopup(this);
+				ViewRouter.TheViewRouter.DestroyPopup(this);
 			} 
 		}
 		

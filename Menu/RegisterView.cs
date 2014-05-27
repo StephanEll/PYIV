@@ -86,7 +86,7 @@ namespace PYIV.Menu
 
 
 		private void OnLoginLinkClick(GameObject button){
-			this.ViewRouter.ShowView(typeof(LoginView));
+			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 		}
 
 

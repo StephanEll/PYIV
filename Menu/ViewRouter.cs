@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,9 @@ namespace PYIV.Menu
 	public class ViewRouter : MonoBehaviour
 	{
 		
-		private Dictionary<Type, BaseView> viewCache;
+		private const string VIEW_ROUTER_TAG = "ViewRouter";
+		
+		private Dictionary<ViewCacheKey, BaseView> viewCache;
 		
 		private const string GUI_PARENT_TAG = "GuiParent";
 		private const string SCENE_PARENT_TAG = "SceneParent";
@@ -18,19 +20,21 @@ namespace PYIV.Menu
 		
 		private BaseView activeView;
 		
+		
 		void Start(){
 			guiParent = GameObject.FindGameObjectWithTag(GUI_PARENT_TAG);
 			sceneParent = GameObject.FindGameObjectWithTag(SCENE_PARENT_TAG);
-			viewCache = new Dictionary<Type, BaseView>();
-			
-			ShowView(typeof(RegisterView));
-						
+			viewCache = new Dictionary<ViewCacheKey, BaseView>();						
 		}
 		
 		public void ShowView(Type type){
-			BaseView view = GetFromCacheOrCreate(type);
-			
-			
+			ShowViewWithParameter(type, null);
+		}
+		
+	
+		
+		public void ShowViewWithParameter(Type type, object parameter){
+			BaseView view = GetFromCacheOrCreate(type, parameter);
 			
 			if(activeView != null){
 				activeView.RemoveFromScreen();
@@ -38,9 +42,6 @@ namespace PYIV.Menu
 			
 			view.AddToScreen(guiParent, sceneParent);
 			activeView = view;
-			
-
-			
 		}
 
 		public void ShowPopup(PopupView popup){
@@ -52,24 +53,28 @@ namespace PYIV.Menu
 		
 		}
 		
-		private BaseView GetFromCacheOrCreate(Type type){
+		private BaseView GetFromCacheOrCreate(Type type, object parameter){
 			BaseView view;
-			bool isInCache = viewCache.TryGetValue(type, out view);
+			ViewCacheKey key = new ViewCacheKey(type, parameter);
+			bool isInCache = viewCache.TryGetValue(key, out view);
 			
 			if(!isInCache){
-				view = (BaseView)Activator.CreateInstance(type);
-				if(view.ShouldBeCached())
-					viewCache.Add(type, view);
+				view = CreateAndCacheView(type, key);
 			}
+
 			
 			return view;
 		}
-		
-		public void ShowViewWithParameters(Type type, System.Object parameter){
-			throw new NotImplementedException();
+		private BaseView CreateAndCacheView(Type type, ViewCacheKey cacheKey){
+			BaseView view = (BaseView)Activator.CreateInstance(type);
+			view.UnpackParameter(cacheKey.Parameter);
 			
-			
+			if(view.ShouldBeCached()){
+				viewCache.Add(cacheKey, view);
+			}
+			return view;
 		}
+		
 		
 		public void DestroyView(string type){
 			throw new NotImplementedException();
@@ -77,8 +82,17 @@ namespace PYIV.Menu
 
 		public void DestroyPopup(BaseView popup){
 			popup.RemoveFromScreen();
+			
 		}
-
+		
+		public static ViewRouter TheViewRouter{
+			
+			get{
+				return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
+			}
+			
+			
+		}
 
 		
 	

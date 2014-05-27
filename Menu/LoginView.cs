@@ -71,11 +71,11 @@ namespace PYIV.Menu
 		}
 		
 		private void OnRegisterButtonClicked(GameObject button){
-			this.ViewRouter.ShowView(typeof(RegisterView));
+			ViewRouter.TheViewRouter.ShowView(typeof(RegisterView));
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			this.ViewRouter.ShowPopup(new PopupView("Passwort vergessen?"));
+			ViewRouter.TheViewRouter.ShowPopup(new PopupView("Passwort vergessen?"));
 		}
 		
 		

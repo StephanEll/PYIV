@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using PYIV.Menu;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using RestSharp;
@@ -25,7 +26,9 @@ public class ConfigsOnStart : MonoBehaviour
 		player2.Id = "5144752345317376";
 		
 		gameData = new GameData(player1, player2);
-		gameData.Save(OnSucess, OnError);
+		
+		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), gameData);
+		
 		
 		
 	}

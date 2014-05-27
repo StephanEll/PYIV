@@ -13,11 +13,11 @@ namespace PYIV.Menu
 		
 		public GuiView (string prefabName)
 		{
-            panelPrefab = Resources.Load<GameObject>(prefabName);
+            panelPrefab = Resources.Load<GameObject>("UI/"+prefabName);
 		}
 	
 	
-		public override void AddToScreen (GameObject guiParent, GameObject sceneParent)
+		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
 		{
 			if(panel == null){
 				panel = NGUITools.AddChild(guiParent, panelPrefab);
@@ -29,7 +29,7 @@ namespace PYIV.Menu
 			}
 		}
 	
-		public override void RemoveFromScreen ()
+		public void RemoveFromScreen ()
 		{
 			if(ShouldBeCached()){
 				NGUITools.SetActive(panel, false);
@@ -45,6 +45,10 @@ namespace PYIV.Menu
 		}
 		
 		protected virtual void OnPanelCreated(){}
+		
+		public abstract bool ShouldBeCached();
+		
+		public virtual void UnpackParameter(object parameter){}
 		
 		
 	
