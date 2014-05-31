@@ -4,6 +4,7 @@ using System.Collections;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Helper;
+using PYIV.Menu.Popup;
 
 namespace PYIV.Menu
 {
@@ -81,7 +82,7 @@ namespace PYIV.Menu
 			Debug.Log("successfully registered");
 		}
 		private void OnErrorAtRegistration(RestException e){
-			Debug.Log(e.Message);
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));
 		}
 
 

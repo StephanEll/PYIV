@@ -60,15 +60,9 @@ namespace PYIV.Menu
 		
 
 	
-		private void OnSucess(GameData data){
-			Debug.Log(data.ToString());
-		}
-		private void OnError(RestException e){
-			Debug.Log(e.Message);
-		}
 		
 		private void OnErrorAtLogin(RestException e){
-			Debug.Log(e.Message);
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));
 		}
 		
 		private void OnRegisterButtonClicked(GameObject button){

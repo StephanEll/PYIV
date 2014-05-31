@@ -12,6 +12,11 @@ namespace PYIV.Menu.Popup
 		{
 			this.Text = text;
 		}
+		
+		public static PopupParam FromText(string text){
+			return new PopupParam(text);
+		}
+		
 	}
 }
 
