@@ -25,11 +25,14 @@ namespace PYIV.Gameplay.Character.Weapon
         */
         public static void AddAsComponentFactory(GameObject go, string bulletPreafabPath, string ShotBehaviourClassName){
             switch(ShotBehaviourClassName){
-                case "AngryBirdTestClass":
-                    go.AddComponent<AngryBirdTestClass>().bulletPreafabPath = bulletPreafabPath;
+                case "WeaponBow":
+                    go.AddComponent<WeaponBow>().bulletPreafabPath = bulletPreafabPath;
                     break;
-                case "other":
-                    go.AddComponent<AngryBirdTestClass>();
+                case "WeaponSpear":
+                    go.AddComponent<WeaponSpear>().bulletPreafabPath = bulletPreafabPath;
+                    break;
+                case "WeaponBlowTube":
+                    go.AddComponent<WeaponBlowTube>().bulletPreafabPath = bulletPreafabPath;
                     break;
             }
         }

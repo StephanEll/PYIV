@@ -6,14 +6,36 @@
   <IndianDataCollection>
     <IndianData>
       <Id>1</Id>
-      <Name>Massai</Name>
+      <Name>Indianer</Name>
       <Description>20</Description>
-      <Stamina>400</Stamina>
+      <Stamina>30</Stamina>
+      <Strength>10</Strength>
+      <Accuracy>1</Accuracy>
+      <ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
+      <PreafabPath>Prefabs/Characters/Character_Indianer</PreafabPath>
+      <BulletPreafabPath>Prefabs/Probs/Bullet_BlowTubeArrow</BulletPreafabPath>
+    </IndianData>
+    <IndianData>
+      <Id>2</Id>
+      <Name>Amazone</Name>
+      <Description>20</Description>
+      <Stamina>20</Stamina>
       <Strength>20</Strength>
       <Accuracy>1</Accuracy>
-      <ShotBehaviourClassName>AngryBirdTestClass</ShotBehaviourClassName>
-      <PreafabPath>Prefabs/Characters/player_indianer_placeholder</PreafabPath>
-      <BulletPreafabPath>Prefabs/Probs/Test_Arrow</BulletPreafabPath>
+      <ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
+      <PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
+      <BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
+    </IndianData>
+    <IndianData>
+      <Id>3</Id>
+      <Name>Massai</Name>
+      <Description>20</Description>
+      <Stamina>10</Stamina>
+      <Strength>30</Strength>
+      <Accuracy>1</Accuracy>
+      <ShotBehaviourClassName>WeaponSpear</ShotBehaviourClassName>
+      <PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
+      <BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
     </IndianData>
   </IndianDataCollection>
 </root>
