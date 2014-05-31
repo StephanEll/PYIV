@@ -18,7 +18,7 @@ namespace PYIV.Gameplay.Enemy {
 
         private static volatile EnemyTypeCollection instance;
 
-        private static object syncRoot = new Object();
+        private static object syncRoot = new object();
 
         private EnemyTypeCollection()
         {

@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using PYIV.Gameplay;
@@ -14,10 +16,10 @@ namespace PYIV.Persistence{
 	public class Round {
 		
 		
-		private List<int> sentAttackerIds;
+		private List<string> sentAttackerIds;
 		
 		[DataMember]
-		public List<int> SentAttackerIds{
+		public List<string> SentAttackerIds{
 			
 			get{
 				return sentAttackerIds;
@@ -30,8 +32,19 @@ namespace PYIV.Persistence{
 			
 		}
 		
+		private List<EnemyType> sentAttackers;
+		
 		[IgnoreDataMember]
-		public List<EnemyType> SentAttackers {get; private set;}
+		public List<EnemyType> SentAttackers {
+			get{
+				return sentAttackers;
+			}
+			set{
+				sentAttackers = value;
+				var ids = from type in value select type.Id;
+				sentAttackerIds = ids.ToList();
+			}
+		}
 		
 		[DataMember]
 		public int RemainingVillageLifepoints { get; set; }
@@ -40,7 +53,7 @@ namespace PYIV.Persistence{
 			
 		}
 		
-		private List<EnemyType> ConvertIdsToEnemyTypes(List<int> enemyIds){
+		private List<EnemyType> ConvertIdsToEnemyTypes(List<string> enemyIds){
 			
 			return new List<EnemyType>();
 		}

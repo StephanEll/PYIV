@@ -9,7 +9,7 @@ namespace PYIV.Helper
     public class ConfigReader : SingletonBase<ConfigReader>
     {
 
-        private const string URI = ".\\Assets\\Scripts/PYIV/_configs/config.xml";
+        private const string URI = ".\\Assets\\Scripts/_configs/config.xml";
 
         private XPathNavigator navigator;
 

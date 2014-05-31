@@ -6,56 +6,52 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using RestSharp;
 
-
-public class ConfigsOnStart : MonoBehaviour
-{
-	GameData gameData;
-
-	//Configuration/Initializationcode at startup
-	void Start ()
+namespace PYIV.Helper{
+	public class ConfigsOnStart : MonoBehaviour
 	{
-		//must be created once from the main thread
-		var dispatcher = UnityThreadHelper.Dispatcher;
-		
-		Player player1 = new Player();
-		player1.Name = "Henrik";
-		player1.Id = "6682831673622528";
-		
-		Player player2 = new Player();
-		player2.Name = "Manfred";
-		player2.Id = "4642138092470272";
-		
-		gameData = new GameData(player1, player2);
-		gameData.Save(OnSucess, OnError);
-		
-		ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-		
-		
-		
-	}
+		GameData gameData;
 	
-	
-	private void PlayerSaved(Player player){
-		Debug.Log (player.Id);
-		/*Round round = new Round();
-		round.RemainingVillageLifepoints = 99;
-		round.SentAttackerIds = new System.Collections.Generic.List<int>();
-		round.SentAttackerIds.Add(43);
+		//Configuration/Initializationcode at startup
+		void Start ()
+		{
+			//must be created once from the main thread
+			var dispatcher = UnityThreadHelper.Dispatcher;
+			
+			TestData data = new TestData(OnSucess);
+			
+			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+			
+			
+			
+		}
 		
-		PlayerStatus status = new PlayerStatus((Player)player);
-		status.AddRound(round);
-		status.Save(OnSucess, OnError);
-		*/
-	}
-	
-	private void OnSucess(GameData data){
+		private void CreateTestData(){
+			
+			
+		}
 		
-		Debug.Log (gameData.ToString());
-		Debug.Log (gameData.PlayerStatus[0].ToString());
-	}
-	private void OnError(RestException e){
-		Debug.Log(e.Message);
+		
+		private void PlayerSaved(Player player){
+			Debug.Log (player.Id);
+			/*Round round = new Round();
+			round.RemainingVillageLifepoints = 99;
+			round.SentAttackerIds = new System.Collections.Generic.List<int>();
+			round.SentAttackerIds.Add(43);
+			
+			PlayerStatus status = new PlayerStatus((Player)player);
+			status.AddRound(round);
+			status.Save(OnSucess, OnError);
+			*/
+		}
+		
+		private void OnSucess(GameData data){
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
+			
+		}
+		private void OnError(RestException e){
+			Debug.Log(e.Message);
+		}
+	
 	}
 
 }
-

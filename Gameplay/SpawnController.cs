@@ -13,7 +13,7 @@ namespace PYIV.Gameplay
         // Update is called once per frame
         void Update()
         {
-
+			
         }
 
         private void GenerateEnemyIdQueue(List<EnemyType> enemyTypes)

@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
+using System;
 using System.IO;
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using PYIV.Helper;
-using System;
 using System.Linq;
 
 namespace PYIV.Gameplay.Character {
@@ -18,7 +18,7 @@ namespace PYIV.Gameplay.Character {
 
         private static volatile IndianDataCollection instance;
 
-        private static object syncRoot = new Object();
+        private static object syncRoot = new object();
 
 
         private IndianDataCollection()

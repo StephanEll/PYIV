@@ -34,6 +34,7 @@ namespace PYIV.Persistence
 		
 		public static void LogOut(){
 			lock(syncRoot){
+				PlayerPrefs.DeleteAll();
 				instance = null;
 			}
 		}

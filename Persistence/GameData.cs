@@ -62,6 +62,8 @@ namespace PYIV.Persistence
 		
 		private PlayerStatus GetPlayerOrOpponentStatus(bool playerStatus){
 			
+			Debug.Log (LoggedInPlayer.Instance.Id);
+			
 			PlayerStatus player = PlayerStatus[0].Id == LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];
 			PlayerStatus opponent = PlayerStatus[0].Id != LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];		
 			

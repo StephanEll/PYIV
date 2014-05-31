@@ -15,7 +15,7 @@ namespace PYIV.Persistence
 	{
 		
 		[DataMember]
-		public IList<Round> Rounds { get; set; }
+		public List<Round> Rounds { get; set; }
 		
 		[IgnoreDataMember] 
 		public Round LatestRound {
