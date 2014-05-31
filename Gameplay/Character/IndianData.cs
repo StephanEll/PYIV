@@ -25,5 +25,7 @@ namespace PYIV.Gameplay.Character
         public string PreafabPath { get; set; }
         [XmlElement()]
         public string BulletPreafabPath { get; set; }
+        [XmlElement()]
+        public string BackgroundPreafabPath { get; set; }
     }
 }
