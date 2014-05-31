@@ -9,6 +9,10 @@ namespace PYIV.Demo.Enemy
         public EnemyType enemyType;
         public float distanceBetweenEnemysInSec = 3.0f;
 
+        private float frameCounter = 0;
+        private float countTime = 0;
+        private float distanceBetweenSeconds = 0;
+
         // Use this for initialization
         void Start()
         {
@@ -16,7 +20,7 @@ namespace PYIV.Demo.Enemy
                 Camera.main.orthographicSize * Camera.main.aspect, 
                 spornContainer.transform.position.y, 
                 0);
-            Invoke("CreateNewEnemy", distanceBetweenEnemysInSec);
+            distanceBetweenEnemysInSec = Random.Range(0.8f, 3.0f);
         }
 
         private void CreateNewEnemy()
@@ -26,13 +30,19 @@ namespace PYIV.Demo.Enemy
                     spornContainer.transform.position,
                     Quaternion.EulerAngles(0, 0, 0));
             enemy.transform.parent = spornContainer.transform;
-            distanceBetweenEnemysInSec = Random.Range(0.8f, 3.0f);
-            Invoke("CreateNewEnemy", distanceBetweenEnemysInSec);
+            
         }
 
         void Update()
         {
-            
+            frameCounter += Time.deltaTime;
+            countTime += Time.deltaTime;
+            if (frameCounter > distanceBetweenEnemysInSec && countTime < 60.0f)
+            {
+                distanceBetweenEnemysInSec = Random.Range(0.8f, 3.0f);
+                frameCounter = 0;
+                CreateNewEnemy();
+            }
         }
 
         
