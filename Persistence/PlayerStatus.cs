@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using RestSharp;
 using System.Runtime.Serialization;
+using PYIV.Gameplay.Character;
 
 
 
@@ -18,6 +19,9 @@ namespace PYIV.Persistence
 		
 		[DataMember]
 		public Player Player {get; set;}
+
+        public IndianData IndianData { get; private set; }
+
 		
 		public PlayerStatus(){
 			Rounds = new List<Round>();
