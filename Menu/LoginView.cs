@@ -76,15 +76,10 @@ namespace PYIV.Menu
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			PopupParam param = new DecisionPopupParam("Passwort vergessen", OnAccept, null);
-			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(DecisionPopup), param);
+			PopupParam param = new PopupParam("Passwort vergessen");
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), param);
 			
-		}
-		void OnAccept(GameObject o){
-			Debug.Log("accept");
-		}
-		
-		
+		}		
 		
 		public override bool ShouldBeCached ()
 		{

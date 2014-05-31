@@ -38,6 +38,8 @@ namespace PYIV.Menu.Popup
 			this.RemoveFromScreen();
 		}
 		
+		
+		//Gets called after Panel is initialized
 		public override void UnpackParameter (object parameter)
 		{
 			PopupParam param = parameter as PopupParam;
