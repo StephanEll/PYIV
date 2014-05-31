@@ -19,13 +19,14 @@ public class ConfigsOnStart : MonoBehaviour
 		
 		Player player1 = new Player();
 		player1.Name = "Henrik";
-		player1.Id = "6270652252160000";
+		player1.Id = "6682831673622528";
 		
 		Player player2 = new Player();
 		player2.Name = "Manfred";
-		player2.Id = "5144752345317376";
+		player2.Id = "4642138092470272";
 		
 		gameData = new GameData(player1, player2);
+		gameData.Save(OnSucess, OnError);
 		
 		ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 		

@@ -7,7 +7,7 @@ namespace PYIV.Gameplay
 {
     public class SpawnController : MonoBehaviour
     {
-
+		
         private List<int> EnemyIdQueue = new List<int>();
 
         // Update is called once per frame
@@ -26,10 +26,11 @@ namespace PYIV.Gameplay
             // use EnemyBuilder to generate the next element from EnemyIDQueue
         }
 
-        public static void AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){
+        public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){
             go.AddComponent<SpawnController>();
             SpawnController spawnController = go.GetComponent<SpawnController>();
             spawnController.GenerateEnemyIdQueue(enemyTypes);
+			return spawnController;
         }
 
     }

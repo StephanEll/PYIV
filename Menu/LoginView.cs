@@ -55,8 +55,9 @@ namespace PYIV.Menu
 		
 		private void OnSuccessfulLogin(Player player){
 			LoggedInPlayer.Instance = player;
-			Debug.Log (player.ToString());
 		}
+		
+
 		
 		private void OnErrorAtLogin(RestException e){
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));

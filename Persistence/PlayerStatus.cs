@@ -9,11 +9,19 @@ using System.Runtime.Serialization;
 
 namespace PYIV.Persistence
 {
+	[DataContract]
 	public class PlayerStatus : ServerModel<PlayerStatus>
 	{
 		
 		[DataMember]
 		public IList<Round> Rounds { get; set; }
+		
+		[IgnoreDataMember] 
+		public Round LatestRound {
+			get{
+				return Rounds[Rounds.Count-1];
+			}
+		}
 		
 		
 		[DataMember]

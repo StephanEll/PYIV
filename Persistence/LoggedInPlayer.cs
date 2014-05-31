@@ -28,6 +28,16 @@ namespace PYIV.Persistence
 		}
 		
 		
+		public static bool IsLoggedIn(){
+			return Instance != null;
+		}
+		
+		public static void LogOut(){
+			lock(syncRoot){
+				instance = null;
+			}
+		}
+		
 	}
 }
 

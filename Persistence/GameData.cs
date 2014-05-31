@@ -18,6 +18,20 @@ namespace PYIV.Persistence
 		[IgnoreDataMember]
 		public DateTime UpdatedAt { get; set; }
 		
+		[IgnoreDataMember]
+		public PlayerStatus MyStatus {
+			get{
+				return this.GetPlayerOrOpponentStatus(true);
+			}
+		}
+		
+		[IgnoreDataMember]
+		public PlayerStatus OpponentStatus {
+			get{
+				return this.GetPlayerOrOpponentStatus(false);
+			}
+		}
+		
 		
 		public GameData(){
 			PlayerStatus = new List<PlayerStatus>(2);
@@ -45,6 +59,15 @@ namespace PYIV.Persistence
 			}
 			
 		}
+		
+		private PlayerStatus GetPlayerOrOpponentStatus(bool playerStatus){
+			
+			PlayerStatus player = PlayerStatus[0].Id == LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];
+			PlayerStatus opponent = PlayerStatus[0].Id != LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];		
+			
+			return playerStatus ? player : opponent ;
+		}
+		
 		
 		
 		public override string ToString ()

@@ -26,6 +26,12 @@ namespace PYIV.Persistence
 		
 		public ServerModel (){	}
 		
+		public static string ComputeResourceName(Type T){
+			var className = T.Name;
+			//fist letter to lower
+			return Char.ToLowerInvariant(className[0]) + className.Substring(1);
+		}
+		
 		[IgnoreDataMember]
 		public static string UrlRoot {
 			get {
@@ -73,7 +79,7 @@ namespace PYIV.Persistence
 		
 		public static void Fetch(string Id, Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError){
 
-			var getRequest = new Request<T>(ComputeResourceName()+"/{id}",Method.GET);
+			var getRequest = new Request<T>(ComputeResourceName(typeof(T))+"/{id}",Method.GET);
 			getRequest.OnError += OnError;
 			getRequest.OnSuccess += OnSuccess;
 			
@@ -83,17 +89,11 @@ namespace PYIV.Persistence
 			
 		}
 		
-		public static string ComputeResourceName(){
-			var className = typeof(T).Name;
-			//fist letter to lower
-			return Char.ToLowerInvariant(className[0]) + className.Substring(1);
-		}
-		
 		
 		
 		private void Create (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
 		{
-			var postRequest = new Request<T>(ComputeResourceName(),Method.POST);
+			var postRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.POST);
 			postRequest.OnSuccess += ParseOnCreate;
 			postRequest.OnError += OnError;
 			postRequest.OnSuccess += OnSuccess;

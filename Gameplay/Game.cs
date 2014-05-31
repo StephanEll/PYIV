@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using PYIV.Persistence;
+using PYIV.Gameplay.Enemy;
 
 namespace PYIV.Gameplay{
 
@@ -24,14 +26,15 @@ namespace PYIV.Gameplay{
 		}
 		
 		private void Init(){
-			this.spawnController = this.gameObject.AddComponent<SpawnController>();
+			List<EnemyType> enemyTypes = GameData.OpponentStatus.LatestRound.SentAttackers;
+			this.spawnController = SpawnController.AddAsComponentTo(this.gameObject, enemyTypes);
 			
 			
 		}
 		
 		void Start ()
 		{
-			//var bgPrefab = Resources.Load("Environment/Forest");
+			//var bgPrefab = Resources.Load();
 			//background = Instantiate(bgPrefab) as GameObject;
 		}
 		

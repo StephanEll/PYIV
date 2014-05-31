@@ -40,10 +40,12 @@ namespace PYIV.Persistence
 			
 		private void AddAuthentication(){
 			
-			string auth_id = PlayerPrefs.GetString(AuthData.KEY_ID, "");
-			string auth_token = PlayerPrefs.GetString(AuthData.KEY_TOKEN, "");
-			
-			restClient.Authenticator = new SimpleAuthenticator("user_id", auth_id, "token", auth_token);
+			if(LoggedInPlayer.IsLoggedIn()){
+				string auth_id = LoggedInPlayer.Instance.Id;
+				string auth_token = LoggedInPlayer.Instance.AuthToken;
+				
+				restClient.Authenticator = new SimpleAuthenticator("user_id", auth_id, "token", auth_token);
+			}
 		}
 		
 		//Add payload, the object will be json-serialized

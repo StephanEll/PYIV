@@ -57,7 +57,7 @@ namespace PYIV.Persistence
 		
 		
 		public void Login(Request<Player>.SuccessDelegate OnSuccess, Request<Player>.ErrorDelegate OnError){
-			var loginRequest = new Request<Player>(ComputeResourceName()+"/login", Method.POST);
+			var loginRequest = new Request<Player>(ComputeResourceName(typeof(Player))+"/login", Method.POST);
 			loginRequest.OnSuccess += ParseOnCreate;
 			loginRequest.OnSuccess += OnSuccess;
 			
