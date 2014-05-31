@@ -9,10 +9,26 @@ namespace PYIV.Gameplay{
 		
 		private GameObject background;
 		
-		public GameData GameData { get; set; }
+		private GameData gameData;
+		private SpawnController spawnController;
 		
-	
-		// Use this for initialization
+		public GameData GameData { 
+			
+			get {
+				return gameData;
+			}
+			set {
+				gameData = value;
+				Init();
+			}
+		}
+		
+		private void Init(){
+			this.spawnController = this.gameObject.AddComponent<SpawnController>();
+			
+			
+		}
+		
 		void Start ()
 		{
 			//var bgPrefab = Resources.Load("Environment/Forest");

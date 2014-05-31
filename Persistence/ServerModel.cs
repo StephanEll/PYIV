@@ -83,7 +83,7 @@ namespace PYIV.Persistence
 			
 		}
 		
-		protected static string ComputeResourceName(){
+		public static string ComputeResourceName(){
 			var className = typeof(T).Name;
 			//fist letter to lower
 			return Char.ToLowerInvariant(className[0]) + className.Substring(1);

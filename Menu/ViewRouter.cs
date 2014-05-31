@@ -35,6 +35,7 @@ namespace PYIV.Menu
 		
 		public void ShowViewWithParameter(Type type, object parameter){
 			BaseView view = GetFromCacheOrCreate(type, parameter);
+
 			
 			if(activeView != null){
 				activeView.RemoveFromScreen();

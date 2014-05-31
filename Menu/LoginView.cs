@@ -14,7 +14,6 @@ namespace PYIV.Menu
 		private GameObject forgotPwLink;
 		private UIInput nameField;
 		private UIInput passwordField;
-		private Player playerToBeLoggedIn;
 		
 		public LoginView () : base("LoginPrefab")
 		{
@@ -41,7 +40,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnLoginButtonClicked(GameObject button){
-			playerToBeLoggedIn = new Player();
+			Player playerToBeLoggedIn = new Player();
 			
 			try{
 				playerToBeLoggedIn.Name = nameField.value;
@@ -54,12 +53,10 @@ namespace PYIV.Menu
 			
 		}
 		
-		private void OnSuccessfulLogin(AuthData authData){
-
+		private void OnSuccessfulLogin(Player player){
+			LoggedInPlayer.Instance = player;
+			Debug.Log (player.ToString());
 		}
-		
-
-	
 		
 		private void OnErrorAtLogin(RestException e){
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));

@@ -27,7 +27,7 @@ public class ConfigsOnStart : MonoBehaviour
 		
 		gameData = new GameData(player1, player2);
 		
-		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), gameData);
+		ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 		
 		
 		

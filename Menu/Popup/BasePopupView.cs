@@ -23,7 +23,6 @@ namespace PYIV.Menu.Popup
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			Debug.Log ("created");
 			
 			sprite = panel.transform.FindChild("Sprite").gameObject;
 			closeButton = sprite.transform.FindChild("Close_Button").gameObject;
