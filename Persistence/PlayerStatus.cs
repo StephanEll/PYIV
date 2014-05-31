@@ -20,7 +20,7 @@ namespace PYIV.Persistence
 		[DataMember]
 		public Player Player {get; set;}
 
-        public IndianData IndianData { get; private set; }
+        public IndianData IndianData { get; set; }
 
 		
 		public PlayerStatus(){

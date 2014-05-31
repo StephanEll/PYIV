@@ -13,14 +13,14 @@
 	    <MoveSpeed>60</MoveSpeed>
 	    <AttackPower>20</AttackPower>
 	    <LivePoints>400</LivePoints>
-	    <PreafabName>Rat</PreafabName>
-	  </EnemyData>
+      <PreafabPath>Rat</PreafabPath>
+    </EnemyData>
 	  <EnemyData>
       <Id>2</Id>
 	    <MoveSpeed>60</MoveSpeed>
 	    <AttackPower>20</AttackPower>
 	    <LivePoints>400</LivePoints>
-	    <PreafabName>Elephant</PreafabName>
+	    <PreafabPath>Elephant</PreafabPath>
 	  </EnemyData>
 	</EnemyDataCollection>
   

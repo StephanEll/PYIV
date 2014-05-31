@@ -9,11 +9,8 @@ namespace PYIV.Gameplay.Enemy
 
         public static Enemy CreateEnemy(EnemyType enemyType)
         {
-
-            string path = ConfigReader.Instance.GetSetting("directory", "enemy");
             
-            
-            GameObject preafab = Resources.Load<GameObject>(path + enemyType.EnemyData.PreafabName);
+            GameObject preafab = Resources.Load<GameObject>(enemyType.EnemyData.PreafabPath);
 
             GameObject enemy = GameObject.Instantiate(preafab) as GameObject;
 

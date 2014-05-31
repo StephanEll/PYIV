@@ -18,7 +18,7 @@ namespace PYIV.Gameplay.Enemy
         [XmlElement()]
         public int LivePoints;
         [XmlElement()]
-        public string PreafabName;
+        public string PreafabPath;
 
 
         public EnemyData()
