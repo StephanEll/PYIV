@@ -10,7 +10,7 @@ using PYIV.Persistence.Validators;
 namespace PYIV.Persistence
 {
 	/// <summary>
-	/// Represents the player sitting infront of the phone
+	/// Represents a player infront of the phone
 	/// </summary>
 	public class Player : ServerModel<Player>
 	{
@@ -40,8 +40,11 @@ namespace PYIV.Persistence
 			}
 		}
 		
+		
 		public IList<string> Wins {get; set;}
 		public IList<string> Defeats {get; set;}
+		
+		public String AuthToken { get; set;	}
 
 		public string Mail { get; set;	}
 		
@@ -53,9 +56,9 @@ namespace PYIV.Persistence
 		}
 		
 		
-		public void Login(Request<AuthData>.SuccessDelegate OnSuccess, Request<AuthData>.ErrorDelegate OnError){
-			var loginRequest = new Request<AuthData>(ComputeResourceName()+"/login", Method.POST);
-			loginRequest.OnSuccess += ParseAndSaveAuthData;
+		public void Login(Request<Player>.SuccessDelegate OnSuccess, Request<Player>.ErrorDelegate OnError){
+			var loginRequest = new Request<Player>(ComputeResourceName()+"/login", Method.POST);
+			loginRequest.OnSuccess += ParseOnCreate;
 			loginRequest.OnSuccess += OnSuccess;
 			
 			loginRequest.OnError += OnError;
@@ -63,15 +66,21 @@ namespace PYIV.Persistence
 			loginRequest.AddBody (this);
 			loginRequest.ExecuteAsync();
 		}
-
 		
-		private void ParseAndSaveAuthData(AuthData authData){
-			
-			PlayerPrefs.DeleteAll ();
-			PlayerPrefs.SetString (AuthData.KEY_ID, authData.Id);
-			PlayerPrefs.SetString (AuthData.KEY_TOKEN, authData.Token);
-			PlayerPrefs.Save ();
-			this.Id = authData.Id;
+		
+		
+		public void PersistAuthData(){
+			if(this.Id != null && this.AuthToken != null){
+				PlayerPrefs.DeleteAll ();
+				PlayerPrefs.SetString (AuthData.KEY_ID, this.Id);
+				PlayerPrefs.SetString (AuthData.KEY_TOKEN, this.AuthToken);
+				PlayerPrefs.Save ();
+			}
+		}
+		
+		public void LoadAuthData(){
+			this.AuthToken = PlayerPrefs.GetString(AuthData.KEY_TOKEN);
+			this.Id = PlayerPrefs.GetString(AuthData.KEY_ID);
 		}
 
 		public void Validate(){
@@ -92,6 +101,8 @@ namespace PYIV.Persistence
 			this.Mail = responseObject.Mail;
 			this.Wins = responseObject.Wins;
 			this.Defeats = responseObject.Defeats;
+			this.AuthToken = responseObject.AuthToken;
+			PersistAuthData();
 			
 		}
 

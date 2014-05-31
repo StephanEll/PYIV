@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
+using PYIV.Menu.Popup;
 
 namespace PYIV.Menu
 {
@@ -13,7 +14,6 @@ namespace PYIV.Menu
 		private GameObject forgotPwLink;
 		private UIInput nameField;
 		private UIInput passwordField;
-		private Player playerToBeLoggedIn;
 		
 		public LoginView () : base("LoginPrefab")
 		{
@@ -40,7 +40,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnLoginButtonClicked(GameObject button){
-			playerToBeLoggedIn = new Player();
+			Player playerToBeLoggedIn = new Player();
 			
 			try{
 				playerToBeLoggedIn.Name = nameField.value;
@@ -53,21 +53,13 @@ namespace PYIV.Menu
 			
 		}
 		
-		private void OnSuccessfulLogin(AuthData authData){
-
-		}
-		
-
-	
-		private void OnSucess(GameData data){
-			Debug.Log(data.ToString());
-		}
-		private void OnError(RestException e){
-			Debug.Log(e.Message);
+		private void OnSuccessfulLogin(Player player){
+			LoggedInPlayer.Instance = player;
+			Debug.Log (player.ToString());
 		}
 		
 		private void OnErrorAtLogin(RestException e){
-			Debug.Log(e.Message);
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));
 		}
 		
 		private void OnRegisterButtonClicked(GameObject button){
@@ -75,10 +67,10 @@ namespace PYIV.Menu
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			ViewRouter.TheViewRouter.ShowPopup(new PopupView("Passwort vergessen?"));
-		}
-		
-		
+			PopupParam param = new PopupParam("Passwort vergessen");
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), param);
+			
+		}		
 		
 		public override bool ShouldBeCached ()
 		{
