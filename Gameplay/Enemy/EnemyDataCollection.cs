@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using PYIV.Helper;
+using System.Linq;
+
 
 namespace PYIV.Gameplay.Enemy {
 
@@ -16,7 +19,7 @@ namespace PYIV.Gameplay.Enemy {
 
         private static volatile EnemyDataCollection instance;
 
-        private static object syncRoot = new Object();
+        private static object syncRoot = new object();
 
 
         private EnemyDataCollection()
@@ -40,6 +43,13 @@ namespace PYIV.Gameplay.Enemy {
             return eDC;
         }
 
+        public EnemyData[] GetSubCollection(string[] ids)
+        {
+
+            return enemyData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<EnemyData>();
+
+        }
+
 
         public static EnemyDataCollection Instance
         {
@@ -60,8 +70,9 @@ namespace PYIV.Gameplay.Enemy {
             }
         }
 
-	}
+        
 
+	}
 
 
 

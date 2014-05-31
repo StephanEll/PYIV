@@ -4,10 +4,11 @@ using System.Linq;
 using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
+using System.Collections.Generic;
 
 namespace PYIV.Gameplay.Enemy
 {
-    public class EnemyData
+    public class EnemyData : IComparer<EnemyData>
     {
         [XmlElement()]
         public string Id;
@@ -24,6 +25,14 @@ namespace PYIV.Gameplay.Enemy
         public EnemyData()
         {
             
+        }
+
+        int IComparer<EnemyData>.Compare(EnemyData x, EnemyData y)
+        {
+            
+            Debug.Log(x.Id);
+            string cmpstr = (string)x.Id;
+            return cmpstr.CompareTo((string)y.Id);
         }
     }
 }

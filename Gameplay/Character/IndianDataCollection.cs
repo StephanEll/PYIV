@@ -4,6 +4,8 @@ using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using PYIV.Helper;
+using System;
+using System.Linq;
 
 namespace PYIV.Gameplay.Character {
 
@@ -58,6 +60,13 @@ namespace PYIV.Gameplay.Character {
 
                 return instance;
             }
+        }
+
+        public IndianData[] GetSubCollection(string[] ids)
+        {
+
+            return indianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
+
         }
 
 	}

@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Xml;
 using System.Xml.Serialization;
 using PYIV.Helper;
+using System;
+using System.Linq;
 
 namespace PYIV.Gameplay.Enemy {
 
@@ -83,6 +85,14 @@ namespace PYIV.Gameplay.Enemy {
                 return instance;
             }
         }
+
+        public EnemyType[] GetSubCollection(string[] ids)
+        {
+
+            return EnemyType.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<EnemyType>();
+
+        }
+
 	}
 
     
