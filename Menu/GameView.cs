@@ -15,7 +15,6 @@ namespace PYIV.Menu{
 		public GameView(){
 			game = new GameObject("Game", typeof(Game));
 			game.SetActive(false);
-			
 		}
 		
 		

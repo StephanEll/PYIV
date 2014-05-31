@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PYIV.Menu.Popup;
 
 namespace PYIV.Menu
 {
@@ -30,8 +31,7 @@ namespace PYIV.Menu
 		public void ShowView(Type type){
 			ShowViewWithParameter(type, null);
 		}
-		
-	
+
 		
 		public void ShowViewWithParameter(Type type, object parameter){
 			BaseView view = GetFromCacheOrCreate(type, parameter);
@@ -41,17 +41,29 @@ namespace PYIV.Menu
 			}
 			
 			view.AddToScreen(guiParent, sceneParent);
+			view.UnpackParameter(parameter);
 			activeView = view;
 		}
 
-		public void ShowPopup(PopupView popup){
-			//BaseView view = GetFromCacheOrCreate(type);
-
+		public void ShowPopupWithParameter(Type type, PopupParam parameter){
+			//won't cache in this case
+			BaseView popup = CreateAndCacheView(new ViewCacheKey(type, parameter));
 			popup.AddToScreen(guiParent, sceneParent);
-			//activeView = view;
-			
-		
+			popup.UnpackParameter(parameter);
+
 		}
+		
+		public void DestroyView(string type){
+			throw new NotImplementedException();
+		}
+		
+		public static ViewRouter TheViewRouter{
+			
+			get{
+				return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
+			}
+		}
+		
 		
 		private BaseView GetFromCacheOrCreate(Type type, object parameter){
 			BaseView view;
@@ -59,15 +71,15 @@ namespace PYIV.Menu
 			bool isInCache = viewCache.TryGetValue(key, out view);
 			
 			if(!isInCache){
-				view = CreateAndCacheView(type, key);
+				view = CreateAndCacheView(key);
 			}
 
 			
 			return view;
 		}
-		private BaseView CreateAndCacheView(Type type, ViewCacheKey cacheKey){
-			BaseView view = (BaseView)Activator.CreateInstance(type);
-			view.UnpackParameter(cacheKey.Parameter);
+		private BaseView CreateAndCacheView(ViewCacheKey cacheKey){
+			BaseView view = (BaseView)Activator.CreateInstance(cacheKey.Type);
+			
 			
 			if(view.ShouldBeCached()){
 				viewCache.Add(cacheKey, view);
@@ -76,23 +88,7 @@ namespace PYIV.Menu
 		}
 		
 		
-		public void DestroyView(string type){
-			throw new NotImplementedException();
-		}
-
-		public void DestroyPopup(BaseView popup){
-			popup.RemoveFromScreen();
-			
-		}
 		
-		public static ViewRouter TheViewRouter{
-			
-			get{
-				return GameObject.FindGameObjectWithTag(VIEW_ROUTER_TAG).GetComponent<ViewRouter>();
-			}
-			
-			
-		}
 
 		
 	
