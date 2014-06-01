@@ -2,10 +2,8 @@
 
 <!-- config file for Enemy behaviour and appealing -->
 
-
 <root>
   
-<!-- demo Data -->
   
 	<EnemyDataCollection>
 	  <EnemyData>
@@ -13,42 +11,42 @@
 	    <MoveSpeed>5</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>10</LivePoints>
-      <PreafabPath>Ratte</PreafabPath>
+      <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
     </EnemyData>
 	  <EnemyData>
       <Id>2</Id>
 	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>20</LivePoints>
-	    <PreafabPath>Tarantel</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>3</Id>
 	    <MoveSpeed>4</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>40</LivePoints>
-	    <PreafabPath>Geier</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>4</Id>
 	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>60</LivePoints>
-	    <PreafabPath>Pavian</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>5</Id>
 	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>90</LivePoints>
-	    <PreafabPath>Nashorn</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>6</Id>
 	    <MoveSpeed>2</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>150</LivePoints>
-	    <PreafabPath>Elefant</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	</EnemyDataCollection>
   

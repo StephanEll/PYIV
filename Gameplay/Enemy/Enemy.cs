@@ -37,7 +37,7 @@ namespace PYIV.Gameplay.Enemy
         // Update is called once per frame
         public void Update()
         {
-
+            transform.Translate(-MoveSpeed/500, 0, 0);
         }
 
         public void OnCollisionEnter2D(Collision2D collision)

@@ -32,12 +32,13 @@ namespace PYIV.Gameplay{
 		
 		void Start ()
 		{
-			var bgPrefab = Resources.Load("Prefabs/Environment/Scene_amazone");
+            Debug.Log("path: " + gameData.MyStatus.Id);
+
+			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;
 			
 			background.transform.parent = this.transform;
 
-            Init();
 		}
 		
 		// Update is called once per frame
