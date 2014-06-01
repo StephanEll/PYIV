@@ -17,7 +17,7 @@ namespace PYIV.Helper{
 			//must be created once from the main thread
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
-			TestData data = new TestData(OnSucess);
+			
 			
 			//ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 			
@@ -25,7 +25,7 @@ namespace PYIV.Helper{
 		}
 		
 		private void CreateTestData(){
-			
+			TestData data = new TestData(OnSucess);
 			
 		}
 		
@@ -44,6 +44,7 @@ namespace PYIV.Helper{
 		}
 		
 		private void OnSucess(GameData data){
+			Debug.Log (data.ToString());
 			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 			
 		}

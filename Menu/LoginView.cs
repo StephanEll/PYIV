@@ -8,13 +8,10 @@ namespace PYIV.Menu
 {
 	public class LoginView : GuiView
 	{
-		private GameObject sprite;
-		private GameObject loginButton;
-		private GameObject registerLink;
-		private GameObject forgotPwLink;
-		private UIInput nameField;
-		private UIInput passwordField;
-		
+
+		UIInput nameField;
+		UIInput passwordField;
+
 		public LoginView () : base("LoginPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
@@ -24,19 +21,7 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			
-			sprite = panel.transform.FindChild("Sprite").gameObject;
-			loginButton = sprite.transform.FindChild("Login_Button").gameObject;
-			registerLink = sprite.transform.FindChild("register_link").gameObject;
-			forgotPwLink = sprite.transform.FindChild("lost_link").gameObject;
-			
-			nameField = sprite.transform.FindChild("Name_Textfield").gameObject.GetComponent<UIInput>();
-			passwordField = sprite.transform.FindChild("Password_Textfield").gameObject.GetComponent<UIInput>();
-			
-			UIEventListener.Get(loginButton).onClick += OnLoginButtonClicked;
-			UIEventListener.Get(registerLink).onClick += OnRegisterButtonClicked;
-			UIEventListener.Get(forgotPwLink).onClick += OnForgotPasswordClicked;
-			
+			InitViewComponents();			
 		}
 		
 		private void OnLoginButtonClicked(GameObject button){
@@ -55,6 +40,7 @@ namespace PYIV.Menu
 		
 		private void OnSuccessfulLogin(Player player){
 			LoggedInPlayer.Instance = player;
+			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 		}
 		
 
@@ -71,11 +57,31 @@ namespace PYIV.Menu
 			PopupParam param = new PopupParam("Passwort vergessen");
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), param);
 			
-		}		
+		}
+
+		private void InitViewComponents() {
+
+			GameObject sprite = panel.transform.FindChild("Sprite").gameObject;
+			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
+			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
+
+			GameObject loginButton = topAnchorInteraction.transform.FindChild("Login_Button").gameObject;
+
+			GameObject registerLink = bottomAnchorLinks.transform.FindChild("register_link").gameObject;
+			GameObject forgotPwLink = bottomAnchorLinks.transform.FindChild("lost_link").gameObject;
+			
+			nameField = topAnchorInteraction.transform.FindChild("name_input").gameObject.GetComponent<UIInput>();
+			passwordField = topAnchorInteraction.transform.FindChild("password_input").gameObject.GetComponent<UIInput>();
+			
+			UIEventListener.Get(loginButton).onClick += OnLoginButtonClicked;
+			UIEventListener.Get(registerLink).onClick += OnRegisterButtonClicked;
+			UIEventListener.Get(forgotPwLink).onClick += OnForgotPasswordClicked;
+		}
 		
 		public override bool ShouldBeCached ()
 		{
-			return true;
+			//immer neu erstellen, um keine Vorbelegung zu haben
+			return false;
 		}
 	}
 }

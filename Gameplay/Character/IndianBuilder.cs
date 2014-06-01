@@ -22,7 +22,7 @@ namespace PYIV.Gameplay.Character
         public static Indian CreateIndian(PlayerStatus playerStatus)
         {
 
-            playerStatus.IndianData = IndianDataCollection.Instance.indianData[0];
+            playerStatus.IndianData = IndianDataCollection.Instance.IndianData[0];
 
             GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
 
