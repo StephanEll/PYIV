@@ -26,35 +26,9 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-		
-			// Getting ServerCollection
 			ServerCollection<GameData>.FetchAll(OnServerCollectionReceived, OnServerError);
+			InitViewComponents();
 
-			// Getting Components of View
-			sprite = panel.transform.FindChild("Sprite").gameObject;
-			GameObject GameList_Panel = sprite.transform.FindChild("GameList_Panel").gameObject;
-			GameList_Grid_GameObject = GameList_Panel.transform.FindChild("Grid").gameObject;
-			UIGrid GameList_Grid = GameList_Panel.transform.FindChild("Grid").gameObject.GetComponent<UIGrid>();
-
-			GameObject TopAnchor = sprite.transform.FindChild("TopAnchor").gameObject;
-			GameObject newGameButton = TopAnchor.transform.FindChild("new_game_button").gameObject;
-
-			GameObject BottomLeftAnchor = sprite.transform.FindChild("BottomLeftAnchor").gameObject;
-			GameObject soundButton = BottomLeftAnchor.transform.FindChild("lautsprecher_icon").gameObject;
-
-			GameObject BottomRightAnchor = sprite.transform.FindChild("BottomRightAnchor").gameObject;
-			GameObject highscoreButton = BottomRightAnchor.transform.FindChild("pokal_icon").gameObject;
-
-			GameObject TopRightAnchor = sprite.transform.FindChild("TopRightAnchor").gameObject;
-			GameObject logoutButton = TopRightAnchor.transform.FindChild("logout_icon").gameObject;
-
-
-			// adding listener
-			UIEventListener.Get(newGameButton).onClick += OnNewGameButtonClick;
-			UIEventListener.Get(soundButton).onClick += OnSoundButtonClick;
-			UIEventListener.Get(highscoreButton).onClick += OnHighscoreButtonClick;
-			UIEventListener.Get(logoutButton).onClick += OnLogoutButtonClick;
-			GameList_Grid.Reposition();
 		}
 
 		
@@ -120,7 +94,36 @@ namespace PYIV.Menu
 			opponentIcon.spriteName = "amazone_icon";
 		}
 
-		
+		private void InitViewComponents() {
+
+			// Getting Components of View
+			sprite = panel.transform.FindChild("Sprite").gameObject;
+			GameObject GameList_Panel = sprite.transform.FindChild("GameList_Panel").gameObject;
+			GameList_Grid_GameObject = GameList_Panel.transform.FindChild("Grid").gameObject;
+			UIGrid GameList_Grid = GameList_Panel.transform.FindChild("Grid").gameObject.GetComponent<UIGrid>();
+			
+			GameObject TopAnchor = sprite.transform.FindChild("TopAnchor").gameObject;
+			GameObject newGameButton = TopAnchor.transform.FindChild("new_game_button").gameObject;
+			
+			GameObject BottomLeftAnchor = sprite.transform.FindChild("BottomLeftAnchor").gameObject;
+			GameObject soundButton = BottomLeftAnchor.transform.FindChild("lautsprecher_icon").gameObject;
+			
+			GameObject BottomRightAnchor = sprite.transform.FindChild("BottomRightAnchor").gameObject;
+			GameObject highscoreButton = BottomRightAnchor.transform.FindChild("pokal_icon").gameObject;
+			
+			GameObject TopRightAnchor = sprite.transform.FindChild("TopRightAnchor").gameObject;
+			GameObject logoutButton = TopRightAnchor.transform.FindChild("logout_icon").gameObject;
+			
+			
+			// adding listener
+			UIEventListener.Get(newGameButton).onClick += OnNewGameButtonClick;
+			UIEventListener.Get(soundButton).onClick += OnSoundButtonClick;
+			UIEventListener.Get(highscoreButton).onClick += OnHighscoreButtonClick;
+			UIEventListener.Get(logoutButton).onClick += OnLogoutButtonClick;
+			GameList_Grid.Reposition();
+		}
+
+
 		public override bool ShouldBeCached ()
 		{
 			return true;
