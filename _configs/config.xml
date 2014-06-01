@@ -3,7 +3,8 @@
   <directory>
     <enemy value="Preafabs/Enemy" />
     <enemy-config-xml value=".\\Assets\\Scripts/_configs/enemydata.xml" />
-	  <menu-prefab value="UI/" />
+	<menu-prefab value="UI/" />
+	<indian-config-xml value=".\\Assets\\Scripts/_configs/indiandata.xml" />
   </directory>
   <server>
     <url value="http://localhost:9080" />

@@ -55,6 +55,7 @@ namespace PYIV.Menu
 		
 		private void OnSuccessfulLogin(Player player){
 			LoggedInPlayer.Instance = player;
+			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 		}
 		
 
@@ -75,7 +76,8 @@ namespace PYIV.Menu
 		
 		public override bool ShouldBeCached ()
 		{
-			return true;
+			//immer neu erstellen, um keine Vorbelegung zu haben
+			return false;
 		}
 	}
 }

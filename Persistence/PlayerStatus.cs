@@ -24,12 +24,23 @@ namespace PYIV.Persistence
 			}
 		}
 		
-		
 		[DataMember]
 		public Player Player {get; set;}
-
+		
+		[IgnoreDataMember]
         public IndianData IndianData { get; set; }
-
+		
+		[DataMember]
+		public string IndianId { 
+			get {
+				return IndianData.Id;
+			}
+			
+			set{
+				var indians = IndianDataCollection.Instance.GetSubCollection(new [] { value });
+				IndianData = indians[0];
+			}
+		}
 		
 		public PlayerStatus(){
 			Rounds = new List<Round>();
@@ -47,7 +58,9 @@ namespace PYIV.Persistence
 		{
 			base.ParseOnCreate (responseObject);
 			this.Rounds = responseObject.Rounds;
+			this.IndianId = responseObject.IndianId;
 			this.Player.ParseOnCreate(responseObject.Player);
+			
 		}
 		
 		public void AddRound(Round round){
@@ -56,7 +69,7 @@ namespace PYIV.Persistence
 		}
 		public override string ToString ()
 		{
-			return string.Format ("[PlayerStatus: Rounds={0}, Player={1}]", Rounds.Count, Player.ToString());
+			return string.Format ("[PlayerStatus: Rounds={0}, Player={1}, IndianId={2}]", Rounds.Count, Player.ToString(), IndianId);
 		}
 		
 	}

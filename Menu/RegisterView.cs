@@ -78,8 +78,7 @@ namespace PYIV.Menu
 		
 		private void OnSuccessfulRegistration(Player serverResponseObject){
 			LoggedInPlayer.Instance = serverResponseObject;
-			// Defer to Gamelist-View
-			Debug.Log("successfully registered");
+			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 		}
 		private void OnErrorAtRegistration(RestException e){
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));
@@ -111,7 +110,8 @@ namespace PYIV.Menu
 
 		public override bool ShouldBeCached ()
 		{
-			return true;
+			//immer neu erstellen, um keine Vorbelegung zu haben
+			return false;
 		}
 		
 	}

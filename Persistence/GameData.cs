@@ -52,8 +52,6 @@ namespace PYIV.Persistence
 			this.CreatedAt = responseObject.CreatedAt;
 			this.UpdatedAt = responseObject.UpdatedAt;
 			
-			Debug.Log(PlayerStatus.Count + ".::."+responseObject.PlayerStatus.Count);
-			
 			for(int i = 0; i < PlayerStatus.Count; i++){
 				PlayerStatus[i].ParseOnCreate(responseObject.PlayerStatus[i]);
 			}
@@ -61,8 +59,6 @@ namespace PYIV.Persistence
 		}
 		
 		private PlayerStatus GetPlayerOrOpponentStatus(bool playerStatus){
-			
-			Debug.Log (LoggedInPlayer.Instance.Id);
 			
 			PlayerStatus player = PlayerStatus[0].Id == LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];
 			PlayerStatus opponent = PlayerStatus[0].Id != LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];		
@@ -74,7 +70,7 @@ namespace PYIV.Persistence
 		
 		public override string ToString ()
 		{
-			return string.Format ("[GameData: PlayerStatus={0}, CreatedAt={1}, UpdatedAt={2}]", PlayerStatus.Count, CreatedAt, UpdatedAt);
+			return string.Format ("[GameData: PlayerStatus={0}, CreatedAt={1}, UpdatedAt={2}]", PlayerStatus[0].ToString(), CreatedAt, UpdatedAt);
 		}
 		
 		

@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Gameplay.Enemy;
+using PYIV.Gameplay.Character;
 
 
 
@@ -48,9 +49,11 @@ namespace PYIV.Helper
 			Debug.Log ("someone logged in? " + LoggedInPlayer.IsLoggedIn());
 			data = new GameData(player1, player2);
 			
+			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[0];
+			data.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
+			
 			List<EnemyType> types = new List<EnemyType>();
 			types.AddRange(EnemyTypeCollection.Instance.EnemyType);
-			
 			
 			
 			Round round = new Round();

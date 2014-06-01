@@ -14,7 +14,7 @@ namespace PYIV.Gameplay.Character {
 		
         [XmlArray("IndianDataCollection")]
 		[XmlArrayItem("IndianData", typeof(IndianData))]
-		public IndianData[] indianData { get; set; }
+		public IndianData[] IndianData { get; set; }
 
         private static volatile IndianDataCollection instance;
 
@@ -65,7 +65,7 @@ namespace PYIV.Gameplay.Character {
         public IndianData[] GetSubCollection(string[] ids)
         {
 
-            return indianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
+            return IndianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
 
         }
 

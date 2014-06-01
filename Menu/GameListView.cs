@@ -5,6 +5,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Helper;
 using PYIV.Menu.Popup;
+using System.Collections.Generic;
 
 namespace PYIV.Menu
 {
@@ -13,11 +14,13 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
+		private Dictionary<string, GameData> buttonToGameData;
 				
 		
 		public GameListView() : base("GameListPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
+			buttonToGameData = new Dictionary<string,GameData>();
 		}
 
 		protected override void OnPanelCreated ()
@@ -61,8 +64,8 @@ namespace PYIV.Menu
 		}
 
 		private void OnGameBoardClick(GameObject button){
-			// TO-DO
-			Debug.Log ("GameBoard angelickt");	
+			GameData data = buttonToGameData[button.name];
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 		}
 
 		private void OnSoundButtonClick(GameObject button){
@@ -92,12 +95,13 @@ namespace PYIV.Menu
 		}
 
 		private void OnServerError(RestException e) {
-			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), PopupParam.FromText(e.Message));
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
 		}
 
 		private void FillGameBoard(GameData gameData) {
 
 			var gameBoardObj = NGUITools.AddChild(GameList_Grid_GameObject, gameBoardPrefab);
+			buttonToGameData[gameBoardObj.name] = gameData;
 			UIEventListener.Get(gameBoardObj).onClick += OnGameBoardClick;
 
 			UILabel playerName = gameBoardObj.transform.FindChild("player_name_label").gameObject.GetComponent<UILabel>();
