@@ -13,7 +13,7 @@ namespace PYIV.Menu
 		
 		public GuiView (string prefabName)
 		{
-            panelPrefab = Resources.Load<GameObject>("UI/"+prefabName);
+            panelPrefab = Resources.Load<GameObject>("Prefabs/UI/"+prefabName);
 		}
 	
 	
