@@ -28,8 +28,6 @@ namespace PYIV.Gameplay{
 		private void Init(){
 			List<EnemyType> enemyTypes = GameData.OpponentStatus.LatestRound.SentAttackers;
 			this.spawnController = SpawnController.AddAsComponentTo(this.gameObject, enemyTypes);
-			
-			
 		}
 		
 		void Start ()
@@ -38,6 +36,8 @@ namespace PYIV.Gameplay{
 			background = Instantiate(bgPrefab) as GameObject;
 			
 			background.transform.parent = this.transform;
+
+            Init();
 		}
 		
 		// Update is called once per frame

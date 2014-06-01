@@ -7,15 +7,15 @@ namespace PYIV.Gameplay.Enemy
 
     public class EnemyBuilder {
 
-        public static Enemy CreateEnemy(EnemyType enemyType)
+        public static Enemy CreateEnemy(EnemyData enemyData)
         {
-            
-            GameObject preafab = Resources.Load<GameObject>(enemyType.EnemyData.PreafabPath);
+
+            GameObject preafab = Resources.Load<GameObject>(enemyData.PreafabPath);
 
             GameObject enemy = GameObject.Instantiate(preafab) as GameObject;
 
             enemy.AddComponent<Enemy>();
-            enemy.GetComponent<Enemy>().Init(enemyType.EnemyData);
+            enemy.GetComponent<Enemy>().Init(enemyData);
 
 
             return enemy.GetComponent<Enemy>();
