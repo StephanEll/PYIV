@@ -28,20 +28,8 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-
-			// Getting Components of View
-			sprite = panel.transform.FindChild("Sprite").gameObject;
-			registerButton = sprite.transform.FindChild("Register_Button").gameObject;
-			loginLink = sprite.transform.FindChild("login_link").gameObject;
-			nameField = sprite.transform.FindChild("Name_Textfield").gameObject.GetComponent<UIInput>();
-			emailField = sprite.transform.FindChild("Email_Textfield").gameObject.GetComponent<UIInput>();
-			passwordField = sprite.transform.FindChild("Password_Textfield").gameObject.GetComponent<UIInput>();
-
-
-			UIEventListener.Get(registerButton).onClick += OnRegisterButtonClick;
-			UIEventListener.Get(loginLink).onClick += OnLoginLinkClick;
-
-			
+			InitViewComponents();
+						
 		}
 		
 		private void OnRegisterButtonClick(GameObject button){
@@ -106,7 +94,26 @@ namespace PYIV.Menu
 			sprite = passwordField.GetComponent<UISprite>();
 			sprite.spriteName = "textfield";
 		}
-		
+
+
+		private void InitViewComponents() {
+
+			// Getting Components of View
+			sprite = panel.transform.FindChild("Sprite").gameObject;
+			GameObject bottomAnchorButton = sprite.transform.FindChild("BottomAnchorButton").gameObject;
+			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
+			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
+
+			registerButton = bottomAnchorButton.transform.FindChild("Register_Button").gameObject;
+			loginLink = bottomAnchorLinks.transform.FindChild("login_link").gameObject;
+			nameField = topAnchorInteraction.transform.FindChild("name_input").gameObject.GetComponent<UIInput>();
+			emailField = topAnchorInteraction.transform.FindChild("email_input").gameObject.GetComponent<UIInput>();
+			passwordField = topAnchorInteraction.transform.FindChild("password_input").gameObject.GetComponent<UIInput>();
+			
+			
+			UIEventListener.Get(registerButton).onClick += OnRegisterButtonClick;
+			UIEventListener.Get(loginLink).onClick += OnLoginLinkClick;
+		}
 
 		public override bool ShouldBeCached ()
 		{
