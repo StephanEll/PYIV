@@ -48,8 +48,8 @@ namespace PYIV.Helper
 			LoggedInPlayer.Instance = player2;
 			Debug.Log ("someone logged in? " + LoggedInPlayer.IsLoggedIn());
 			data = new GameData(player1, player2);
-			
-			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[0];
+
+			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
 			data.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
 			
 			List<EnemyType> types = new List<EnemyType>();

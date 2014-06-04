@@ -21,12 +21,13 @@ namespace PYIV.Gameplay.Character
 
         public static Indian CreateIndian(PlayerStatus playerStatus)
         {
-
-            playerStatus.IndianData = IndianDataCollection.Instance.IndianData[0];
-
             GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
 
-            ShotBehaviour.AddAsComponentFactory(indianGO, playerStatus.IndianData.BulletPreafabPath, playerStatus.IndianData.ShotBehaviourClassName);
+            ShotBehaviour.AddAsComponentFactory(
+                indianGO,
+                playerStatus.IndianData.BulletPreafabPath, 
+                playerStatus.IndianData.ShotBehaviourClassName, 
+                playerStatus.IndianData.Strength);
 
             Indian indian = Indian.AddAsComponent(indianGO, playerStatus.IndianData);
 

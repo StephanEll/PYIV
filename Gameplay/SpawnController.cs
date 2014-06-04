@@ -40,7 +40,6 @@ namespace PYIV.Gameplay
             
             foreach (EnemyType et in enemyTypes)
             {
-                Debug.Log("enemytypes: " + et.Id);
                 EnemyDataQueue.Add(et.EnemyData.Id, et.EnemyData);
                 for (int i = 0; i < et.Count; i++ )
                 {
@@ -55,13 +54,11 @@ namespace PYIV.Gameplay
         {
             EnemyData ed;
             EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-            Debug.Log("Spawn Enemy: " + ed.Id);
             EnemyBuilder.CreateEnemy(ed, EnemyContainer.transform);
             EnemyIdQueue.RemoveAt(0);
         }
 
         public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){
-            Debug.Log("Enemytypes: " + enemyTypes.Count);
             go.AddComponent<SpawnController>();
             SpawnController spawnController = go.GetComponent<SpawnController>();
             spawnController.GenerateEnemyIdQueue(enemyTypes);
