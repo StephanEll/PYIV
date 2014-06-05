@@ -41,4 +41,28 @@
       <BackgroundPreafabPath>Prefabs/Environment/Background_Massai</BackgroundPreafabPath>
     </IndianData>
   </IndianDataCollection>
+	
+	
+	<FeatherTypeCollection>
+		<FeatherType>
+			<Id>StaminaFeather</Id>
+			<IndianId>1</IndianId>
+			<Price>100</Price>
+			<Name>Stamina Feather</Name>
+			<Description>Allows you to shoot more often without getting out of stamina.</Description>
+		</FeatherType>
+		<FeatherType>
+			<Id>VillageFeather</Id>
+			<IndianId>1</IndianId>
+			<Price>120</Price>
+			<Name>Village Feather</Name>
+			<Description>Your town wall will be improved.</Description>
+		</FeatherType>
+	</FeatherTypeCollection>
+	
+	<FeatherDataCollection>
+		
+	
+	</FeatherDataCollection>
+	
 </root>
