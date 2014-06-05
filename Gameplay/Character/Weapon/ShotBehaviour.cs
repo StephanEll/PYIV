@@ -12,6 +12,7 @@ namespace PYIV.Gameplay.Character.Weapon
         private float startTime;
 
         private string bulletPreafabPath;
+        private int bulletStrength;
 
 
         // Update is called once per frame
@@ -23,16 +24,19 @@ namespace PYIV.Gameplay.Character.Weapon
         /* 
          * change this method if you add a new shot behaviour
         */
-        public static void AddAsComponentFactory(GameObject go, string bulletPreafabPath, string ShotBehaviourClassName){
+        public static void AddAsComponentFactory(GameObject go, string bulletPreafabPath, string ShotBehaviourClassName, int bulletStrenght){
             switch(ShotBehaviourClassName){
                 case "WeaponBow":
                     go.AddComponent<WeaponBow>().bulletPreafabPath = bulletPreafabPath;
+                    go.GetComponent<WeaponBow>().bulletStrength = bulletStrenght;
                     break;
                 case "WeaponSpear":
                     go.AddComponent<WeaponSpear>().bulletPreafabPath = bulletPreafabPath;
+                    go.GetComponent<WeaponSpear>().bulletStrength = bulletStrenght;
                     break;
                 case "WeaponBlowTube":
                     go.AddComponent<WeaponBlowTube>().bulletPreafabPath = bulletPreafabPath;
+                    go.GetComponent<WeaponBlowTube>().bulletStrength = bulletStrenght;
                     break;
             }
         }
@@ -56,17 +60,17 @@ namespace PYIV.Gameplay.Character.Weapon
                 //float speed = dist / duration;
 
                 GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
-                
+                Bullet.AddAsComponentTo(bullet, bulletStrength);
 
                 EndSwipeHandler(
-                    bullet.AddComponent<Bullet>(),
+                    bullet.GetComponent<Bullet>(),
                     startPosition,
                     endPosition,
                     duration);
 
             }
 
-            if (Input.GetTouch(0).phase == TouchPhase.Moved)
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
             {
                 UpdateSwipeHandler(startPosition, Input.GetTouch(0).position, Time.time - startTime);
             }

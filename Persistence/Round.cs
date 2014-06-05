@@ -55,7 +55,7 @@ namespace PYIV.Persistence{
 		
 		private List<EnemyType> ConvertIdsToEnemyTypes(List<string> enemyIds){
 			
-			return new List<EnemyType>();
+			return EnemyTypeCollection.Instance.GetSubCollection(enemyIds.ToArray()).ToList<EnemyType>();
 		}
 		
 		public override string ToString ()

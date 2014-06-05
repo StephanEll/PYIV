@@ -4,10 +4,20 @@ namespace PYIV.Gameplay.Character.Weapon {
     public class WeaponSpear : ShotBehaviour {
 
 
-        public override void EndSwipeHandler(Bullet bulletPrefab, Vector2 startPos, Vector2 endPos, float duration)
+        public override void EndSwipeHandler(Bullet bullet, Vector2 startPos, Vector2 endPos, float duration)
         {
             this.GetComponent<Animator>().SetTrigger("shot");
             this.GetComponent<Animator>().SetBool("aim", false);
+
+            Vector2 delta = endPos - startPos;
+
+            if (delta.x < 2)
+            {
+                Destroy(bullet);
+            }
+
+            bullet.rigidbody2D.AddForce(delta / duration);
+
         }
     
         public override void StartSwipeHandler(Vector2 startPos)

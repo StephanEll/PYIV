@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Gameplay.Enemy;
+using PYIV.Gameplay.Character;
 
 namespace PYIV.Gameplay{
 
@@ -32,12 +33,14 @@ namespace PYIV.Gameplay{
 		
 		void Start ()
 		{
-			var bgPrefab = Resources.Load("Prefabs/Environment/Scene_amazone");
+
+			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;
 			
 			background.transform.parent = this.transform;
 
-            Init();
+            IndianBuilder.CreateIndian(gameData.MyStatus);
+
 		}
 		
 		// Update is called once per frame

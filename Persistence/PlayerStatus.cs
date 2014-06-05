@@ -56,6 +56,7 @@ namespace PYIV.Persistence
 		
 		public override void ParseOnCreate (PlayerStatus responseObject)
 		{
+            Debug.Log("PARSE: "+responseObject);
 			base.ParseOnCreate (responseObject);
 			this.Rounds = responseObject.Rounds;
 			this.IndianId = responseObject.IndianId;

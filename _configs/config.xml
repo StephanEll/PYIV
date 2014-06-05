@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <directory>
-    <enemy-config-xml value=".\\Assets\\Scripts/_configs/enemydata.xml" />
-	<menu-prefab value="UI/" />
-	<indian-config-xml value=".\\Assets\\Scripts/_configs/indiandata.xml" />
+    <enemy-config-xml value=".\\Assets\\Scripts/PYIV/_configs/enemydata.xml" />
+    <indian-config-xml value=".\\Assets\\Scripts/PYIV/_configs/indiandata.xml" />
+	  <menu-prefab value="UI/" />
   </directory>
   <server>
     <url value="http://localhost:9080" />

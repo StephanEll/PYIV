@@ -19,9 +19,8 @@ namespace PYIV.Helper{
 			
 			
 			
-			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-			
-			
+			//ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+            CreateTestData();
 			
 		}
 		

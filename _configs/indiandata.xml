@@ -12,9 +12,9 @@
       <Strength>10</Strength>
       <Accuracy>1</Accuracy>
       <ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
-      <PreafabPath>Prefabs/Characters/Character_Indianer</PreafabPath>
+      <PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
       <BulletPreafabPath>Prefabs/Probs/Bullet_BlowTubeArrow</BulletPreafabPath>
-      <BackgroundPreafabPath>Prefabs/Environment/Background_Indianer</BackgroundPreafabPath>
+      <BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
     </IndianData>
     <IndianData>
       <Id>2</Id>
@@ -26,7 +26,7 @@
       <ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
       <PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
       <BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
-      <BackgroundPreafabPath>Prefabs/Environment/Background_Amazone</BackgroundPreafabPath>
+      <BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
     </IndianData>
     <IndianData>
       <Id>3</Id>
@@ -36,9 +36,9 @@
       <Strength>30</Strength>
       <Accuracy>1</Accuracy>
       <ShotBehaviourClassName>WeaponSpear</ShotBehaviourClassName>
-      <PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
+      <PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
       <BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
-      <BackgroundPreafabPath>Prefabs/Environment/Background_Massai</BackgroundPreafabPath>
+      <BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
     </IndianData>
   </IndianDataCollection>
 	

@@ -17,9 +17,18 @@ namespace PYIV.Gameplay
         private float nextSpawntime;
         private float countTime = 0;
 
+        private GameObject EnemyContainer;
+
+        void Start()
+        {
+            EnemyContainer = new GameObject("Enemy Container");
+            EnemyContainer.transform.position = new Vector3(13.0f, -7.0f, 0);
+        }
+
         // Update is called once per frame
         void Update()
         {
+
             if (nextSpawntime < Time.time && EnemyIdQueue.Count != 0) {
                 Spawn();
                 ComputeNextSpawnTime();
@@ -28,6 +37,7 @@ namespace PYIV.Gameplay
 
         private void GenerateEnemyIdQueue(List<EnemyType> enemyTypes)
         {
+            
             foreach (EnemyType et in enemyTypes)
             {
                 EnemyDataQueue.Add(et.EnemyData.Id, et.EnemyData);
@@ -44,7 +54,7 @@ namespace PYIV.Gameplay
         {
             EnemyData ed;
             EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-            EnemyBuilder.CreateEnemy(ed);
+            EnemyBuilder.CreateEnemy(ed, EnemyContainer.transform);
             EnemyIdQueue.RemoveAt(0);
         }
 

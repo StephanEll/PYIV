@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <directory>
+    <enemy value="Preafabs/Enemy" />
+	<menu-prefab value="UI/" />
+  </directory>
+  <server>
+    <url value="http://localhost:9080" />
+  </server>
+</configuration>
