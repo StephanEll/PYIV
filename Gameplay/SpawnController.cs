@@ -22,6 +22,7 @@ namespace PYIV.Gameplay
         void Start()
         {
             EnemyContainer = new GameObject("Enemy Container");
+            EnemyContainer.transform.parent = GameObject.Find("Game").transform;
             EnemyContainer.transform.position = new Vector3(13.0f, -7.0f, 0);
         }
 

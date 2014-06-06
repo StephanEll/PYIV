@@ -36,10 +36,11 @@ namespace PYIV.Gameplay{
 
 			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;
+            background.transform.parent = transform;
 			
 			background.transform.parent = this.transform;
 
-            IndianBuilder.CreateIndian(gameData.MyStatus);
+            IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
 
 		}
 		

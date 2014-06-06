@@ -49,13 +49,13 @@ namespace PYIV.Gameplay.Enemy
                 if (this.LivePoints <= 0)
                     Die();
             }
-
-            Destroy(this.gameObject);
         }
 
         public void Init(EnemyData enemyData)
         {
             this.enemyData = enemyData;
+            if (gameObject.GetComponent<BoxCollider2D>() == null)
+                gameObject.AddComponent<BoxCollider2D>();
         }
 
         private void Die()

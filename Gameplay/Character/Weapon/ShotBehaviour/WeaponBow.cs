@@ -22,12 +22,13 @@ namespace PYIV.Gameplay.Character.Weapon {
 
             bullet.rigidbody2D.AddForce(delta);
 
-            transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
+            
         }
 
         private void DoAfterShot()
         {
             this.GetComponent<Animator>().SetBool("aim", false);
+            transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
         }
     
         public override void StartSwipeHandler(Vector2 startPos)

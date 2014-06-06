@@ -19,9 +19,11 @@ namespace PYIV.Gameplay.Character
         * Fähigkeiten des Indianers (indianData) anzupassen. 
         */
 
-        public static Indian CreateIndian(PlayerStatus playerStatus)
+        public static Indian CreateIndian(PlayerStatus playerStatus, Transform parent)
         {
             GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
+
+            indianGO.transform.parent = parent;
 
             ShotBehaviour.AddAsComponentFactory(
                 indianGO,

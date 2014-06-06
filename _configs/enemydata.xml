@@ -32,21 +32,21 @@
 	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>60</LivePoints>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>5</Id>
 	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>90</LivePoints>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>6</Id>
 	    <MoveSpeed>2</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>150</LivePoints>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
 	  </EnemyData>
 	</EnemyDataCollection>
   
