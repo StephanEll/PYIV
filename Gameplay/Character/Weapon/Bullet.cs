@@ -9,13 +9,17 @@ namespace PYIV.Gameplay.Character.Weapon {
         public int Strength { get; private set; }
 
 		void Start () {
-            gameObject.AddComponent<BoxCollider2D>();
+            if(gameObject.GetComponent<BoxCollider2D>() == null)
+                gameObject.AddComponent<BoxCollider2D>();
 		}
 		
 		void Update () {
-            Vector2 angle = this.rigidbody2D.velocity;
-            angle.Normalize();
-            this.transform.localRotation = Quaternion.EulerAngles(angle.x, 0, angle.y * 1.4f);
+            if (rigidbody2D != null)
+            {
+                Vector2 angle = this.rigidbody2D.velocity;
+                angle.Normalize();
+                this.transform.localRotation = Quaternion.EulerAngles(angle.x, 0, angle.y * 1.4f);
+            }
 		}
 
         public static void AddAsComponentTo(GameObject go, int Strength)
@@ -27,7 +31,8 @@ namespace PYIV.Gameplay.Character.Weapon {
         {
             if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>())
             {
-                Destroy(rigidbody2D);
+                Destroy(gameObject.GetComponent<Rigidbody2D>());
+                Destroy(gameObject.GetComponent<BoxCollider2D>());
                 transform.parent = collision.transform;
             }
 

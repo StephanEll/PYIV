@@ -60,6 +60,7 @@ namespace PYIV.Gameplay.Character.Weapon
                 //float speed = dist / duration;
 
                 GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
+                bullet.transform.parent = GameObject.Find("Game").transform;
                 Bullet.AddAsComponentTo(bullet, bulletStrength);
 
                 EndSwipeHandler(
