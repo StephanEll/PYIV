@@ -2,9 +2,9 @@ using System;
 
 namespace PYIV.Gameplay.Character
 {
-	public class Feather : ProductType
+	public class FeatherType : ProductType
 	{
-		public Feather ()
+		public FeatherType ()
 		{
 		}
 	}
