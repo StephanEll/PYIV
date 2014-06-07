@@ -84,7 +84,7 @@ namespace PYIV.Persistence
 			getRequest.OnSuccess += OnSuccess;
 			
 			
-			getRequest.AddId(Id);
+			getRequest.AddParameter("id", Id);
 			getRequest.ExecuteAsync();
 			
 		}

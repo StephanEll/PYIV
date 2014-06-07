@@ -94,6 +94,15 @@ namespace PYIV.Persistence
 			
 		}
 		
+		public static void FetchByName(string name, Request<Player>.SuccessDelegate OnSuccess, Request<Player>.ErrorDelegate OnError){
+			var getRequest = new Request<Player>("player/search/{name}", Method.GET);
+			getRequest.OnError += OnError;
+			getRequest.OnSuccess += OnSuccess;
+			
+			getRequest.AddParameter("name", name);
+			getRequest.ExecuteAsync();
+		}
+		
 		public override void ParseOnCreate (Player responseObject)
 		{
 			base.ParseOnCreate (responseObject);

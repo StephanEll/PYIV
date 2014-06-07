@@ -55,8 +55,8 @@ namespace PYIV.Persistence
 		
 		}
 		
-		public void AddId(string id){
-			request.AddParameter("id", id, ParameterType.UrlSegment);
+		public void AddParameter(string param, string paramValue){
+			request.AddParameter(param, paramValue, ParameterType.UrlSegment);
 			
 		}
 		

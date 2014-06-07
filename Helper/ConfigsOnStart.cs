@@ -19,8 +19,8 @@ namespace PYIV.Helper{
 			
 			
 			
-			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-            //CreateTestData();
+			//ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
+            CreateTestData();
 			
 		}
 		
@@ -30,18 +30,6 @@ namespace PYIV.Helper{
 		}
 		
 		
-		private void PlayerSaved(Player player){
-			Debug.Log (player.Id);
-			/*Round round = new Round();
-			round.RemainingVillageLifepoints = 99;
-			round.SentAttackerIds = new System.Collections.Generic.List<int>();
-			round.SentAttackerIds.Add(43);
-			
-			PlayerStatus status = new PlayerStatus((Player)player);
-			status.AddRound(round);
-			status.Save(OnSucess, OnError);
-			*/
-		}
 		
 		private void OnSucess(GameData data){
 			Debug.Log (data.ToString());
