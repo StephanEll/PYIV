@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Character;
+using PYIV.Persistence.Errors;
 
 
 
@@ -21,18 +22,27 @@ namespace PYIV.Helper
 		
 		public TestData (Request<GameData>.SuccessDelegate callback)
 		{
+
 			this.callback = callback;
 			player1 = new Player();
 			player1.Name = "Henrik"+DateTime.Now.Millisecond;
 			player1.Mail = "Test@test.de+"+DateTime.Now.Millisecond;
 			player1.Password = "123456";
 			
-			player1.Save(Player1Created, null);
+			
+			NGUIDebug.Log ("tying to save player 1");
+			
+			player1.Save(Player1Created, OnError);
 			
 			
 		}
 		
+		void OnError(RestException e){
+			NGUIDebug.Log(e.Message);
+		}
+		
 		void Player1Created(Player player){
+			NGUIDebug.Log("player 1 successfully created");
 			LoggedInPlayer.LogOut();
 			
 			player2 = new Player();
