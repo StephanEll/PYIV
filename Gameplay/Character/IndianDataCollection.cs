@@ -32,13 +32,10 @@ namespace PYIV.Gameplay.Character {
             // Create an instance of the XmlSerializer specifying type and namespace.
             XmlSerializer serializer = new XmlSerializer(typeof(IndianDataCollection));
 
-            // A FileStream is needed to read the XML document.
-            FileStream fs = new FileStream(filename, FileMode.Open);
-            XmlReader reader = XmlReader.Create(fs);
+            XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
 
             // Use the Deserialize method to restore the object's state.
             IndianDataCollection eDC = (IndianDataCollection)serializer.Deserialize(reader);
-            fs.Close();
             return eDC;
         }
 

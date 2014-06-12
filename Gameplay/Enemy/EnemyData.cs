@@ -8,18 +8,18 @@ using System.Collections.Generic;
 
 namespace PYIV.Gameplay.Enemy
 {
-    public class EnemyData : IComparer<EnemyData>
+    public class EnemyData : IIdentifiable
     {
         [XmlElement()]
-        public string Id;
+        public string Id {get; set; }
         [XmlElement()]
-        public float MoveSpeed;
+        public float MoveSpeed {get; set; }
         [XmlElement()]
-        public int AttackPower;
+        public int AttackPower { get; set; }
         [XmlElement()]
-        public int LivePoints;
+        public int LivePoints { get; set; }
         [XmlElement()]
-        public string PreafabPath;
+        public string PreafabPath {get; set; }
 
 
         public EnemyData()
@@ -27,12 +27,5 @@ namespace PYIV.Gameplay.Enemy
             
         }
 
-        int IComparer<EnemyData>.Compare(EnemyData x, EnemyData y)
-        {
-            
-            Debug.Log(x.Id);
-            string cmpstr = (string)x.Id;
-            return cmpstr.CompareTo((string)y.Id);
-        }
     }
 }

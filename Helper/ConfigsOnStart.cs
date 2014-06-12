@@ -6,7 +6,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using RestSharp;
 using System.Net;
-
+using PYIV.Gameplay.Enemy;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -17,7 +17,8 @@ namespace PYIV.Helper{
 		void Start ()
 		{
 			ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
-			NGUIDebug.Log("Application start 2");
+
+			Debug.Log (EnemyDataCollection.Instance.enemyData[0].ToString());
 			//must be created once from the main thread
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			

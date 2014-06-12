@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 namespace PYIV.Gameplay
 {
 
-    public abstract class ProductType
+    public abstract class ProductType : IIdentifiable
     {
         [XmlElement()]
         public string Id { get; set; }
