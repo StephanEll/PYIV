@@ -12,6 +12,25 @@ namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
 	{
 		GameData gameData;
+
+		Camera camera;
+
+		private float playingFieldWidth =26;
+		private float playingFieldHeight = 16;
+		
+
+
+
+		//Configuration Camera at startup
+		void Awake(){
+
+			camera = Camera.main;
+
+			Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
+			Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2*Camera.main.orthographicSize))/2);
+
+		}
+
 	
 		//Configuration/Initializationcode at startup
 		void Start ()
