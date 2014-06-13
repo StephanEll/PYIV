@@ -24,7 +24,6 @@ namespace PYIV.Helper
         public string GetSetting(string group, string key)
 			
         {
-			Debug.Log ("Group: "+group + " Key: " + key);
             return (string) navigator.SelectSingleNode("//" + group + "/" + key).GetAttribute("value", "");
         }
     }

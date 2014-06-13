@@ -3,6 +3,7 @@ using UnityEngine;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Menu
 {
@@ -46,11 +47,12 @@ namespace PYIV.Menu
 
 		private void OnSearchOpponentButtonClicked(GameObject searchOpponentButton) {
 			Player.FetchByName(opponentNameInput.value, OnPlayerFound, (e) => ViewRouter.TheViewRouter.ShowTextPopup(e.Message));
-			Debug.Log(opponentNameInput.value);
 		}
 		
 		private void OnPlayerFound(Player player){
-			ViewRouter.TheViewRouter.ShowTextPopup(String.Format("Do you really want to attack {0}?", player.Name));
+			ICommand playerFoundCommand = new PlayerSearchSuccessfulCommand(player);
+			playerFoundCommand.Execute();
+			
 		}
 
 		private void OnOpponent_1_BoardClicked(GameObject opponent_1_button) {
@@ -71,7 +73,7 @@ namespace PYIV.Menu
 	
 		public override bool ShouldBeCached ()
 		{
-			return false;
+			return true;
 		}
 	}
 }

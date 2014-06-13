@@ -33,8 +33,7 @@ namespace PYIV.Menu
 
 		
 		private void OnNewGameButtonClick(GameObject button){
-			// TO-DO
-			Debug.Log ("NEW GAME angelickt");
+			ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
 		}
 
 		private void OnGameBoardClick(GameObject button){

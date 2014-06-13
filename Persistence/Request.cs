@@ -61,7 +61,6 @@ namespace PYIV.Persistence
 		}
 		
 		public void ExecuteAsync(){
-			NGUIDebug.Log("execute async");
 			restClient.ExecuteAsync (request, (response) => {
 				OnAsyncRequestComplete (response);
 			});
@@ -71,8 +70,8 @@ namespace PYIV.Persistence
 		{
 			
 			UnityThreadHelper.Dispatcher.Dispatch (() => {
-				NGUIDebug.Log("Raw Server Response: "+response.Content);
-				Debug.Log ("CONTENT: "+response.Content);
+
+				Debug.Log ("RAW SERVER RESPONSE CONTENT: "+response.Content);
 				RestException exception = new ResponseErrorHandler(response).HandlePossibleErrors();
 				if (exception == null)
 					ParseResponse (response);

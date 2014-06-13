@@ -3,6 +3,7 @@ using UnityEngine;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
+using PYIV.Helper;
 
 namespace PYIV.Menu
 {
@@ -54,7 +55,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnForgotPasswordClicked(GameObject button){
-			PopupParam param = new PopupParam("Passwort vergessen");
+			PopupParam param = new PopupParam(StringConstants.FORGOT_PASSWORD);
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), param);
 			
 		}

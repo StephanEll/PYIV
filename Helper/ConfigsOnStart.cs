@@ -25,26 +25,25 @@ namespace PYIV.Helper{
 		void Awake(){
 
 			camera = Camera.main;
-
+			
 			Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
 			Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2*Camera.main.orthographicSize))/2);
-
+			 
 		}
 
 	
 		//Configuration/Initializationcode at startup
 		void Start ()
 		{
+			//ignores certificate check when dealing with ssl
 			ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
-			Debug.Log (EnemyDataCollection.Instance.enemyData[0].ToString());
 			//must be created once from the main thread
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
-			//Player.Fetch("123456", null, null);
 			
-			//ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
-            CreateTestData();
+			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+            //CreateTestData();
 			
 		}
 		
@@ -56,7 +55,6 @@ namespace PYIV.Helper{
 		
 		
 		private void OnSucess(GameData data){
-			Debug.Log (data.ToString());
 			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 			
 		}

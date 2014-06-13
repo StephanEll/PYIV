@@ -29,9 +29,6 @@ namespace PYIV.Helper
 			player1.Mail = "Test@test.de+"+DateTime.Now.Millisecond;
 			player1.Password = "123456";
 			
-			
-			NGUIDebug.Log ("tying to save player 1");
-			
 			player1.Save(Player1Created, OnError);
 			
 			
@@ -42,7 +39,6 @@ namespace PYIV.Helper
 		}
 		
 		void Player1Created(Player player){
-			NGUIDebug.Log("player 1 successfully created");
 			LoggedInPlayer.LogOut();
 			
 			player2 = new Player();
@@ -56,7 +52,6 @@ namespace PYIV.Helper
 		
 		void Player2Created(Player player){
 			LoggedInPlayer.Instance = player2;
-			Debug.Log ("someone logged in? " + LoggedInPlayer.IsLoggedIn());
 			data = new GameData(player1, player2);
 
 			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
