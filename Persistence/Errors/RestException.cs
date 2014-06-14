@@ -18,7 +18,6 @@ namespace PYIV.Persistence.Errors
         public RestException(ErrorType type, String message): base(message)
         {
             this.ErrorType = type;
-            Debug.Log(ErrorType.ToString() + " :: " + message);
         }
 
 

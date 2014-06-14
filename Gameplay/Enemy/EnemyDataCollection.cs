@@ -32,15 +32,13 @@ namespace PYIV.Gameplay.Enemy {
 
             // Create an instance of the XmlSerializer specifying type and namespace.
             XmlSerializer serializer = new XmlSerializer(typeof(EnemyDataCollection));
-
-            // A FileStream is needed to read the XML document.
-            FileStream fs = new FileStream(filename, FileMode.Open);
-            XmlReader reader = XmlReader.Create(fs);
+						
+            XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
 
             // Use the Deserialize method to restore the object's state.
             EnemyDataCollection eDC = (EnemyDataCollection) serializer.Deserialize(reader);
-            fs.Close();
-            return eDC;
+
+			return eDC;
         }
 
         public EnemyData[] GetSubCollection(string[] ids)

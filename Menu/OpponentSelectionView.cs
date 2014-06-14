@@ -3,12 +3,14 @@ using UnityEngine;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Menu
 {
 	public class OpponentSelectionView : GuiView
 	{
 		private GameObject sprite;
+		private UIInput opponentNameInput;
 
 		
 		public OpponentSelectionView () : base("OpponentSelectionPrefab")
@@ -29,7 +31,7 @@ namespace PYIV.Menu
 			sprite = panel.transform.FindChild("Sprite").gameObject;
 			GameObject TopAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
 			GameObject searchOpponentButton = TopAnchorInteraction.transform.FindChild("search_button").gameObject;
-			UIInput opponentNameInput = TopAnchorInteraction.transform.FindChild("username_search_input").gameObject.GetComponent<UIInput>();
+			opponentNameInput = TopAnchorInteraction.transform.FindChild("username_search_input").gameObject.GetComponent<UIInput>();
 			
 			GameObject OpponentsListAnchor = sprite.transform.FindChild("OpponentsListAnchor").gameObject;
 			GameObject opponent_1 = OpponentsListAnchor.transform.FindChild("opponent_1").gameObject;
@@ -44,8 +46,13 @@ namespace PYIV.Menu
 		}
 
 		private void OnSearchOpponentButtonClicked(GameObject searchOpponentButton) {
-			// TODO
-			Debug.Log("search opponent button clicked");
+			Player.FetchByName(opponentNameInput.value, OnPlayerFound, (e) => ViewRouter.TheViewRouter.ShowTextPopup(e.Message));
+		}
+		
+		private void OnPlayerFound(Player player){
+			ICommand playerFoundCommand = new PlayerSearchSuccessfulCommand(player);
+			playerFoundCommand.Execute();
+			
 		}
 
 		private void OnOpponent_1_BoardClicked(GameObject opponent_1_button) {
@@ -66,7 +73,7 @@ namespace PYIV.Menu
 	
 		public override bool ShouldBeCached ()
 		{
-			return false;
+			return true;
 		}
 	}
 }

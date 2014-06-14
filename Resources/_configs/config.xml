@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <configuration>
   <directory>
-    <enemy-config-xml value=".\\Assets\\Scripts/_configs/enemydata.xml" />
-    <indian-config-xml value=".\\Assets\\Scripts/_configs/indiandata.xml" />
+    <enemy-config-xml value="_configs/enemydata" />
+    <indian-config-xml value="_configs/indiandata" />
 	  <menu-prefab value="UI/" />
   </directory>
   <server>

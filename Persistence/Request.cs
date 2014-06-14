@@ -55,8 +55,8 @@ namespace PYIV.Persistence
 		
 		}
 		
-		public void AddId(string id){
-			request.AddParameter("id", id, ParameterType.UrlSegment);
+		public void AddParameter(string param, string paramValue){
+			request.AddParameter(param, paramValue, ParameterType.UrlSegment);
 			
 		}
 		
@@ -70,7 +70,8 @@ namespace PYIV.Persistence
 		{
 			
 			UnityThreadHelper.Dispatcher.Dispatch (() => {
-				Debug.Log ("CONTENT: "+response.Content);
+
+				Debug.Log ("RAW SERVER RESPONSE CONTENT: "+response.Content);
 				RestException exception = new ResponseErrorHandler(response).HandlePossibleErrors();
 				if (exception == null)
 					ParseResponse (response);

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Character;
+using PYIV.Persistence.Errors;
 
 
 
@@ -21,15 +22,20 @@ namespace PYIV.Helper
 		
 		public TestData (Request<GameData>.SuccessDelegate callback)
 		{
+
 			this.callback = callback;
 			player1 = new Player();
 			player1.Name = "Henrik"+DateTime.Now.Millisecond;
 			player1.Mail = "Test@test.de+"+DateTime.Now.Millisecond;
 			player1.Password = "123456";
 			
-			player1.Save(Player1Created, null);
+			player1.Save(Player1Created, OnError);
 			
 			
+		}
+		
+		void OnError(RestException e){
+			NGUIDebug.Log(e.Message);
 		}
 		
 		void Player1Created(Player player){
@@ -46,14 +52,13 @@ namespace PYIV.Helper
 		
 		void Player2Created(Player player){
 			LoggedInPlayer.Instance = player2;
-			Debug.Log ("someone logged in? " + LoggedInPlayer.IsLoggedIn());
 			data = new GameData(player1, player2);
 
 			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
 			data.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
 			
 			List<EnemyType> types = new List<EnemyType>();
-			types.AddRange(EnemyTypeCollection.Instance.EnemyType);
+			types.Add(EnemyTypeCollection.Instance.EnemyType[0]);
 			
 			
 			Round round = new Round();

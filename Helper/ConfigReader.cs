@@ -9,19 +9,20 @@ namespace PYIV.Helper
     public class ConfigReader : SingletonBase<ConfigReader>
     {
 
-        private const string URI = ".\\Assets\\Scripts/_configs/config.xml";
+        private string URI = "_configs/config";
 
         private XPathNavigator navigator;
 
         public ConfigReader()
         {
-            XPathDocument document = new XPathDocument(URI);
+			XPathDocument document = XMLHelper.LoadXPathDocFromResource(URI);
             navigator = document.CreateNavigator();
         }
 
         
 
         public string GetSetting(string group, string key)
+			
         {
             return (string) navigator.SelectSingleNode("//" + group + "/" + key).GetAttribute("value", "");
         }

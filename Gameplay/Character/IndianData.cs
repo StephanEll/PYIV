@@ -5,14 +5,14 @@ using System.Xml.Serialization;
 namespace PYIV.Gameplay.Character
 {
 
-    public class IndianData
+    public class IndianData : IIdentifiable
     {
-        [XmlElement()]
+		[XmlElement()]
         public string Id { get; set; }
         [XmlElement()]
         public string Name { get; set; }
         [XmlElement()]
-        public string Description { get; set; }
+		public string Description { get; set; }
         [XmlElement()]
         public int Stamina { get; set; }
         [XmlElement()]
