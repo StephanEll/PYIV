@@ -7,15 +7,16 @@ namespace PYIV.Gameplay.Enemy
 
     public class EnemyBuilder {
 
-        public static Enemy CreateEnemy(EnemyData enemyData, Transform parent)
+        public static Enemy CreateEnemy(EnemyData enemyData, Transform parent, Score score)
         {
 
             GameObject preafab = Resources.Load<GameObject>(enemyData.PreafabPath);
 
             GameObject enemy = GameObject.Instantiate(preafab) as GameObject;
 
-            enemy.AddComponent<Enemy>();
-            enemy.GetComponent<Enemy>().Init(enemyData);
+            enemy.name += " ID: " + enemyData.Id;
+
+            Enemy.AddAsComponentTo(enemy, enemyData, score);
 
             enemy.transform.parent = parent;
             enemy.transform.localPosition = new Vector3(0, 0, 0);

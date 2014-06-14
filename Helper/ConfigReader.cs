@@ -26,5 +26,19 @@ namespace PYIV.Helper
         {
             return (string) navigator.SelectSingleNode("//" + group + "/" + key).GetAttribute("value", "");
         }
+
+        public float GetSettingAsFloat(string group, string key)
+        {
+            float setting;
+            float.TryParse(GetSetting(group,key), out setting );
+            return setting;
+        }
+
+        public int GetSettingAsInt(string group, string key)
+        {
+            int setting;
+            int.TryParse(GetSetting(group, key), out setting);
+            return setting;
+        }
     }
 }

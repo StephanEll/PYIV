@@ -8,9 +8,15 @@ namespace PYIV.Gameplay.Character.Weapon {
 
         public int Strength { get; private set; }
 
+        private Score score;
+
+        private float boundaryBottom;
+
 		void Start () {
             if(gameObject.GetComponent<BoxCollider2D>() == null)
                 gameObject.AddComponent<BoxCollider2D>();
+
+            boundaryBottom = Camera.main.ScreenToWorldPoint(Vector3.zero).y;
 		}
 		
 		void Update () {
@@ -20,11 +26,14 @@ namespace PYIV.Gameplay.Character.Weapon {
                 angle.Normalize();
                 this.transform.localRotation = Quaternion.EulerAngles(angle.x, 0, angle.y * 1.4f);
             }
+            if (transform.position.x < boundaryBottom)
+                Miss();
 		}
 
-        public static void AddAsComponentTo(GameObject go, int Strength)
+        public static void AddAsComponentTo(GameObject go, int Strength, Score score)
         {
             go.AddComponent<Bullet>().Strength = Strength;
+            go.GetComponent<Bullet>().score = score;
         }
 
         public void OnCollisionEnter2D(Collision2D collision)
@@ -34,8 +43,16 @@ namespace PYIV.Gameplay.Character.Weapon {
                 Destroy(gameObject.GetComponent<Rigidbody2D>());
                 Destroy(gameObject.GetComponent<BoxCollider2D>());
                 transform.parent = collision.transform;
+                score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
             }
-
         }
+
+        public void Miss()
+        {
+            score.AddMissed();
+            Destroy(gameObject);
+        }
+
+
 	}
 }

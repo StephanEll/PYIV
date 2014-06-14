@@ -14,6 +14,15 @@ namespace PYIV.Gameplay.Character.Weapon
         private string bulletPreafabPath;
         private int bulletStrength;
 
+        protected Score score;
+        private GameObject game;
+
+
+        void Start()
+        {
+            game = GameObject.Find("Game");
+            score = game.GetComponent<Score>();
+        }
 
         // Update is called once per frame
         void Update()
@@ -60,8 +69,8 @@ namespace PYIV.Gameplay.Character.Weapon
                 //float speed = dist / duration;
 
                 GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
-                bullet.transform.parent = GameObject.Find("Game").transform;
-                Bullet.AddAsComponentTo(bullet, bulletStrength);
+                bullet.transform.parent = game.transform;
+                Bullet.AddAsComponentTo(bullet, bulletStrength, score);
 
                 EndSwipeHandler(
                     bullet.GetComponent<Bullet>(),

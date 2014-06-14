@@ -10,7 +10,6 @@ namespace PYIV.Gameplay
 {
     public class SpawnController : MonoBehaviour
     {
-		
         private List<string> EnemyIdQueue = new List<string>();
         private Dictionary<string, EnemyData> EnemyDataQueue = new Dictionary<string, EnemyData>();
         private float deltaSpawnTime;
@@ -23,7 +22,14 @@ namespace PYIV.Gameplay
         {
             EnemyContainer = new GameObject("Enemy Container");
             EnemyContainer.transform.parent = GameObject.Find("Game").transform;
-            EnemyContainer.transform.position = new Vector3(13.0f, -7.0f, 0);
+
+            EnemyContainer.transform.position = Camera.main.ScreenToWorldPoint(
+                new Vector3(
+                    Screen.width, 
+                    Screen.height * ConfigReader.Instance.GetSettingAsFloat("game", "spawning-height")
+                    )
+                );
+
         }
 
         // Update is called once per frame
@@ -34,6 +40,8 @@ namespace PYIV.Gameplay
                 Spawn();
                 ComputeNextSpawnTime();
             }
+
+            
         }
 
         private void GenerateEnemyIdQueue(List<EnemyType> enemyTypes)
@@ -55,7 +63,11 @@ namespace PYIV.Gameplay
         {
             EnemyData ed;
             EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-            EnemyBuilder.CreateEnemy(ed, EnemyContainer.transform);
+            EnemyBuilder.CreateEnemy(
+                ed, 
+                EnemyContainer.transform, 
+                EnemyContainer.transform.parent.GetComponent<Score>()
+                );
             EnemyIdQueue.RemoveAt(0);
         }
 

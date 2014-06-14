@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using PYIV.Persistence;
 using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Character;
+using PYIV.Helper;
 
 namespace PYIV.Gameplay{
 
@@ -40,7 +41,13 @@ namespace PYIV.Gameplay{
 			
 			background.transform.parent = this.transform;
 
+            Score.AddAsGameobjectTo(
+                gameObject, 
+                ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
+
             IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
+
+            
 
 		}
 		

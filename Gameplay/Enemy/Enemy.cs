@@ -10,6 +10,10 @@ namespace PYIV.Gameplay.Enemy
 
         private EnemyData enemyData;
 
+        private Score score;
+
+        private float boundaryLeft;
+
         public float MoveSpeed { 
             get
             {
@@ -35,10 +39,17 @@ namespace PYIV.Gameplay.Enemy
             }
         }
 
+        void Start()
+        {
+            boundaryLeft = Camera.main.ScreenToWorldPoint(Vector3.zero).x;
+        }
+
         // Update is called once per frame
         public void Update()
         {
             transform.Translate(-MoveSpeed/300, 0, 0);
+            if (transform.position.x < boundaryLeft)
+                Attack();
         }
 
         public void OnCollisionEnter2D(Collision2D collision)
@@ -51,15 +62,24 @@ namespace PYIV.Gameplay.Enemy
             }
         }
 
-        public void Init(EnemyData enemyData)
+        public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score score)
         {
-            this.enemyData = enemyData;
-            if (gameObject.GetComponent<BoxCollider2D>() == null)
-                gameObject.AddComponent<BoxCollider2D>();
+            Enemy enemy = go.AddComponent<Enemy>();
+            enemy.enemyData = enemyData;
+            enemy.score = score;
+            if (go.gameObject.GetComponent<BoxCollider2D>() == null)
+                go.gameObject.AddComponent<BoxCollider2D>();
         }
 
         private void Die()
         {
+            score.AddKill(this);
+            Destroy(gameObject);
+        }
+
+        private void Attack()
+        {
+            score.SubtractLivepoints(AttackPower);
             Destroy(gameObject);
         }
     }
