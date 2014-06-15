@@ -8,6 +8,9 @@ namespace PYIV.Persistence
 	{
 		
 		public List<T> ModelList { get; set; }
+		public delegate void ModelAddedDelegate(List<T> newList, T newModel);
+		public event ModelAddedDelegate OnModelAdded;
+		
 		
 		public ServerCollection ()
 		{
@@ -20,6 +23,13 @@ namespace PYIV.Persistence
 			getRequest.OnSuccess += OnSuccess;
 			getRequest.ExecuteAsync();
 			
+		}
+		
+		public void AddModel(T model){
+			this.ModelList.Add(model);
+			if(OnModelAdded != null){
+				OnModelAdded(this.ModelList, model);
+			}
 		}
 		
 		

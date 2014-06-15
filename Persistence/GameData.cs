@@ -58,12 +58,12 @@ namespace PYIV.Persistence
 			
 		}
 		
-		private PlayerStatus GetPlayerOrOpponentStatus(bool playerStatus){
+		private PlayerStatus GetPlayerOrOpponentStatus(bool isPlayerOfDevice){
 			
-			PlayerStatus player = PlayerStatus[0].Id == LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];
-			PlayerStatus opponent = PlayerStatus[0].Id != LoggedInPlayer.Instance.Id ? PlayerStatus[0] : PlayerStatus[1];		
+			PlayerStatus player = PlayerStatus[0].Player.Equals(LoggedInPlayer.Instance) ? PlayerStatus[0] : PlayerStatus[1];
+			PlayerStatus opponent = !PlayerStatus[0].Player.Equals(LoggedInPlayer.Instance) ? PlayerStatus[0] : PlayerStatus[1];		
 			
-			return playerStatus ? player : opponent ;
+			return isPlayerOfDevice ? player : opponent ;
 		}
 		
 		

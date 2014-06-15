@@ -14,13 +14,14 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
-		private Dictionary<string, GameData> buttonToGameData;
+		private ServerCollection<GameData> serverGameCollection;
+		private Dictionary<GameObject, GameData> buttonToGameData;
 				
 		
 		public GameListView() : base("GameListPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
-			buttonToGameData = new Dictionary<string,GameData>();
+			buttonToGameData = new Dictionary<GameObject,GameData>();
 		}
 
 		protected override void OnPanelCreated ()
@@ -33,11 +34,11 @@ namespace PYIV.Menu
 
 		
 		private void OnNewGameButtonClick(GameObject button){
-			ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(OpponentSelectionView), serverGameCollection);
 		}
 
 		private void OnGameBoardClick(GameObject button){
-			GameData data = buttonToGameData[button.name];
+			GameData data = buttonToGameData[button];
 			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 		}
 
@@ -58,13 +59,24 @@ namespace PYIV.Menu
 
 
 		private void OnServerCollectionReceived(ServerCollection<GameData> serverCollection) {
-
+			
+			serverGameCollection = serverCollection;
+			serverGameCollection.OnModelAdded += (newList, newModel) => { 
+				FillGameBoard(newModel);
+				GameList_Grid_GameObject.GetComponent<UIGrid>().Reposition();
+			};
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
+			
+			CreateGameBoardsFromCollection();
+			
 
-			foreach(var obj in serverCollection.ModelList) {
+		}
+		
+		private void CreateGameBoardsFromCollection() {
+			foreach(var obj in serverGameCollection.ModelList) {
 				FillGameBoard(obj);
 			}
-
+			GameList_Grid_GameObject.GetComponent<UIGrid>().Reposition();
 		}
 
 		private void OnServerError(RestException e) {
@@ -74,7 +86,7 @@ namespace PYIV.Menu
 		private void FillGameBoard(GameData gameData) {
 
 			var gameBoardObj = NGUITools.AddChild(GameList_Grid_GameObject, gameBoardPrefab);
-			buttonToGameData[gameBoardObj.name] = gameData;
+			buttonToGameData[gameBoardObj] = gameData;
 			UIEventListener.Get(gameBoardObj).onClick += OnGameBoardClick;
 
 			UILabel playerName = gameBoardObj.transform.FindChild("player_name_label").gameObject.GetComponent<UILabel>();
@@ -91,6 +103,7 @@ namespace PYIV.Menu
 			// TODO: Belegung des Icons je nach gespielten IndianType
 			playerIcon.spriteName = "massai_icon";
 			opponentIcon.spriteName = "amazone_icon";
+			
 		}
 
 		private void InitViewComponents() {

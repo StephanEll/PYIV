@@ -26,8 +26,8 @@ namespace PYIV.Helper{
 
 			camera = Camera.main;
 			
-			Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
-			Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2*Camera.main.orthographicSize))/2);
+			//Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
+			//Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2*Camera.main.orthographicSize))/2);
 			 
 		}
 
@@ -43,7 +43,7 @@ namespace PYIV.Helper{
 			
 			
 			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-            CreateTestData();
+            //CreateTestData();
 			
 		}
 		

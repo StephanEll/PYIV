@@ -11,7 +11,7 @@ namespace PYIV.Menu
 	{
 		private GameObject sprite;
 		private UIInput opponentNameInput;
-
+		private ServerCollection<GameData> gameList;
 		
 		public OpponentSelectionView () : base("OpponentSelectionPrefab")
 		{
@@ -50,7 +50,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnPlayerFound(Player player){
-			ICommand playerFoundCommand = new PlayerSearchSuccessfulCommand(player);
+			ICommand playerFoundCommand = new PlayerSearchSuccessfulCommand(player, gameList);
 			playerFoundCommand.Execute();
 			
 		}
@@ -71,6 +71,14 @@ namespace PYIV.Menu
 		}
 
 	
+		public override void UnpackParameter (object parameter)
+		{
+			base.UnpackParameter (parameter);
+			ServerCollection<GameData> gameList = parameter as ServerCollection<GameData>;
+			this.gameList = gameList;
+			
+		}
+		
 		public override bool ShouldBeCached ()
 		{
 			return true;

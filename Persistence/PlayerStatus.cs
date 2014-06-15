@@ -15,6 +15,9 @@ namespace PYIV.Persistence
 	{
 		
 		[DataMember]
+		public bool IsChallengeAccepted { get; set; }
+		
+		[DataMember]
 		public List<Round> Rounds { get; set; }
 		
 		[IgnoreDataMember] 
@@ -33,12 +36,16 @@ namespace PYIV.Persistence
 		[DataMember]
 		public string IndianId { 
 			get {
-				return IndianData.Id;
+				if( IndianData != null)
+					return IndianData.Id;
+				return null;
 			}
 			
 			set{
-				var indians = IndianDataCollection.Instance.GetSubCollection(new [] { value });
-				IndianData = indians[0];
+				if(value != null){
+					var indians = IndianDataCollection.Instance.GetSubCollection(new [] { value });
+					IndianData = indians[0];
+				}
 			}
 		}
 		
@@ -50,9 +57,11 @@ namespace PYIV.Persistence
 		{
 			
 			this.Player = player;
+			this.IsChallengeAccepted = LoggedInPlayer.Instance.Equals(player) ? true : false;
 			
 			
 		}
+		
 		
 		public override void ParseOnCreate (PlayerStatus responseObject)
 		{

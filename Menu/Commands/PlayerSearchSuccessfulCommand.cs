@@ -10,10 +10,13 @@ namespace PYIV.Menu.Commands
 	public class PlayerSearchSuccessfulCommand : ICommand
 	{
 		private Player searchedPlayer;
+		private ServerCollection<GameData> gameList;
 		
-		public PlayerSearchSuccessfulCommand (Player player)
+		public PlayerSearchSuccessfulCommand (Player player, ServerCollection<GameData> gameList)
 		{
 			searchedPlayer = player;
+			this.gameList = gameList;
+			
 		}
 		
 		public void Execute(){
@@ -25,9 +28,14 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void OnAccept(GameObject button){
-			//go to next configuration step
-			Debug.Log ("ok lets start the game");
+
+			var newGameCommand = new CreateNewGameCommand(searchedPlayer, LoggedInPlayer.Instance, gameList);
+			newGameCommand.Execute();
+			
 		}
+
+		
+		
 		
 		private void OnDecline(GameObject button){
 			Debug.Log ("then search on");	
