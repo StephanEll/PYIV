@@ -10,15 +10,12 @@ namespace PYIV.Menu.Commands
 		
 		private Player opponent;
 		private Player challenger;
-		private ServerCollection<GameData> gameList;
 		private GameData newGame;
 		
-		public CreateNewGameCommand (Player opponent, Player challenger, ServerCollection<GameData> gameList)
+		public CreateNewGameCommand (Player opponent, Player challenger)
 		{
 			this.opponent = opponent;
-			this.challenger = challenger;
-			this.gameList = gameList;
-			
+			this.challenger = challenger;			
 			newGame = new GameData(challenger, opponent);
 		}
 
@@ -28,7 +25,7 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void NewGameCreated(GameData gameData){
-			gameList.AddModel(newGame);
+			LoggedInPlayer.Instance.GameList.AddModel(newGame);
 			
 			NGUIDebug.Log("TODO: To indian selection screen");
 			//next screen

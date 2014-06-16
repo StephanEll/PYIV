@@ -41,8 +41,8 @@ namespace PYIV.Persistence
 		private void AddAuthentication(){
 			
 			if(LoggedInPlayer.IsLoggedIn()){
-				string auth_id = LoggedInPlayer.Instance.Id;
-				string auth_token = LoggedInPlayer.Instance.AuthToken;
+				string auth_id = LoggedInPlayer.Instance.Player.Id;
+				string auth_token = LoggedInPlayer.Instance.Player.AuthToken;
 				
 				restClient.Authenticator = new SimpleAuthenticator("user_id", auth_id, "token", auth_token);
 			}

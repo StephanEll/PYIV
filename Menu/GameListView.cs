@@ -27,14 +27,16 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			ServerCollection<GameData>.FetchAll(OnServerCollectionReceived, OnServerError);
 			InitViewComponents();
+
+			LoggedInPlayer.Instance.GetOrFetchGameList(OnServerCollectionReceived, OnServerError);
+			
 
 		}
 
 		
 		private void OnNewGameButtonClick(GameObject button){
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(OpponentSelectionView), serverGameCollection);
+			ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
 		}
 
 		private void OnGameBoardClick(GameObject button){
@@ -61,10 +63,6 @@ namespace PYIV.Menu
 		private void OnServerCollectionReceived(ServerCollection<GameData> serverCollection) {
 			
 			serverGameCollection = serverCollection;
-			serverGameCollection.OnModelAdded += (newList, newModel) => { 
-				FillGameBoard(newModel);
-				GameList_Grid_GameObject.GetComponent<UIGrid>().Reposition();
-			};
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
 			
 			CreateGameBoardsFromCollection();
@@ -107,7 +105,9 @@ namespace PYIV.Menu
 		}
 
 		private void InitViewComponents() {
-
+			
+			Debug.Log ("init view components");
+			
 			// Getting Components of View
 			sprite = panel.transform.FindChild("Sprite").gameObject;
 			GameObject GameList_Panel = sprite.transform.FindChild("GameList_Panel").gameObject;
@@ -138,7 +138,7 @@ namespace PYIV.Menu
 
 		public override bool ShouldBeCached ()
 		{
-			return true;
+			return false;
 		}
 		
 	}

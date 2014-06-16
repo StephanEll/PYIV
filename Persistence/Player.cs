@@ -110,9 +110,7 @@ namespace PYIV.Persistence
 			this.Mail = responseObject.Mail;
 			this.Wins = responseObject.Wins;
 			this.Defeats = responseObject.Defeats;
-			this.AuthToken = responseObject.AuthToken;
-			PersistAuthData();
-			
+			this.AuthToken = responseObject.AuthToken;			
 		}
 		
 		public override bool Equals (object obj)

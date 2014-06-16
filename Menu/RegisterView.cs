@@ -65,7 +65,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnSuccessfulRegistration(Player serverResponseObject){
-			LoggedInPlayer.Instance = serverResponseObject;
+			LoggedInPlayer.Login(serverResponseObject);
 			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 		}
 		private void OnErrorAtRegistration(RestException e){

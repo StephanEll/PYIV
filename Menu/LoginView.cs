@@ -40,7 +40,7 @@ namespace PYIV.Menu
 		}
 		
 		private void OnSuccessfulLogin(Player player){
-			LoggedInPlayer.Instance = player;
+			LoggedInPlayer.Login(player);
 			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 		}
 		

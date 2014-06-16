@@ -51,7 +51,7 @@ namespace PYIV.Helper
 		}
 		
 		void Player2Created(Player player){
-			LoggedInPlayer.Instance = player2;
+			LoggedInPlayer.Login(player2);
 			data = new GameData(player1, player2);
 
 			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
