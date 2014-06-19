@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using PYIV.Gameplay.Character.Weapon;
+using PYIV.Helper;
 
 namespace PYIV.Gameplay.Enemy
 {
@@ -12,7 +13,10 @@ namespace PYIV.Gameplay.Enemy
 
         private Score score;
 
-        private float boundaryLeft;
+        private bool dead = false;
+
+        private float fateOutFrames;
+        private float fateOutFramesMax;
 
         public float MoveSpeed { 
             get
@@ -41,15 +45,50 @@ namespace PYIV.Gameplay.Enemy
 
         void Start()
         {
-            boundaryLeft = Camera.main.ScreenToWorldPoint(Vector3.zero).x;
+            fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
+            fateOutFramesMax = fateOutFrames;
         }
 
         // Update is called once per frame
         public void Update()
         {
-            transform.Translate(-MoveSpeed/300, 0, 0);
-            if (transform.position.x < boundaryLeft)
+            if (dead)
+            {
+                FateOut();
+            }
+            else
+            {
+                Move();
+            }
+           
+        }
+
+        private void Move()
+        {
+            if (enemyData.Fly)
+            {
+
+            }
+            else
+            {
+                transform.Translate(-MoveSpeed / 300, 0, 0);
+            }
+
+            if (transform.position.x < PlayingFieldBoundarys.Left)
                 Attack();
+        }
+
+        private void FateOut()
+        {
+            fateOutFrames--;
+            if (fateOutFrames == 0)
+                DestroßGameobject();
+            else
+                foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
+                {
+                    sr.color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
+                }
+            
         }
 
         public void OnCollisionEnter2D(Collision2D collision)
@@ -74,6 +113,14 @@ namespace PYIV.Gameplay.Enemy
         private void Die()
         {
             score.AddKill(this);
+
+            this.GetComponent<Animator>().SetTrigger("dead");
+
+            dead = true;
+        }
+
+        private void DestroßGameobject()
+        {
             Destroy(gameObject);
         }
 
