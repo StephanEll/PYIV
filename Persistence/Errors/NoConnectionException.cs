@@ -1,12 +1,12 @@
 using System;
+using PYIV.Helper;
 
 namespace PYIV.Persistence.Errors
 {
 	public class NoConnectionException : RestException
 	{
-		private const string ERROR_MESSAGE = "Server currently not available";
 		
-		public NoConnectionException () : base(ERROR_MESSAGE)
+		public NoConnectionException () : base(StringConstants.SERVER_NOT_AVAILABLE)
 		{
 		}
 	}

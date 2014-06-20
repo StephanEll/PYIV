@@ -1,7 +1,9 @@
 using System;
 using PYIV.Menu.Commands;
+using PYIV.Menu.Popup;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
+using PYIV.Helper;
 
 namespace PYIV.Menu.Commands
 {
@@ -21,6 +23,11 @@ namespace PYIV.Menu.Commands
 
 		
 		public void Execute(){
+			if(this.opponent.Id == this.challenger.Id){
+				ViewRouter.TheViewRouter.ShowTextPopup(StringConstants.SELF_MATCH);
+				return;
+			}
+			
 			newGame.Save(NewGameCreated, ErrorCreatingGame);
 		}
 		
@@ -34,7 +41,7 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void ErrorCreatingGame(RestException e){
-			
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
 		}
 	}
 }

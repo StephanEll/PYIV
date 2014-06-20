@@ -71,11 +71,17 @@ namespace PYIV.Persistence
 		
 		public void PersistAuthData(){
 			if(this.Id != null && this.AuthToken != null){
-				PlayerPrefs.DeleteAll ();
+				DeleteAuthData();
 				PlayerPrefs.SetString (AuthData.KEY_ID, this.Id);
 				PlayerPrefs.SetString (AuthData.KEY_TOKEN, this.AuthToken);
 				PlayerPrefs.Save ();
 			}
+		}
+		
+		public void DeleteAuthData(){
+			PlayerPrefs.DeleteKey(AuthData.KEY_ID);
+			PlayerPrefs.DeleteKey(AuthData.KEY_TOKEN);
+			PlayerPrefs.Save ();
 		}
 		
 		public void LoadAuthData(){
@@ -110,7 +116,10 @@ namespace PYIV.Persistence
 			this.Mail = responseObject.Mail;
 			this.Wins = responseObject.Wins;
 			this.Defeats = responseObject.Defeats;
-			this.AuthToken = responseObject.AuthToken;			
+			
+			if(responseObject.AuthToken != null)
+				this.AuthToken = responseObject.AuthToken;	
+
 		}
 		
 		public override bool Equals (object obj)

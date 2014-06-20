@@ -7,6 +7,8 @@ using PYIV.Persistence.Errors;
 using RestSharp;
 using System.Net;
 using PYIV.Gameplay.Enemy;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -45,6 +47,9 @@ namespace PYIV.Helper{
 			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
             //CreateTestData();
 			
+			GCM.Initialize ();
+
+			
 		}
 		
 		private void CreateTestData(){
@@ -61,6 +66,7 @@ namespace PYIV.Helper{
 		private void OnError(RestException e){
 			Debug.Log(e.Message);
 		}
+
 	
 	}
 

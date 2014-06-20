@@ -13,6 +13,8 @@ namespace PYIV.Persistence.Errors
 				return new LoginFailedException(error.Type, error.Message);
 			case ErrorType.NOT_FOUND:
 				return new NotFoundException(error.Type, error.Message);
+			case ErrorType.DUBLICATED:
+				return new RestException(error.Type, error.Message);
 				
 			}
 			return new RestException(error.Message);

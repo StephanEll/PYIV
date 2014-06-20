@@ -3,9 +3,11 @@ using RestSharp;
 using PYIV.Helper;
 using PYIV.Persistence.Errors;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 namespace PYIV.Persistence
 {
+	
 	/// <summary>
 	/// Performes a async REST-Request an calls success- or failure-callbacks 
 	/// with a response-object or a exception 
@@ -81,9 +83,20 @@ namespace PYIV.Persistence
 		}
 		private void ParseResponse(IRestResponse response){
 			var deserializer = new RestSharp.Deserializers.JsonDeserializer ();
-			T responseObject = deserializer.Deserialize<T> (response);
+			T responseObject;
+			try{
+				responseObject = deserializer.Deserialize<T> (response);
+			}
+			catch(SerializationException e){
+				responseObject = default(T);
+			}
+			
 			if(OnSuccess != null)
 				OnSuccess(responseObject);
+			
+			
+				
+				
 		}
 		
 	}

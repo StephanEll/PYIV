@@ -6,7 +6,8 @@
 	  <menu-prefab value="UI/" />
   </directory>
   <server>
-    <url value="http://localhost:9080" />
+    <url value="https://pyiv2014.appspot.com" />
+	<sender-id value="419590633699" />
   </server>
   <game>
     <max-spawn-time value="60.0"/>
