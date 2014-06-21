@@ -47,7 +47,6 @@ namespace PYIV.Helper{
 			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
             //CreateTestData();
 			
-			GCM.Initialize ();
 
 			
 		}
