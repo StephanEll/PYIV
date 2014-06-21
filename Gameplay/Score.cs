@@ -5,7 +5,6 @@ using PYIV.Gameplay.Enemy;
 
 public class Score : MonoBehaviour {
 
-
     public int HitCount { get; private set; }
     public int KillCount { get; private set; }
     public int MissedShotCount { get; private set; }
@@ -31,21 +30,21 @@ public class Score : MonoBehaviour {
     {
         HitCount++;
         lastHits.Add(enemy);
-        if(lastHits.Count > 10)
-            lastHits.RemoveAt(0);
+        // evtl liste begrenzen
     }
 
     public void AddKill(Enemy enemy)
     {
         KillCount++;
         lastKills.Add(enemy);
-        if (lastKills.Count > 10)
-            lastKills.RemoveAt(0);
+        // evtl liste begrenzen
     }
 
     public void AddMissed()
     {
         MissedShotCount++;
+        lastHits.Add(null);
+        lastKills.Add(null);
     }
 
     public void SubtractLivepoints(int damage)

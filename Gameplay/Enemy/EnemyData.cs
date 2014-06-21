@@ -20,6 +20,8 @@ namespace PYIV.Gameplay.Enemy
         public int LivePoints { get; set; }
         [XmlElement()]
         public string PreafabPath {get; set; }
+        [XmlElement()]
+        public bool Fly { get; set; } // evlt ändern in move behaviour
 
 
         public EnemyData()

@@ -12,6 +12,7 @@
   <game>
     <max-spawn-time value="60.0"/>
     <spawning-height value="0.07" />
-    <start-village-livepoints value="100.0" />
+    <start-village-livepoints value="500.0" />
+    <enemy-die-frames value="100.0" />
   </game>
 </configuration>
