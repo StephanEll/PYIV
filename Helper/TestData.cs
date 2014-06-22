@@ -57,10 +57,10 @@ namespace PYIV.Helper
 			data.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
 			
 			List<EnemyType> types = new List<EnemyType>();
+            types.Add(EnemyTypeCollection.Instance.EnemyType[0]);
             types.Add(EnemyTypeCollection.Instance.EnemyType[2]);
-            types.Add(EnemyTypeCollection.Instance.EnemyType[2]);
-            types.Add(EnemyTypeCollection.Instance.EnemyType[2]);
-            types.Add(EnemyTypeCollection.Instance.EnemyType[2]);
+            types.Add(EnemyTypeCollection.Instance.EnemyType[3]);
+            types.Add(EnemyTypeCollection.Instance.EnemyType[5]);
 
 			Round round = new Round();
 			round.SentAttackers = types;

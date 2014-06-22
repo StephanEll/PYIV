@@ -69,7 +69,6 @@ namespace PYIV.Gameplay
                 EnemyContainer.transform.parent.GetComponent<Score>()
                 );
             EnemyIdQueue.RemoveAt(0);
-            Debug.Log(EnemyIdQueue.Count());
         }
 
         public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){

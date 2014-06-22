@@ -54,7 +54,8 @@ namespace PYIV.Gameplay.Enemy
                 gameObject.AddComponent<Rigidbody2D>();
                 
             }
-            gameObject.GetComponent<Animator>().enabled = false; // entfernen wenn animation gefixt wurde
+            if (enemyData.Fly)
+                gameObject.GetComponent<Animator>().enabled = false; // entfernen wenn animation gefixt wurde
         }
 
         // Update is called once per frame

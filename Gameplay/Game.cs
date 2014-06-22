@@ -63,9 +63,6 @@ namespace PYIV.Gameplay{
 		void Update ()
 		{
 
-            Debug.Log("child count " + spawnController.GetEnemyContainer().transform.childCount);
-            Debug.Log("spawn count " + spawnController.GetSpawnQueueCount());
-
             if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
             {
                 GameFinished();
