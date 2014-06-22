@@ -9,7 +9,7 @@ namespace PYIV.Persistence
 	public class LoggedInPlayer
 	{
 		
-		private const string GCM_ID_KEY = "gcmIdKeyy";
+		private const string GCM_ID_KEY = "gcmIdKey";
 		
 		private static volatile LoggedInPlayer instance;
 		private static object syncRoot = new object();

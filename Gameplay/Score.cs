@@ -11,6 +11,9 @@ public class Score : MonoBehaviour {
     public int MissedShotCount { get; private set; }
     public int Livepoints { get; private set; }
 
+	public delegate void ScoreChangedDelegate(int newScore);
+	public event ScoreChangedDelegate OnScoreChanged;
+
     private List<Enemy> lastHits = new List<Enemy>();
     private List<Enemy> lastKills = new List<Enemy>();
 
@@ -51,6 +54,9 @@ public class Score : MonoBehaviour {
     public void SubtractLivepoints(int damage)
     {
         this.Livepoints -= damage;
+		if(OnScoreChanged != null){
+			OnScoreChanged(this.Livepoints);
+		}
     }
 
     public static void AddAsGameobjectTo(GameObject go, int villageLivepoints)
