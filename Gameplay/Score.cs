@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
+using PYIV.Helper;
 
 public class Score : MonoBehaviour {
 
@@ -17,7 +18,7 @@ public class Score : MonoBehaviour {
 	void Start () {
         HitCount = 0;
         MissedShotCount = 0;
-        Livepoints = 0;
+        Livepoints = ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints");
         KillCount = 0;
 	}
 	
