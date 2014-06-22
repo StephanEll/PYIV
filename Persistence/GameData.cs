@@ -52,13 +52,15 @@ namespace PYIV.Persistence
 			this.CreatedAt = responseObject.CreatedAt;
 			this.UpdatedAt = responseObject.UpdatedAt;
 			
-			for(int i = 0; i < PlayerStatus.Count; i++){
-				PlayerStatus[i].ParseOnCreate(responseObject.PlayerStatus[i]);
-			}
+			//Parse player status
+			GetPlayerOrOpponentStatus(true).ParseOnCreate(responseObject.GetPlayerOrOpponentStatus(true));
+			//Parse opponent status
+			GetPlayerOrOpponentStatus(false).ParseOnCreate(responseObject.GetPlayerOrOpponentStatus(false));	
+
 			
 		}
 		
-		private PlayerStatus GetPlayerOrOpponentStatus(bool isPlayerOfDevice){
+		public PlayerStatus GetPlayerOrOpponentStatus(bool isPlayerOfDevice){
 			
 			PlayerStatus player = PlayerStatus[0].Player.Equals(LoggedInPlayer.Instance.Player) ? PlayerStatus[0] : PlayerStatus[1];
 			PlayerStatus opponent = !PlayerStatus[0].Player.Equals(LoggedInPlayer.Instance.Player) ? PlayerStatus[0] : PlayerStatus[1];		
