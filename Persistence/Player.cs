@@ -17,7 +17,8 @@ namespace PYIV.Persistence
 		
 		public string Name {
 			get{
-				return Auth_ids[0];
+				
+				return Auth_ids.Count == 0 ? "" : Auth_ids[0];
 			}
 			
 			set{
@@ -85,8 +86,29 @@ namespace PYIV.Persistence
 		}
 		
 		public void LoadAuthData(){
-			this.AuthToken = PlayerPrefs.GetString(AuthData.KEY_TOKEN);
-			this.Id = PlayerPrefs.GetString(AuthData.KEY_ID);
+			bool hasPersistedAuthData = PlayerPrefs.HasKey(AuthData.KEY_TOKEN) && PlayerPrefs.HasKey(AuthData.KEY_ID);
+			
+			Debug.Log("HAS AUTH DATA?: " + hasPersistedAuthData);
+			
+			if(hasPersistedAuthData){
+				this.AuthToken = PlayerPrefs.GetString(AuthData.KEY_TOKEN);
+				Debug.Log (this.AuthToken);
+				this.Id = PlayerPrefs.GetString(AuthData.KEY_ID);
+				Debug.Log(this.Id);
+			}
+			else{
+				throw new Exception("No auth data available. Player needs to login");
+			}
+		}
+		
+		public void GetByAuthData(Request<Player>.SuccessDelegate OnSuccess, Request<Player>.ErrorDelegate OnError){
+			this.LoadAuthData();
+			var authRequest = new Request<Player>(ComputeResourceName(typeof(Player))+"/login", Method.GET);
+			authRequest.OnSuccess += ParseOnCreate;
+			authRequest.OnSuccess += OnSuccess;
+			authRequest.OnError += OnError;
+			authRequest.AddBody (this);
+			authRequest.ExecuteAsync();
 		}
 
 		public void Validate(){

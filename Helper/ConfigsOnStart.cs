@@ -16,6 +16,7 @@ namespace PYIV.Helper{
 		GameData gameData;
 
 		Camera camera;
+		private Player player;
 
 		private float playingFieldWidth =26;
 		private float playingFieldHeight = 16;
@@ -44,11 +45,32 @@ namespace PYIV.Helper{
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
 			
-			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-            //CreateTestData();
+			ShowStartScreen();            
+			//CreateTestData();
 			
 
 			
+		}
+		
+		private void ShowStartScreen(){
+			player = new Player();
+			try{
+				player.GetByAuthData(OnPlayerAuthenticated, OnPlayerAuthenticationFailed);
+				
+			}
+			catch(Exception e){
+				Debug.Log(e);
+				ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+			}
+		}
+		
+		private void OnPlayerAuthenticated(Player player){
+			LoggedInPlayer.Login(this.player);
+			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
+		}
+		
+		private void OnPlayerAuthenticationFailed(RestException e){
+			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 		}
 		
 		private void CreateTestData(){
