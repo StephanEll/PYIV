@@ -39,7 +39,6 @@ namespace PYIV.Helper
 		}
 		
 		void Player1Created(Player player){
-			LoggedInPlayer.LogOut();
 			
 			player2 = new Player();
 			player2.Name = "Manfred"+DateTime.Now.Millisecond;
