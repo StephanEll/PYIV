@@ -57,12 +57,23 @@ namespace PYIV.Gameplay{
             
 
 		}
-		
 		// Update is called once per frame
 		void Update ()
 		{
-		
+
+            Debug.Log("child count " + spawnController.GetEnemyContainer().transform.childCount);
+            Debug.Log("spawn count " + spawnController.GetSpawnQueueCount());
+
+            if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
+            {
+                GameFinished();
+            }
 		}
+
+        private void GameFinished()
+        {
+            Debug.Log("fin");
+        }
 	}
 
 }

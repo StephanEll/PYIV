@@ -8,6 +8,7 @@ namespace PYIV.Gameplay.Enemy
 
     public class Enemy : MonoBehaviour
     {
+        private float timeDelta = 0;
 
         private EnemyData enemyData;
 
@@ -48,6 +49,12 @@ namespace PYIV.Gameplay.Enemy
             fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
             fateOutFramesMax = fateOutFrames;
             enemyData.print();
+            if (enemyData.Fly && this.GetComponent<Rigidbody2D>() == null)
+            {
+                gameObject.AddComponent<Rigidbody2D>();
+                
+            }
+            gameObject.GetComponent<Animator>().enabled = false; // entfernen wenn animation gefixt wurde
         }
 
         // Update is called once per frame
@@ -66,8 +73,26 @@ namespace PYIV.Gameplay.Enemy
 
         private void Move()
         {
-            transform.Translate(-MoveSpeed / 300, 0, 0);
-
+            
+            if (enemyData.Fly)
+            {
+                if (timeDelta > 1.0f)
+                {
+                    if(transform.position.y < Random.Range(-4, 4))
+                        rigidbody2D.AddForce(new Vector2(-300.0f, 700.0f));
+                    else
+                        rigidbody2D.AddForce(new Vector2(-300.0f, 300.0f));
+                    timeDelta = 0;
+                }
+                else
+                {
+                    timeDelta += Time.deltaTime;
+                }
+            }
+            else
+            {
+                transform.Translate(-MoveSpeed / 300, 0, 0);
+            }
 
             if (transform.position.x < PlayingFieldBoundarys.Left)
                 Attack();
@@ -77,7 +102,7 @@ namespace PYIV.Gameplay.Enemy
         {
             fateOutFrames--;
             if (fateOutFrames == 0)
-                DestroßGameobject();
+                DestroyGameobject();
             else
                 foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
                 {
@@ -114,7 +139,7 @@ namespace PYIV.Gameplay.Enemy
             dead = true;
         }
 
-        private void DestroßGameobject()
+        private void DestroyGameobject()
         {
             Destroy(gameObject);
         }

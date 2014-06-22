@@ -17,10 +17,6 @@ namespace PYIV.Helper{
 
 		Camera camera;
 
-		
-		
-
-
 
 		//Configuration Camera at startup
 		void Awake(){
@@ -43,8 +39,6 @@ namespace PYIV.Helper{
 			
 			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
             CreateTestData();
-			
-
 			
 		}
 		

@@ -69,6 +69,7 @@ namespace PYIV.Gameplay
                 EnemyContainer.transform.parent.GetComponent<Score>()
                 );
             EnemyIdQueue.RemoveAt(0);
+            Debug.Log(EnemyIdQueue.Count());
         }
 
         public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){
@@ -90,6 +91,16 @@ namespace PYIV.Gameplay
         private void ComputeNextSpawnTime()
         {
             nextSpawntime = Time.time + deltaSpawnTime + UnityEngine.Random.Range (-deltaSpawnTime,deltaSpawnTime);
+        }
+
+        public GameObject GetEnemyContainer()
+        {
+            return EnemyContainer;
+        }
+
+        public int GetSpawnQueueCount()
+        {
+            return EnemyIdQueue.Count();
         }
 
     }

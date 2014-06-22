@@ -19,7 +19,7 @@ namespace PYIV.Gameplay.Enemy
             Enemy.AddAsComponentTo(enemy, enemyData, score);
 
             enemy.transform.parent = parent;
-            enemy.transform.localPosition = new Vector3(0, 0, 0);
+            enemy.transform.localPosition = enemy.transform.position;
 
 
             return enemy.GetComponent<Enemy>();
