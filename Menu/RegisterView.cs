@@ -43,10 +43,11 @@ namespace PYIV.Menu
 			} 
 			registeringPlayer.Password = passwordField.value;
 			
-			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
+			
 			
 			try{	
 				registeringPlayer.Validate();
+				registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			}
 			catch(InvalidMailException e){
 				highlightTextfield(emailField);

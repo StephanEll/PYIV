@@ -38,6 +38,9 @@ namespace PYIV.Helper{
 			//must be created once from the main thread
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
+			//Push notification initializer
+			GCM.Initialize ();
+			GCM.SetNotificationsEnabled(false);
 			
             ShowStartScreen();
             //CreateTestData();
@@ -58,6 +61,9 @@ namespace PYIV.Helper{
                 ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
             }
         }
+		
+		
+		
 
         private void OnPlayerAuthenticated(Player player)
         {
@@ -69,6 +75,23 @@ namespace PYIV.Helper{
         {
             ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
         }
+		
+		void OnApplicationPause(bool paused){
+			if(paused == true){
+				ApplicationLostFocus();
+			}
+			else{
+				ApplicationGotFocus();
+			}
+		}
+		
+		private void ApplicationLostFocus(){
+			GCM.SetNotificationsEnabled(true);
+		}
+		
+		private void ApplicationGotFocus(){
+			GCM.SetNotificationsEnabled(false);
+		}
 		
 		private void CreateTestData(){
 			TestData data = new TestData(OnSucess);

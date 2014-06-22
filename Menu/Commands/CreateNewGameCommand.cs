@@ -52,7 +52,6 @@ namespace PYIV.Menu.Commands
 		private void NewGameCreated(GameData gameData){
 			LoggedInPlayer.Instance.GameList.AddModel(newGame);
 			
-			NGUIDebug.Log("TODO: To indian selection screen");
 			//next screen
 			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 			

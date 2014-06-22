@@ -45,7 +45,7 @@ namespace PYIV.Persistence
 		
 		private void ManagePushNotificationSupport(){
 			
-			GCM.Initialize ();
+			
 			GCM.SetMessageCallback ((Dictionary<string, object> table) => {
             	Debug.Log ("Message!!! " + table.ToString ());
 				NGUIDebug.Log ("Message!!! " + table.ToString ());
