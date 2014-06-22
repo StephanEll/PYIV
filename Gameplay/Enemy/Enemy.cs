@@ -47,6 +47,7 @@ namespace PYIV.Gameplay.Enemy
         {
             fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
             fateOutFramesMax = fateOutFrames;
+            enemyData.print();
         }
 
         // Update is called once per frame
@@ -65,14 +66,8 @@ namespace PYIV.Gameplay.Enemy
 
         private void Move()
         {
-            if (enemyData.Fly)
-            {
+            transform.Translate(-MoveSpeed / 300, 0, 0);
 
-            }
-            else
-            {
-                transform.Translate(-MoveSpeed / 300, 0, 0);
-            }
 
             if (transform.position.x < PlayingFieldBoundarys.Left)
                 Attack();

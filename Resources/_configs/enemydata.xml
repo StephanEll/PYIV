@@ -27,8 +27,8 @@
 	    <MoveSpeed>4</MoveSpeed>
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>40</LivePoints>
-      <Fly>false</Fly>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+      <Fly>true</Fly>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Eagle</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>4</Id>
@@ -36,7 +36,7 @@
 	    <AttackPower>1</AttackPower>
 	    <LivePoints>60</LivePoints>
       <Fly>false</Fly>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Panther</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
       <Id>5</Id>
