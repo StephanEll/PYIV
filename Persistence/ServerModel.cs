@@ -105,6 +105,7 @@ namespace PYIV.Persistence
 		
 		public virtual void ParseOnCreate (T responseObject)
 		{		
+			if(this.Id != responseObject.Id) Debug.Log ("changed id of model");
 			this.Id = responseObject.Id;
 		}
 		

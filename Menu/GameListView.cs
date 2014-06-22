@@ -55,8 +55,8 @@ namespace PYIV.Menu
 		}
 
 		private void OnLogoutButtonClick(GameObject button){
-			// TO-DO
-			Debug.Log ("Logout Button angelickt");
+			LoggedInPlayer.Instance.LogOut();
+			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
 		}
 
 

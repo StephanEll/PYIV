@@ -30,6 +30,7 @@ namespace PYIV.Menu.Commands
 			var newGameCommand = new CreateNewGameCommand(searchedPlayer, LoggedInPlayer.Instance.Player);
 			newGameCommand.Execute();
 			
+			
 		}
 
 		

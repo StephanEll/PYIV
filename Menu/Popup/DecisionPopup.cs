@@ -30,6 +30,7 @@ namespace PYIV.Menu.Popup
 			DecisionPopupParam param = parameter as DecisionPopupParam;
 			
 			UIEventListener.Get(acceptButton).onClick += param.OnAccept;
+			UIEventListener.Get(acceptButton).onClick += OnClose;
 			UIEventListener.Get(declineButton).onClick += param.OnDecline;
 			UIEventListener.Get(declineButton).onClick += OnClose;
 			

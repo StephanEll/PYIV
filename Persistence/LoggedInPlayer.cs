@@ -105,7 +105,7 @@ namespace PYIV.Persistence
 			return Instance != null;
 		}
 		
-		public static void LogOut(){
+		public void LogOut(){
 			lock(syncRoot){
 				Player.DeleteAuthData();
 				instance = null;
