@@ -17,6 +17,8 @@ namespace PYIV.Helper{
 
 		Camera camera;
 
+        private Player player;
+
 
 		//Configuration Camera at startup
 		void Awake(){
@@ -37,10 +39,36 @@ namespace PYIV.Helper{
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
 			
-			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
-            CreateTestData();
+            ShowStartScreen();
+            //CreateTestData();
 			
 		}
+
+        private void ShowStartScreen()
+        {
+            player = new Player();
+            try
+            {
+                player.GetByAuthData(OnPlayerAuthenticated, OnPlayerAuthenticationFailed);
+
+            }
+            catch (Exception e)
+            {
+                Debug.Log(e);
+                ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+            }
+        }
+
+        private void OnPlayerAuthenticated(Player player)
+        {
+            LoggedInPlayer.Login(this.player);
+            ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
+        }
+
+        private void OnPlayerAuthenticationFailed(RestException e)
+        {
+            ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+        }
 		
 		private void CreateTestData(){
 			TestData data = new TestData(OnSucess);
