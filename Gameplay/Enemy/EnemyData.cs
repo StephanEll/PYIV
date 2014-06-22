@@ -29,5 +29,15 @@ namespace PYIV.Gameplay.Enemy
             
         }
 
+        public void print(){
+            Debug.Log(
+                "ID: " + Id +
+                " MoveSpeed: " + MoveSpeed +
+                " AttackPower: " + AttackPower +
+                " LivePoints: " + LivePoints +
+                " PreafabPath: " + PreafabPath +
+                " fly: " + Fly );
+        }
+
     }
 }
