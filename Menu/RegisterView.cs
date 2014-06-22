@@ -43,6 +43,8 @@ namespace PYIV.Menu
 			} 
 			registeringPlayer.Password = passwordField.value;
 			
+			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
+			
 			try{	
 				registeringPlayer.Validate();
 			}
@@ -59,7 +61,6 @@ namespace PYIV.Menu
 				Debug.Log(e.Message);
 			}
 			
-			registeringPlayer.Save(OnSuccessfulRegistration, OnErrorAtRegistration);
 			
 
 		}

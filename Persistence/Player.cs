@@ -148,7 +148,7 @@ namespace PYIV.Persistence
 		{
 			if(obj is Player){
 				Player player = obj as Player;
-				if(player.Name.ToLower() == this.Name.ToLower()){
+				if(player.Id == this.Id){
 					return true;
 				}
 			}
