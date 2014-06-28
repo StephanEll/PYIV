@@ -3,6 +3,7 @@ using System.Collections;
 using PYIV.Menu;
 using PYIV.Gameplay;
 using PYIV.Persistence;
+using PYIV.Helper;
 
 namespace PYIV.Menu{
 
@@ -54,7 +55,7 @@ namespace PYIV.Menu{
 		}
 
 		private void SetVillageBar(int villagePoints) {
-			village_bar.fillAmount = (float)((villagePoints*2)/1000);
+			village_bar.fillAmount = (float)villagePoints / ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"); // wenn federn implementiert werde muss das geändert werden
 		}
 
 		private void SetStaminaBar(int stamina) {
