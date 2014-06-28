@@ -8,7 +8,7 @@
       <Id>1</Id>
       <Name>Indianer</Name>
       <Description>20</Description>
-      <Stamina>30</Stamina>
+      <Stamina>3</Stamina>
       <Strength>10</Strength>
       <Accuracy>1</Accuracy>
       <ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
@@ -20,7 +20,7 @@
       <Id>2</Id>
       <Name>Amazone</Name>
       <Description>20</Description>
-      <Stamina>20</Stamina>
+      <Stamina>2</Stamina>
       <Strength>20</Strength>
       <Accuracy>1</Accuracy>
       <ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
@@ -32,7 +32,7 @@
       <Id>3</Id>
       <Name>Massai</Name>
       <Description>20</Description>
-      <Stamina>10</Stamina>
+      <Stamina>1</Stamina>
       <Strength>30</Strength>
       <Accuracy>1</Accuracy>
       <ShotBehaviourClassName>WeaponSpear</ShotBehaviourClassName>

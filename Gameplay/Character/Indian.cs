@@ -13,6 +13,11 @@ namespace PYIV.Gameplay.Character {
             indian.IndianData = indianData;
             return indian;
         }
+
+        void Update()
+        {
+
+        }
     }
 
 }

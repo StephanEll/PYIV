@@ -1,6 +1,5 @@
 using UnityEngine;
 using System;
-using System.Collections;
 using PYIV.Menu;
 using PYIV.Persistence;
 using PYIV.Persistence.Errors;
@@ -13,9 +12,8 @@ using System.Collections.Generic;
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
 	{
-		GameData gameData;
+		private GameData gameData;
 
-		Camera camera;
 
         private Player player;
 
@@ -23,7 +21,6 @@ namespace PYIV.Helper{
 		//Configuration Camera at startup
 		void Awake(){
 
-			camera = Camera.main;
 			
 			 
 		}
@@ -43,7 +40,7 @@ namespace PYIV.Helper{
 			gcm.SetNotificationEnabled(false);
 			
             ShowStartScreen();
-            //CreateTestData();
+            CreateTestData();
 			
 		}
 
