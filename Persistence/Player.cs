@@ -144,17 +144,6 @@ namespace PYIV.Persistence
 
 		}
 		
-		public override bool Equals (object obj)
-		{
-			if(obj is Player){
-				Player player = obj as Player;
-				if(player.Id == this.Id){
-					return true;
-				}
-			}
-			return false;
-		}
-		
 		public override string ToString ()
 		{
 			return string.Format ("[Player: Name={0}, Auth_ids={1}, Wins={2}, Defeats={3}, Mail={4}, Password={5}]", Name, Auth_ids, Wins, Defeats, Mail, Password);
