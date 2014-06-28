@@ -8,6 +8,7 @@
       <Id>1</Id>
       <Name>Indianer</Name>
       <Description>20</Description>
+      <SpriteImageName>massai_icon</SpriteImageName>
       <Stamina>30</Stamina>
       <Strength>10</Strength>
       <Accuracy>1</Accuracy>
@@ -20,6 +21,7 @@
       <Id>2</Id>
       <Name>Amazone</Name>
       <Description>20</Description>
+      <SpriteImageName>amazone_icon</SpriteImageName>
       <Stamina>20</Stamina>
       <Strength>20</Strength>
       <Accuracy>1</Accuracy>
@@ -32,6 +34,7 @@
       <Id>3</Id>
       <Name>Massai</Name>
       <Description>20</Description>
+      <SpriteImageName>massai_icon</SpriteImageName>
       <Stamina>10</Stamina>
       <Strength>30</Strength>
       <Accuracy>1</Accuracy>
