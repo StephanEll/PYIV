@@ -39,8 +39,8 @@ namespace PYIV.Helper{
 			var dispatcher = UnityThreadHelper.Dispatcher;
 			
 			//Push notification initializer
-			GCM.Initialize ();
-			GCM.SetNotificationsEnabled(false);
+			var gcm = GoogleCloudMessageService.instance;
+			gcm.SetNotificationEnabled(false);
 			
             ShowStartScreen();
             //CreateTestData();
@@ -86,11 +86,14 @@ namespace PYIV.Helper{
 		}
 		
 		private void ApplicationLostFocus(){
-			GCM.SetNotificationsEnabled(true);
+			GoogleCloudMessageService.instance.SetNotificationEnabled(true);
 		}
 		
 		private void ApplicationGotFocus(){
-			GCM.SetNotificationsEnabled(false);
+			GoogleCloudMessageService.instance.SetNotificationEnabled(false);
+			if(LoggedInPlayer.IsLoggedIn()){
+				LoggedInPlayer.Instance.NotificationHandler.LoadNotificationsFromStore();
+			}
 		}
 		
 		private void CreateTestData(){
