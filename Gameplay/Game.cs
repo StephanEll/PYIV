@@ -12,14 +12,15 @@ namespace PYIV.Gameplay{
 	public class Game : MonoBehaviour
 	{
 
-        private float playingFieldWidth = 26;
-        private float playingFieldHeight = 16;
+    private float playingFieldWidth = 26;
+    private float playingFieldHeight = 16;
 
 		private GameObject background;
 		
 		private GameData gameData;
 		private SpawnController spawnController;
     private float initialCameraSize;
+
 		
 		public GameData GameData { 
 			
@@ -39,7 +40,7 @@ namespace PYIV.Gameplay{
 			Score.AddAsGameobjectTo(
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
-            IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
+        IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
 		}
 		
 		void Start ()
@@ -51,7 +52,7 @@ namespace PYIV.Gameplay{
 
 			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;
-            background.transform.parent = transform;
+      background.transform.parent = transform;
 			
 			background.transform.parent = this.transform;
 
@@ -60,21 +61,25 @@ namespace PYIV.Gameplay{
 		// Update is called once per frame
 		void Update ()
 		{
-            if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
-            {
-     
-                GameFinished();
-            }
+      if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
+      {
+          GameFinished();
+      }
 		}
 
-        private void GameFinished()
-        {
-      Score score = new Score();
-      score.
+    private void GameFinished()
+    {
+      Score oldScore = GetComponent<Score>();
+      Score score = Score.AddAsComponentTo(
+        Camera.main.gameObject, 
+        oldScore.HitCount, 
+        oldScore.MissedShotCount, 
+        oldScore.KillCount, 
+        oldScore.Livepoints);
       Camera.main.orthographicSize = initialCameraSize;
       Camera.main.gameObject.transform.position = Vector3.zero;
-      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(StatisticView),sc);
-        }
+      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(StatisticView),score);
+    }
 	}
 
 }

@@ -4,6 +4,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
 using PYIV.Menu.Commands;
+using PYIV.Helper;
 
 namespace PYIV.Menu
 {
@@ -60,7 +61,21 @@ namespace PYIV.Menu
 			UIEventListener.Get(nextRoundButton).onClick += OnNextRoundButtonClicked;
 			
 		}
-		
+
+
+    public override void UnpackParameter (object initParameter)
+    {
+      base.UnpackParameter (initParameter);
+      Score score = initParameter as Score;
+
+      int allShots = (score.HitCount + score.MissedShotCount);
+      int Livepoints = ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints") - score.Livepoints;
+      float gold = (((score.HitCount * 100.0f) / (allShots + (Livepoints / 20.0f))) * 10.0f) - Livepoints;
+
+      SetYouGold(gold.ToString());
+      SetYouDamage(Livepoints.ToString());
+      SetYouKills(score.KillCount.ToString());
+    }
 		
 		private void OnNextRoundButtonClicked(GameObject button) {
 
