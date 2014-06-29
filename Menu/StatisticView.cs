@@ -66,15 +66,15 @@ namespace PYIV.Menu
     public override void UnpackParameter (object initParameter)
     {
       base.UnpackParameter (initParameter);
-      Score score = initParameter as Score;
+      GameData gd = initParameter as GameData;
 
-      int allShots = (score.HitCount + score.MissedShotCount);
-      int Livepoints = ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints") - score.Livepoints;
-      float gold = (((score.HitCount * 100.0f) / (allShots + (Livepoints / 20.0f))) * 10.0f) - Livepoints;
+      ScoreResult score = gd.MyStatus.LatestRound.ScoreResult;
 
-      SetYouGold(gold.ToString());
-      SetYouDamage(Livepoints.ToString());
+      SetYouGold(score.Gold.ToString());
+      SetYouDamage(score.VillageDamage.ToString());
       SetYouKills(score.KillCount.ToString());
+
+      // todo: syncronisation des GameData objektes
     }
 		
 		private void OnNextRoundButtonClicked(GameObject button) {

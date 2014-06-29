@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
 using PYIV.Helper;
+using PYIV.Persistence;
 
 public class Score : MonoBehaviour {
 
@@ -60,17 +61,14 @@ public class Score : MonoBehaviour {
     }
   }
 
-  public static void AddAsGameobjectTo(GameObject go, int villageLivepoints)
+  public static void AddAsComponentTo(GameObject go, int villageLivepoints)
   {
     go.AddComponent<Score>().Livepoints = villageLivepoints;
   }
 
-  public static Score AddAsComponentTo(GameObject go, int hitCount, int missedShotCount, int killCount, int livepoints){
-    Score score = go.AddComponent<Score>();
-    score.HitCount = hitCount;
-    score.KillCount = killCount;
-    score.MissedShotCount = missedShotCount;
-    score.Livepoints = livepoints;
-    return score;
+  public ScoreResult GetScoreResult(){
+    return new ScoreResult(this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints);
   }
+
+
 }

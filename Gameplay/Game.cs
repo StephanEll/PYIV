@@ -37,7 +37,7 @@ namespace PYIV.Gameplay{
 			List<EnemyType> enemyTypes = GameData.OpponentStatus.LatestRound.SentAttackers;
 			this.spawnController = SpawnController.AddAsComponentTo(this.gameObject, enemyTypes);
 
-			Score.AddAsGameobjectTo(
+			Score.AddAsComponentTo(
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
         IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
@@ -63,22 +63,18 @@ namespace PYIV.Gameplay{
 		{
       if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
       {
-          GameFinished();
+         GameFinished();
       }
 		}
 
     private void GameFinished()
     {
-      Score oldScore = GetComponent<Score>();
-      Score score = Score.AddAsComponentTo(
-        Camera.main.gameObject, 
-        oldScore.HitCount, 
-        oldScore.MissedShotCount, 
-        oldScore.KillCount, 
-        oldScore.Livepoints);
       Camera.main.orthographicSize = initialCameraSize;
       Camera.main.gameObject.transform.position = Vector3.zero;
-      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(StatisticView),score);
+
+      gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score>().GetScoreResult();
+
+      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(StatisticView), gameData);
     }
 	}
 
