@@ -37,11 +37,19 @@ namespace PYIV.Gameplay{
 			List<EnemyType> enemyTypes = GameData.OpponentStatus.LatestRound.SentAttackers;
 			this.spawnController = SpawnController.AddAsComponentTo(this.gameObject, enemyTypes);
 
-			Score.AddAsComponentTo(
+			Score score = Score.AddAsComponentTo(
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
         IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
+
+      score.OnScoreChanged += HandleOnScoreChanged;
 		}
+
+    void HandleOnScoreChanged (int newScore)
+    {
+      if (newScore <= 0)
+        GameFinished();
+    }
 		
 		void Start ()
 		{

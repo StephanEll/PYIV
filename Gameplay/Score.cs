@@ -61,9 +61,11 @@ public class Score : MonoBehaviour {
     }
   }
 
-  public static void AddAsComponentTo(GameObject go, int villageLivepoints)
+  public static Score AddAsComponentTo(GameObject go, int villageLivepoints)
   {
-    go.AddComponent<Score>().Livepoints = villageLivepoints;
+    Score score = go.AddComponent<Score>();
+    score.Livepoints = villageLivepoints;
+    return score;
   }
 
   public ScoreResult GetScoreResult(){
