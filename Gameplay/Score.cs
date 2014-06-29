@@ -11,11 +11,21 @@ public class Score : MonoBehaviour {
     public int MissedShotCount { get; private set; }
     public int Livepoints { get; private set; }
 
-	public delegate void ScoreChangedDelegate(int newScore);
-	public event ScoreChangedDelegate OnScoreChanged;
+  	public delegate void ScoreChangedDelegate(int newScore);
+  	public event ScoreChangedDelegate OnScoreChanged;
 
     private List<Enemy> lastHits = new List<Enemy>();
     private List<Enemy> lastKills = new List<Enemy>();
+
+  public Score(){
+  }
+
+  public Score(int KillCount, int HitCount, int MissedShotCount, int Livepoints){
+    this.HitCount = HitCount;
+    this.KillCount = KillCount;
+    this.MissedShotCount = MissedShotCount;
+    this.Livepoints = Livepoints;
+  }
 
 	// Use this for initialization
 	void Start () {

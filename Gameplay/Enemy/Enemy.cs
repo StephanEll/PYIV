@@ -48,7 +48,7 @@ namespace PYIV.Gameplay.Enemy
         {
             fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
             fateOutFramesMax = fateOutFrames;
-            enemyData.print();
+            //enemyData.print();
             if (enemyData.Fly && this.GetComponent<Rigidbody2D>() == null)
             {
                 gameObject.AddComponent<Rigidbody2D>();
