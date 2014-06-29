@@ -67,6 +67,12 @@ namespace PYIV.Persistence
 			
 			return isPlayerOfDevice ? player : opponent ;
 		}
+
+
+		public bool IsMyTurn() {
+			System.Random rand = new System.Random();
+			return rand.Next(2) == 0;
+		}
 		
 		
 		
