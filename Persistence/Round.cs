@@ -45,9 +45,9 @@ namespace PYIV.Persistence{
 				sentAttackerIds = ids.ToList();
 			}
 		}
-		
-		[DataMember]
-		public int RemainingVillageLifepoints { get; set; }
+
+    [DataMember]
+    public ScoreResult ScoreResult { get; set; }
 		
 		public Round(){
 			
@@ -60,7 +60,7 @@ namespace PYIV.Persistence{
 		
 		public override string ToString ()
 		{
-			return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, RemainingVillageLifepoints);
+      return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, ScoreResult.RemainingVillageLifepoints);
 		}
 		
 		

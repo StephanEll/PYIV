@@ -4,6 +4,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
 using PYIV.Menu.Commands;
+using PYIV.Helper;
 
 namespace PYIV.Menu
 {
@@ -60,7 +61,21 @@ namespace PYIV.Menu
 			UIEventListener.Get(nextRoundButton).onClick += OnNextRoundButtonClicked;
 			
 		}
-		
+
+
+    public override void UnpackParameter (object initParameter)
+    {
+      base.UnpackParameter (initParameter);
+      GameData gd = initParameter as GameData;
+
+      ScoreResult score = gd.MyStatus.LatestRound.ScoreResult;
+
+      SetYouGold(score.Gold.ToString());
+      SetYouDamage(score.VillageDamage.ToString());
+      SetYouKills(score.KillCount.ToString());
+
+      // todo: syncronisation des GameData objektes
+    }
 		
 		private void OnNextRoundButtonClicked(GameObject button) {
 

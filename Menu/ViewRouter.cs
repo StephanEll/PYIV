@@ -55,7 +55,8 @@ namespace PYIV.Menu
 		}
 		
 		public void DestroyView(string type){
-			throw new NotImplementedException();
+		  throw new NotImplementedException();
+   
 		}
 		
 		public static ViewRouter TheViewRouter{

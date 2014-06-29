@@ -76,7 +76,7 @@ namespace PYIV.Gameplay
             spawnController.GenerateEnemyIdQueue(enemyTypes);
             spawnController.ComputeDeltaSpawnTime();
             spawnController.ComputeNextSpawnTime();
-			return spawnController;
+			      return spawnController;
         }
 
         private void ComputeDeltaSpawnTime()

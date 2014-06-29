@@ -18,6 +18,8 @@ namespace PYIV.Menu{
 		private UISprite village_bar;
 		private UISprite stamina_bar;
 
+    private float characterStamina;
+
 		
 		public GameView(){
 			game = new GameObject("Game", typeof(Game));
@@ -40,6 +42,8 @@ namespace PYIV.Menu{
 		public void RemoveFromScreen ()
 		{
 			GameObject.Destroy(game);
+      GameObject.Destroy(ui);
+
 		}
 
 		public bool ShouldBeCached ()
@@ -53,9 +57,10 @@ namespace PYIV.Menu{
 			game.GetComponent<Game>().GameData = gameData;
 			Score score = game.GetComponent<Score>();
 			score.OnScoreChanged += SetVillageBar;
-            Indian indian = game.transform.GetComponentInChildren<Indian>();
-            Debug.Log("indianer gefunden" +indian.IndianData.Accuracy);
-            indian.OnStaminaChanged += SetStaminaBar;
+
+      Indian indian = game.transform.GetComponentInChildren<Indian>();
+      indian.OnStaminaChanged += SetStaminaBar;
+      characterStamina = indian.IndianData.Stamina;
 		}
 
 		private void SetVillageBar(int villagePoints) {
@@ -63,7 +68,16 @@ namespace PYIV.Menu{
 		}
 
 		private void SetStaminaBar(float stamina) {
-            stamina_bar.fillAmount = stamina;
+
+      UIWidget staminaWidget = stamina_bar.GetComponent<UIWidget>();
+      if (stamina < 1.0f / characterStamina)
+        staminaWidget.color = new Color(1.0f, 0, 0);
+      else if(stamina < 0.5f)
+        staminaWidget.color = new Color(0.6f, 0.4f, 0);
+      else
+        staminaWidget.color = new Color(0, 1.0f, 0);
+
+      stamina_bar.fillAmount = stamina;
 		}
 
 
