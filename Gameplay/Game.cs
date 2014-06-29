@@ -37,6 +37,7 @@ namespace PYIV.Gameplay{
 			Score.AddAsGameobjectTo(
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
+            IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
 		}
 		
 		void Start ()
@@ -52,7 +53,6 @@ namespace PYIV.Gameplay{
 			
 			background.transform.parent = this.transform;
 
-            IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
 		}
 
 		// Update is called once per frame

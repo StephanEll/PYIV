@@ -67,16 +67,22 @@ namespace PYIV.Gameplay.Character.Weapon
 
                 float duration = Time.time - startTime;
                 //float speed = dist / duration;
+                if (gameObject.GetComponent<Indian>().ShotRequest())
+                {
+                    GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
+                    bullet.transform.parent = game.transform;
+                    Bullet.AddAsComponentTo(bullet, bulletStrength, score);
 
-                GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
-                bullet.transform.parent = game.transform;
-                Bullet.AddAsComponentTo(bullet, bulletStrength, score);
-
-                EndSwipeHandler(
-                    bullet.GetComponent<Bullet>(),
-                    startPosition,
-                    endPosition,
-                    duration);
+                    EndSwipeHandler(
+                        bullet.GetComponent<Bullet>(),
+                        startPosition,
+                        endPosition,
+                        duration);
+                }
+                else
+                {
+                    GoToStartPosition();
+                }
 
             }
 
@@ -91,6 +97,12 @@ namespace PYIV.Gameplay.Character.Weapon
                 startTime = Time.time;
                 StartSwipeHandler(startPosition);
             }
+        }
+
+        protected void GoToStartPosition()
+        {
+            this.GetComponent<Animator>().SetBool("aim", false);
+            transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
         }
     }
 }

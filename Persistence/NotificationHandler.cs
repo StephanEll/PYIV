@@ -4,6 +4,8 @@ using PYIV.Helper;
 using PYIV.Helper.GCM;
 using System.Collections;
 using System.Collections.Generic;
+using PYIV.Menu.Commands;
+using PYIV.Menu;
 
 namespace PYIV.Persistence
 {
@@ -12,9 +14,11 @@ namespace PYIV.Persistence
 		
 				
 		private const string GCM_ID_KEY = "gcmIdKey";
+		public CommandQueue CommandQueue { get; set; } 
 		
 		public NotificationHandler ()
 		{
+			CommandQueue = new CommandQueue();
 		}
 		
 		
@@ -51,12 +55,19 @@ namespace PYIV.Persistence
 		}
 		
 		private void ProcessNotification(PushNotificationData notificationData){
-			
+			switch (notificationData.type) {
+			case NotificationType.SYNC:
+				Debug.Log ("Process sync notification");
+				var syncCommand = new SyncCommand(CommandQueue);
+				syncCommand.Execute();
+				break;
+			case NotificationType.CHALLENGE_DENIED:
+				var challengeDeniedCommand = new ShowChallengeDeniedCommand(notificationData, CommandQueue);
+				CommandQueue.Enqueue(challengeDeniedCommand);
+				break;
+			}
 		}
-		
-		private void OnNotificationReceived(CEvent e){
-			NGUIDebug.Log(e.data as string);
-		}
+
 		
 		private void ActivateGcmIdOnServer(string id){
 			

@@ -2,6 +2,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using RestSharp;
+using PYIV.Menu.Commands;
+using UnityEngine;
 
 
 namespace PYIV.Persistence
@@ -12,8 +14,21 @@ namespace PYIV.Persistence
 		private const string RESOURCE = "gameDataCollection";
 		
 		public List<GameData> ModelList { get; set; }
-		public delegate void ModelAddedDelegate(List<GameData> newList, GameData newModel);
-		public event ModelAddedDelegate OnModelAdded;
+		
+		public List<GameData> RunningGames { 
+			get {
+				return (from game in ModelList where game.MyStatus.IsChallengeAccepted select game).ToList();
+			}
+		}
+		
+		public List<GameData> UnacceptedGames { 
+			get {
+				return (from game in ModelList where !game.MyStatus.IsChallengeAccepted select game).ToList();
+			}
+		}
+		
+		public delegate void ChangeDelegate();
+		public event ChangeDelegate OnChange;
 		
 		private List<GameData> unacceptedGames = new List<GameData>();
 		
@@ -25,15 +40,16 @@ namespace PYIV.Persistence
 		public static void FetchAll(Request<GameCollection>.SuccessDelegate OnSuccess, Request<GameCollection>.ErrorDelegate OnError){
 			var getRequest = new Request<GameCollection>(RESOURCE,Method.GET);
 			getRequest.OnError += OnError;
+			getRequest.OnSuccess += (responseObject) => responseObject.CreateAcceptGameCommandsAndAddToQueue(LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
 			getRequest.OnSuccess += OnSuccess;
 			getRequest.ExecuteAsync();
 			
 		}
 		
 		public void AddModel(GameData model){
-			this.ModelList.Add(model);
-			if(OnModelAdded != null){
-				OnModelAdded(this.ModelList, model);
+			this.ModelList.Insert(0, model);
+			if(OnChange != null){
+				OnChange();
 			}
 		}
 		
@@ -47,7 +63,7 @@ namespace PYIV.Persistence
 			
 			syncRequest.OnError += OnError;
 			syncRequest.OnSuccess += OnSuccess;
-			
+			Debug.Log("execute sync request");
 			syncRequest.ExecuteAsync();
 			
 		}
@@ -55,29 +71,40 @@ namespace PYIV.Persistence
 		void ParseChanges (GameSyncResponse gameSyncResponse)
 		{
 			
-			List<GameData> newGames = new List<GameData>();
+			Debug.Log("vor response : " + ModelList.Count);
 			
 			foreach(GameData updatedGame in gameSyncResponse.ModelList){
 				foreach(GameData existingGame in ModelList){
 					if(updatedGame.Equals(existingGame)){
+						Debug.Log("update existing game");
 						existingGame.OpponentStatus.ParseOnCreate(updatedGame.OpponentStatus);
 						break;
-					}
-					
-					//if this point is reached it must be a new game
-					newGames.Add(updatedGame);
-					
+					}					
 				}
 			}
 			
-			this.unacceptedGames = newGames;
+			//Delete games from ModelList
+			List<GameData> deletedGames = ModelList.Except(gameSyncResponse.ModelList).ToList();
+			foreach(GameData gameData in deletedGames){
+				Debug.Log("Delete existing game");
+				ModelList.Remove(gameData);
+			}
+			
+			CreateAcceptGameCommandsAndAddToQueue(LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
+			
+			Debug.Log("nach response : " + ModelList.Count);
+			
+			if(OnChange != null){
+				OnChange();
+			}
 
 		}
 		
-		public List<GameData> GetAndResetUnacceptedGames(){
-			var tmpUnacceptedGames = this.unacceptedGames;
-			this.unacceptedGames = new List<GameData>();
-			return tmpUnacceptedGames;
+		public void CreateAcceptGameCommandsAndAddToQueue(CommandQueue commandQueue){
+			foreach(GameData unacceptedGame in UnacceptedGames){
+				var acceptChallengeCommand = new ShowAcceptChallengeCommand(unacceptedGame, commandQueue);
+				commandQueue.Enqueue(acceptChallengeCommand);
+			}
 		}
 		
 		private List<GameData> FindUnsyncedGames(){

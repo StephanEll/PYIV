@@ -40,7 +40,7 @@ namespace PYIV.Helper{
 			gcm.SetNotificationEnabled(false);
 			
             ShowStartScreen();
-            CreateTestData();
+            //CreateTestData();
 			
 		}
 

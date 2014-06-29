@@ -13,6 +13,8 @@ namespace PYIV.Gameplay.Character
         public string Name { get; set; }
         [XmlElement()]
 		public string Description { get; set; }
+		[XmlElement()]
+		public string SpriteImageName { get; set; }
         [XmlElement()]
         public int Stamina { get; set; }
         [XmlElement()]
