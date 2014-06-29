@@ -35,7 +35,7 @@ namespace PYIV.Demo.Character
                 GameObject shootableObjectClone = (GameObject)Instantiate(
                     shootableObject.gameObject, 
                     new Vector3(posPlayer.x, posPlayer.y, 0), 
-                    Quaternion.EulerAngles(0, 0, 0));
+                    Quaternion.Euler(0, 0, 0));
                 shootableObjectClone.GetComponent<ShootableObject>().SwipeHandler(
                     startPosition, 
                     endPosition, 

@@ -4,6 +4,7 @@ using PYIV.Menu;
 using PYIV.Gameplay;
 using PYIV.Persistence;
 using PYIV.Helper;
+using PYIV.Gameplay.Character;
 
 namespace PYIV.Menu{
 
@@ -52,15 +53,17 @@ namespace PYIV.Menu{
 			game.GetComponent<Game>().GameData = gameData;
 			Score score = game.GetComponent<Score>();
 			score.OnScoreChanged += SetVillageBar;
+            Indian indian = game.transform.GetComponentInChildren<Indian>();
+            Debug.Log("indianer gefunden" +indian.IndianData.Accuracy);
+            indian.OnStaminaChanged += SetStaminaBar;
 		}
 
 		private void SetVillageBar(int villagePoints) {
 			village_bar.fillAmount = (float)villagePoints / ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"); // wenn federn implementiert werde muss das geändert werden
 		}
 
-		private void SetStaminaBar(int stamina) {
-			// TODO
-
+		private void SetStaminaBar(float stamina) {
+            stamina_bar.fillAmount = stamina;
 		}
 
 

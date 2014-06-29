@@ -41,7 +41,6 @@ namespace PYIV.Gameplay
                 ComputeNextSpawnTime();
             }
 
-            
         }
 
         private void GenerateEnemyIdQueue(List<EnemyType> enemyTypes)

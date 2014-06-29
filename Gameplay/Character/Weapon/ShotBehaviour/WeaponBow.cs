@@ -6,10 +6,10 @@ namespace PYIV.Gameplay.Character.Weapon {
 
         public override void EndSwipeHandler(Bullet bullet, Vector2 startPos, Vector2 endPos, float duration)
         {
-            Debug.Log("end swipe");
+            //Debug.Log("end swipe");
 
             bullet.transform.position = this.transform.position;
-            Invoke("DoAfterShot", 0.5f);
+            Invoke("GoToStartPosition", 0.5f);
             
             this.GetComponent<Animator>().SetTrigger("shot");
 
@@ -25,21 +25,17 @@ namespace PYIV.Gameplay.Character.Weapon {
             
         }
 
-        private void DoAfterShot()
-        {
-            this.GetComponent<Animator>().SetBool("aim", false);
-            transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
-        }
+        
     
         public override void StartSwipeHandler(Vector2 startPos)
         {
-            Debug.Log("start swipe");
+            //Debug.Log("start swipe");
             
         }
 
         public override void UpdateSwipeHandler(Vector2 startPos, Vector2 endPos, float duration)
         {
-            Debug.Log("update swipe");
+            //Debug.Log("update swipe");
 
             if (startPos.x > endPos.x)
             {
