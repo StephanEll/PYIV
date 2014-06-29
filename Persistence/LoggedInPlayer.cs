@@ -13,7 +13,7 @@ namespace PYIV.Persistence
 		private static volatile LoggedInPlayer instance;
 		private static object syncRoot = new object();
 		
-		private ServerCollection<GameData> gameList;
+		private GameCollection gameList;
 		public NotificationHandler NotificationHandler { get; set; }
 		
 		
@@ -56,13 +56,14 @@ namespace PYIV.Persistence
 			}
 		}
 		
-		public void GetOrFetchGameList(Request<ServerCollection<GameData>>.SuccessDelegate OnSuccess, Request<ServerCollection<GameData>>.ErrorDelegate OnError){
+		public void GetOrFetchGameList(Request<GameCollection>.SuccessDelegate OnSuccess, Request<GameCollection>.ErrorDelegate OnError){
 			
 			if(gameList != null){
 				OnSuccess(gameList);
 			}
 			else{
-				ServerCollection<GameData>.FetchAll((responseObject) => {
+				
+				GameCollection.FetchAll((responseObject) => {
 					this.gameList = responseObject;
 					OnSuccess(this.gameList);
 				}, OnError);
@@ -70,7 +71,7 @@ namespace PYIV.Persistence
 			
 		}
 		
-		public ServerCollection<GameData> GameList{
+		public GameCollection GameList{
 			get { return gameList; }
 		}
 

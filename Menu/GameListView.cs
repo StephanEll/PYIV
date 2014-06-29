@@ -14,7 +14,7 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
-		private ServerCollection<GameData> serverGameCollection;
+		private GameCollection serverGameCollection;
 		private Dictionary<GameObject, GameData> buttonToGameData;
 				
 		
@@ -23,6 +23,7 @@ namespace PYIV.Menu
 			TouchScreenKeyboard.hideInput = true;
 			buttonToGameData = new Dictionary<GameObject,GameData>();
 		}
+		
 
 		protected override void OnPanelCreated ()
 		{
@@ -60,14 +61,14 @@ namespace PYIV.Menu
 		}
 
 
-		private void OnServerCollectionReceived(ServerCollection<GameData> serverCollection) {
+		private void OnServerCollectionReceived(GameCollection serverCollection) {
 			
 			serverGameCollection = serverCollection;
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
 			
 			CreateGameBoardsFromCollection();
 			
-
+						
 		}
 		
 		private void CreateGameBoardsFromCollection() {

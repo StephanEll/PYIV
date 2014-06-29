@@ -14,15 +14,21 @@ namespace PYIV.Persistence
 		
 		public ServerCollection ()
 		{
-			
+			ModelList = new List<T>();
 		}
 		
-		public static void FetchAll(Request<ServerCollection<T>>.SuccessDelegate OnSuccess, Request<ServerCollection<T>>.ErrorDelegate OnError){
+		public void FetchAll(Request<ServerCollection<T>>.SuccessDelegate OnSuccess, Request<ServerCollection<T>>.ErrorDelegate OnError){
 			var getRequest = new Request<ServerCollection<T>>(ServerModel.ComputeResourceName(typeof(T))+"Collection",Method.GET);
+			getRequest.OnSuccess += CopyList;
 			getRequest.OnError += OnError;
 			getRequest.OnSuccess += OnSuccess;
 			getRequest.ExecuteAsync();
 			
+		}
+
+		void CopyList (ServerCollection<T> responseObject)
+		{
+			this.ModelList = responseObject.ModelList;
 		}
 		
 		public void AddModel(T model){
