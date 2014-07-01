@@ -6,6 +6,7 @@ using PYIV.Persistence.Errors;
 using PYIV.Helper;
 using PYIV.Menu.Popup;
 using System.Collections.Generic;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Menu
 {
@@ -14,7 +15,7 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
-		private ServerCollection<GameData> serverGameCollection;
+		private GameCollection serverGameCollection;
 		private Dictionary<GameObject, GameData> buttonToGameData;
 
 		
@@ -22,13 +23,16 @@ namespace PYIV.Menu
 		{
 			TouchScreenKeyboard.hideInput = true;
 			buttonToGameData = new Dictionary<GameObject,GameData>();
+			LoggedInPlayer.Instance.NotificationHandler.CommandQueue.OnFirstCommandAdded += ExecuteFirstCommand;
 		}
+		
 
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			LoggedInPlayer.Instance.GetOrFetchGameList(OnServerCollectionReceived, OnServerError);
 			InitViewComponents();
+			LoggedInPlayer.Instance.GetOrFetchGameList(OnServerCollectionReceived, OnServerError);
+			
 		}
 
 		
@@ -58,16 +62,17 @@ namespace PYIV.Menu
 		}
 
 		private void OnRefreshButtonClick(GameObject button){
-			RefreshGameBoardsFromCollection();
+			var syncCommand = new SyncCommand(LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
+			syncCommand.Execute();
 		}
 
-
-		private void OnServerCollectionReceived(ServerCollection<GameData> serverCollection) {
+		private void OnServerCollectionReceived(GameCollection serverCollection) {
 			
 			serverGameCollection = serverCollection;
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
 			
 			CreateGameBoardsFromCollection();
+			serverGameCollection.OnChange += RefreshGameBoardsFromCollection;
 		}
 		
 		private void CreateGameBoardsFromCollection() {
@@ -80,10 +85,11 @@ namespace PYIV.Menu
 
 
 		private void RefreshGameBoardsFromCollection() {
+			
+			
 			foreach(Transform obj in GameList_Grid_GameObject.transform) {
 				NGUITools.Destroy(obj.gameObject);
 			}
-			CreateGameBoardsFromCollection();
 		}
 
 		private void ShowNoGamesSign() {
@@ -119,7 +125,8 @@ namespace PYIV.Menu
 			roundNr.text = gameData.MyStatus.Rounds.Count + ". R";
 			playerIcon.spriteName = gameData.MyStatus.IndianData.SpriteImageName;
 			opponentIcon.spriteName = gameData.OpponentStatus.IndianData.SpriteImageName;
-
+			
+			
 			if(gameData.IsMyTurn()) {
 				opponentIcon.spriteName += "_bw";
 				opponent_arrow.SetActive(false);
@@ -162,6 +169,10 @@ namespace PYIV.Menu
 			UIEventListener.Get(logoutButton).onClick += OnLogoutButtonClick;
 			UIEventListener.Get(refreshButton).onClick += OnRefreshButtonClick;
 			GameList_Grid.Reposition();
+		}
+		
+		private void ExecuteFirstCommand(){
+			LoggedInPlayer.Instance.NotificationHandler.CommandQueue.Dequeue().Execute();
 		}
 
 

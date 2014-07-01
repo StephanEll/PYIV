@@ -11,6 +11,18 @@ namespace PYIV.Helper.GCM
 		[DataMember]
 		public string title { get; set; }
 		
+		private NotificationType _type;
+		
+		[DataMember]
+		public NotificationType type { 
+			get{
+				return _type;
+			} 
+			set{
+				type = (NotificationType)value;
+			}
+		}
+		
 		public PushNotificationData ()
 		{
 		}

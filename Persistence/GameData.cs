@@ -25,6 +25,8 @@ namespace PYIV.Persistence
 			}
 		}
 		
+		public bool IsSynced { get; set; }
+		
 		[IgnoreDataMember]
 		public PlayerStatus OpponentStatus {
 			get{
@@ -59,6 +61,8 @@ namespace PYIV.Persistence
 
 			
 		}
+		
+		
 		
 		public PlayerStatus GetPlayerOrOpponentStatus(bool isPlayerOfDevice){
 			

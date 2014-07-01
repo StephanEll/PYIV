@@ -17,7 +17,7 @@ namespace PYIV.Menu
 		}
 	
 	
-		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
+		public virtual void AddToScreen (GameObject guiParent, GameObject sceneParent)
 		{
 			if(panel == null){
 				panel = NGUITools.AddChild(guiParent, panelPrefab);

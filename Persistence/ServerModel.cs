@@ -51,25 +51,11 @@ namespace PYIV.Persistence
 			}
 			
 		}
-		
-		public override bool Equals (object obj)
-		{
-			if (obj == null)
-				return false;
-			if (ReferenceEquals (this, obj))
-				return true;
-			if (obj.GetType () != typeof(ServerModel))
-				return false;
-			PYIV.Persistence.ServerModel other = (PYIV.Persistence.ServerModel)obj;
-			return Id == other.Id;
-		}
 
 
 		public override int GetHashCode ()
 		{
-			unchecked {
-				return (Id != null ? Id.GetHashCode () : 0);
-			}
+			return (Id != null ? Id.GetHashCode() : 0);				
 		}
 
 		
@@ -131,7 +117,21 @@ namespace PYIV.Persistence
 			this.Id = responseObject.Id;
 		}
 		
-
+		public override bool Equals (object obj)
+		{
+			if (obj == null){
+				return false;
+			}
+			if (ReferenceEquals (this, obj)){
+				return true;
+			}
+			if (obj.GetType () != typeof(T)){
+				return false;
+			}
+			T other = (T)obj;
+			
+			return Id == other.Id;
+		}
 		
 		
 		

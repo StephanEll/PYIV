@@ -7,6 +7,7 @@ namespace PYIV.Menu.Popup
 	{
 		
 		public string Text { get; set; }
+		public UIEventListener.VoidDelegate OnClose { get; set; }
 		
 		public PopupParam (string text)
 		{

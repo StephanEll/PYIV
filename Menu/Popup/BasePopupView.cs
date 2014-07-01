@@ -10,6 +10,7 @@ namespace PYIV.Menu.Popup
 		protected GameObject sprite;
 		protected GameObject closeButton;
 		protected UILabel textLabel;
+		protected UIEventListener.VoidDelegate onCloseCallback;
 		
 		public BasePopupView () : base("PopupPrefab")
 		{
@@ -35,6 +36,8 @@ namespace PYIV.Menu.Popup
 		
 		protected void OnClose(GameObject button){
 			this.RemoveFromScreen();
+			if(onCloseCallback != null)
+				onCloseCallback(button);
 		}
 		
 		
@@ -43,6 +46,7 @@ namespace PYIV.Menu.Popup
 		{
 			PopupParam param = parameter as PopupParam;
 			textLabel.text = param.Text;
+			onCloseCallback = param.OnClose;
 		}
 		
 		public override bool ShouldBeCached ()
