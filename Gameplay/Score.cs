@@ -59,6 +59,7 @@ public class Score : MonoBehaviour {
     if(OnScoreChanged != null){
       OnScoreChanged(this.Livepoints);
     }
+    Handheld.Vibrate();
   }
 
   public static Score AddAsComponentTo(GameObject go, int villageLivepoints)
