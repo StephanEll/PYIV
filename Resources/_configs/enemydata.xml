@@ -12,6 +12,7 @@
 	    <AttackPower>10</AttackPower>
 	    <LivePoints>10</LivePoints>
       <Fly>false</Fly>
+      <SpawnTime>0.9</SpawnTime>
       <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
     </EnemyData>
 	  <EnemyData>
@@ -20,6 +21,7 @@
 	    <AttackPower>20</AttackPower>
 	    <LivePoints>20</LivePoints>
       <Fly>false</Fly>
+      <SpawnTime>0.5</SpawnTime>
 	    <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
@@ -28,6 +30,7 @@
 	    <AttackPower>40</AttackPower>
 	    <LivePoints>40</LivePoints>
       <Fly>true</Fly>
+      <SpawnTime>0.5</SpawnTime>
 	    <PreafabPath>Prefabs/Enemys/Enemy_Eagle</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
@@ -36,6 +39,7 @@
 	    <AttackPower>60</AttackPower>
 	    <LivePoints>60</LivePoints>
       <Fly>false</Fly>
+      <SpawnTime>0.3</SpawnTime>
 	    <PreafabPath>Prefabs/Enemys/Enemy_Panther</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
@@ -44,6 +48,7 @@
 	    <AttackPower>90</AttackPower>
 	    <LivePoints>90</LivePoints>
       <Fly>false</Fly>
+      <SpawnTime>0.1</SpawnTime>
 	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
 	  </EnemyData>
 	  <EnemyData>
@@ -52,6 +57,7 @@
 	    <AttackPower>150</AttackPower>
 	    <LivePoints>150</LivePoints>
       <Fly>false</Fly>
+      <SpawnTime>0.5</SpawnTime>
 	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
 	  </EnemyData>
 	</EnemyDataCollection>
