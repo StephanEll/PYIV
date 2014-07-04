@@ -82,7 +82,7 @@ namespace PYIV.Gameplay.Enemy
 
     private void Move()
     {
-      transform.Translate(-MoveSpeed / 300, 0, 0);
+      transform.Translate(-MoveSpeed / 250, 0, 0);
     }
 
     private void Fly()

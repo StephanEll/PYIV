@@ -21,7 +21,7 @@ namespace PYIV.Helper{
 		//Configuration Camera at startup
 		void Awake(){
 
-			
+
 			 
 		}
 
@@ -40,7 +40,7 @@ namespace PYIV.Helper{
 			gcm.SetNotificationEnabled(false);
 			
             ShowStartScreen();
-            //CreateTestData();
+            CreateTestData();
 			
 		}
 
