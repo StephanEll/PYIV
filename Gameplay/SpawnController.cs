@@ -15,7 +15,9 @@ namespace PYIV.Gameplay
         private float deltaSpawnTime;
         private float nextSpawntime;
         private float countTime = 0;
+		private float lastEnemySpawnTime;
 
+		private Vector3 enemyStartPosition;
         private GameObject EnemyContainer;
 
         void Start()
@@ -30,6 +32,8 @@ namespace PYIV.Gameplay
                     )
                 );
 
+			enemyStartPosition = new Vector3(3,0,0);
+
         }
 
         // Update is called once per frame
@@ -38,7 +42,7 @@ namespace PYIV.Gameplay
 
             if (nextSpawntime < Time.time && EnemyIdQueue.Count != 0) {
                 Spawn();
-                ComputeNextSpawnTime();
+               	if(EnemyIdQueue.Count != 0) ComputeNextSpawnTime();
             }
 
         }
@@ -62,11 +66,41 @@ namespace PYIV.Gameplay
         {
             EnemyData ed;
             EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-            EnemyBuilder.CreateEnemy(
+			Debug.Log ("SpawnTime: " + Time.time + " ID " + ed.Id);
+			switch (ed.Id)
+			{
+				case "1":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-10,-7);
+					break;
+				case "2":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-7,-5);
+					break;
+				case "3":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-5,-1);
+					break;
+				case "4":
+					enemyStartPosition.z =  UnityEngine.Random.Range (0,3);
+					break;
+				case "5":
+					enemyStartPosition.z =  UnityEngine.Random.Range (3,5);
+					break;
+				case "6":
+					enemyStartPosition.z =  UnityEngine.Random.Range (5,8);
+					break;
+				default:
+				enemyStartPosition.z =  UnityEngine.Random.Range (-5,-7);
+					break;
+					
+			}
+
+		
+			EnemyBuilder.CreateEnemy(
                 ed, 
-                EnemyContainer.transform, 
-                EnemyContainer.transform.parent.GetComponent<Score>()
+				EnemyContainer.transform,
+                EnemyContainer.transform.parent.GetComponent<Score>(),
+				enemyStartPosition
                 );
+			lastEnemySpawnTime = ed.SpawnTime;
             EnemyIdQueue.RemoveAt(0);
         }
 
@@ -87,8 +121,10 @@ namespace PYIV.Gameplay
         }
 
         private void ComputeNextSpawnTime()
-        {
-            nextSpawntime = Time.time + deltaSpawnTime + UnityEngine.Random.Range (-deltaSpawnTime,deltaSpawnTime);
+        {	
+			EnemyData ed;
+			EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
+			nextSpawntime = Time.time + deltaSpawnTime; //+ UnityEngine.Random.Range (-(deltaSpawnTime*lastEnemySpawnTime),deltaSpawnTime*ed.SpawnTime);
         }
 
         public GameObject GetEnemyContainer()

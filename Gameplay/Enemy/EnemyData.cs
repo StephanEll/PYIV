@@ -22,7 +22,8 @@ namespace PYIV.Gameplay.Enemy
         public string PreafabPath {get; set; }
         [XmlElement()]
         public bool Fly { get; set; } // evlt ändern in move behaviour
-
+		[XmlElement()]
+		public float SpawnTime { get; set; }
 
         public EnemyData()
         {
@@ -36,7 +37,8 @@ namespace PYIV.Gameplay.Enemy
                 " AttackPower: " + AttackPower +
                 " LivePoints: " + LivePoints +
                 " PreafabPath: " + PreafabPath +
-                " fly: " + Fly );
+                " fly: " + Fly + 
+				" SpawnTime: " + SpawnTime);
         }
 
     }
