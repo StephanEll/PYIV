@@ -34,6 +34,14 @@ namespace PYIV.Menu
 			LoggedInPlayer.Instance.GetOrFetchGameList(OnServerCollectionReceived, OnServerError);
 			
 		}
+		
+		public override void RemoveFromScreen ()
+		{
+			base.RemoveFromScreen();
+			//Unregister listeners
+			Debug.Log ("unregister listeners");
+			serverGameCollection.OnChange -= RefreshGameBoardsFromCollection;
+		}
 
 		
 		private void OnNewGameButtonClick(GameObject button){
@@ -85,8 +93,7 @@ namespace PYIV.Menu
 
 
 		private void RefreshGameBoardsFromCollection() {
-			
-			
+
 			foreach(Transform obj in GameList_Grid_GameObject.transform) {
 				NGUITools.Destroy(obj.gameObject);
 			}

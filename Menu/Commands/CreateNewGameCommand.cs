@@ -37,6 +37,7 @@ namespace PYIV.Menu.Commands
 			newGame.OpponentStatus.AddRound(round);
 			newGame.MyStatus.AddRound(round);
 			
+			
 		}
 
 		

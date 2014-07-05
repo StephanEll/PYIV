@@ -12,13 +12,11 @@ namespace PYIV.Menu.Commands
 	public class ShowAcceptChallengeCommand : QueuedCommand
 	{
 		
-		private Player player;
 		private GameData newGame;
 		private DecisionPopupParam param;
 		
 		public ShowAcceptChallengeCommand (GameData newGame, CommandQueue commandQueue) : base(commandQueue)
 		{
-			this.player = player;
 			this.newGame = newGame;
 			
 			string message = String.Format(StringConstants.NEW_CHALLENGE, newGame.OpponentStatus.Player.Name);

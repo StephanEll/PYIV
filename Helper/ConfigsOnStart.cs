@@ -8,6 +8,7 @@ using System.Net;
 using PYIV.Gameplay.Enemy;
 using System.Collections;
 using System.Collections.Generic;
+using PYIV.Helper.GCM;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -29,6 +30,11 @@ namespace PYIV.Helper{
 		//Configuration/Initializationcode at startup
 		void Start ()
 		{
+			
+			
+			var pushData = SimpleJson.SimpleJson.DeserializeObject<PushNotificationData>("{\"message\":\"Defend yourself!\",\"android.support.content.wakelockid\":1,\"title\":\"manfred47 attacks your village\",\"from\":\"419590633699\",\"collapse_key\":\"do_not_collapse\",\"type\":\"1\"}");
+			Debug.Log(pushData);
+			
 			//ignores certificate check when dealing with ssl
 			ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
@@ -55,7 +61,7 @@ namespace PYIV.Helper{
             catch (Exception e)
             {
                 Debug.Log(e);
-                ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+                ViewRouter.TheViewRouter.ShowView(typeof(RegisterView));
             }
         }
 		

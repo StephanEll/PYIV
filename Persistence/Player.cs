@@ -106,6 +106,9 @@ namespace PYIV.Persistence
 			var authRequest = new Request<Player>(ComputeResourceName(typeof(Player))+"/login", Method.GET);
 			authRequest.OnSuccess += ParseOnCreate;
 			authRequest.OnSuccess += OnSuccess;
+			authRequest.OnError += delegate {
+				DeleteAuthData();
+			};
 			authRequest.OnError += OnError;
 			authRequest.AddBody (this);
 			authRequest.ExecuteAsync();

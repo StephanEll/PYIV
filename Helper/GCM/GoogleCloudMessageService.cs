@@ -20,7 +20,7 @@ public class GoogleCloudMessageService : Singleton<GoogleCloudMessageService> {
 	public const string CLOUD_MESSAGE_LOADED = "cloud_message_loaded";
 
 
-	private string _lastMessage = string.Empty;
+	private PushNotificationData _lastMessage = null;
 	private string _registrationId = string.Empty;
 
 
@@ -65,7 +65,7 @@ public class GoogleCloudMessageService : Singleton<GoogleCloudMessageService> {
 		}
 	}
 
-	public string lastMessage {
+	public PushNotificationData lastMessage {
 		get {
 			return _lastMessage;
 		}
@@ -77,7 +77,10 @@ public class GoogleCloudMessageService : Singleton<GoogleCloudMessageService> {
 	//--------------------------------------
 
 	private void OnLastMessageLoaded(string data) {
-		_lastMessage = data;
+		
+		PushNotificationData notificationData = SimpleJson.SimpleJson.DeserializeObject<PushNotificationData>(data);
+		Debug.Log ("PushData received: " + notificationData);
+		_lastMessage = notificationData;
 		dispatch(CLOUD_MESSAGE_LOADED, lastMessage);
 
 	}
