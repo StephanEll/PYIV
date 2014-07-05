@@ -10,21 +10,21 @@ namespace PYIV.Menu.Commands
 	{
 		
 		private CommandQueue commandQueue;
+		private bool doInBackground;
 		
-		public SyncCommand (CommandQueue commandQueue)
+		public SyncCommand (bool doInBackground, CommandQueue commandQueue)
 		{
 			this.commandQueue = commandQueue;
+			this.doInBackground = doInBackground;
 		}
 		
 		public void Execute(){
 			if(LoggedInPlayer.Instance.GameList != null){
-				LoggedInPlayer.Instance.GameList.Sync(OnSuccess, OnError);
+				LoggedInPlayer.Instance.GameList.Sync(OnSuccess, OnError, doInBackground);
 			}
 		}
 		
 		private void OnSuccess(GameSyncResponse response){
-			
-			LoggedInPlayer.Instance.GameList.CreateAcceptGameCommandsAndAddToQueue(commandQueue);
 			
 		}
 		

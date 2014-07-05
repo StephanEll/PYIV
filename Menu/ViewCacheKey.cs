@@ -43,6 +43,10 @@ namespace PYIV.Menu
 			return isEqual;
 		
 		}
+		public override string ToString ()
+		{
+			return string.Format ("[ViewCacheKey: Type={0}, Parameter={1}]", Type, Parameter);
+		}
 
 	}
 }

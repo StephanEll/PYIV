@@ -53,6 +53,12 @@ namespace PYIV.Menu.Popup
 		{
 			return false;
 		}
+		
+		public override void Back ()
+		{
+			OnClose(null);
+		}
+		
 	}
 }
 

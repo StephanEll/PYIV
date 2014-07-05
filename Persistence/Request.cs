@@ -4,31 +4,29 @@ using PYIV.Helper;
 using PYIV.Persistence.Errors;
 using UnityEngine;
 using System.Runtime.Serialization;
+using PYIV.Menu;
+using PYIV.Menu.Popup;
 
 namespace PYIV.Persistence
 {
 	
-	/// <summary>
-	/// Performes a async REST-Request an calls success- or failure-callbacks 
-	/// with a response-object or a exception 
-	/// </summary>
-	public class Request<T>
-	{
-		public delegate void SuccessDelegate (T responseObject);
+	
+	public class Request{
 
-		public delegate void ErrorDelegate(RestException error);
+		public delegate void RequestCompletedDelegate();
+		public event RequestCompletedDelegate OnRequestCompleted;
 		
+		protected bool doInBackground;
+		
+		protected IRestClient restClient;
+		protected IRestRequest request;
+		
+		public delegate void ErrorDelegate(RestException error);
 		public event ErrorDelegate OnError;
 		
-		public event SuccessDelegate OnSuccess;
-		
-		private IRestClient restClient;
-		private IRestRequest request;
-		
-		public Request (string resource, RestSharp.Method method)
-		{
+		public Request(string resource, RestSharp.Method method, bool doInBackground = false){
 			restClient = new RestClient (ServerModel.UrlRoot);
-			
+			this.doInBackground = doInBackground;
 			
 			AddAuthentication();
 			
@@ -36,10 +34,8 @@ namespace PYIV.Persistence
 			
 			request.AddHeader("content-type", "application/json; charset=utf-8");
 			request.RequestFormat = DataFormat.Json;
-			
-
 		}
-			
+		
 		private void AddAuthentication(){
 			
 			if(LoggedInPlayer.IsLoggedIn()){
@@ -61,27 +57,56 @@ namespace PYIV.Persistence
 			request.AddParameter(param, paramValue, ParameterType.UrlSegment);
 			
 		}
-		
+
 		public void ExecuteAsync(){
-			restClient.ExecuteAsync (request, (response) => {
+			if(!doInBackground){
+				ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(LoadingView), new LoadingPopupParam(this));
+			}
+			restClient.ExecuteAsync (request, (response) => {				
 				OnAsyncRequestComplete (response);
 			});
 		}
 		
-		private void OnAsyncRequestComplete (IRestResponse response)
+		protected void OnAsyncRequestComplete (IRestResponse response)
 		{
 			
 			UnityThreadHelper.Dispatcher.Dispatch (() => {
-
+				
 				Debug.Log ("RAW SERVER RESPONSE CONTENT: "+response.Content);
+				
+				if(OnRequestCompleted != null)
+					OnRequestCompleted();
+				
 				RestException exception = new ResponseErrorHandler(response).HandlePossibleErrors();
 				if (exception == null)
 					ParseResponse (response);
 				else if(OnError != null)
 					OnError(exception);
+				
 			});
 		}
-		private void ParseResponse(IRestResponse response){
+		
+		protected virtual void ParseResponse(IRestResponse response){ }
+		
+	}
+	
+	/// <summary>
+	/// Performes a async REST-Request an calls success- or failure-callbacks 
+	/// with a response-object or a exception 
+	/// </summary>
+	public class Request<T> : Request
+	{
+		public delegate void SuccessDelegate (T responseObject);
+
+		
+		
+		public event SuccessDelegate OnSuccess;
+		
+		
+		public Request(string resource, RestSharp.Method method, bool doInBackground = false) : base ( resource, method, doInBackground){
+		}
+		
+		protected override void ParseResponse(IRestResponse response){
 			var deserializer = new RestSharp.Deserializers.JsonDeserializer ();
 			T responseObject;
 			try{

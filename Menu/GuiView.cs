@@ -50,6 +50,7 @@ namespace PYIV.Menu
 		
 		public virtual void UnpackParameter(object parameter){}
 		
+		public abstract void Back();
 		
 	
 	}

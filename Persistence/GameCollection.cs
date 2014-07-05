@@ -54,10 +54,10 @@ namespace PYIV.Persistence
 		}
 		
 		
-		public void Sync(Request<GameSyncResponse>.SuccessDelegate OnSuccess, Request<GameSyncResponse>.ErrorDelegate OnError){
+		public void Sync(Request<GameSyncResponse>.SuccessDelegate OnSuccess, Request<GameSyncResponse>.ErrorDelegate OnError, bool doInBackground){
 			var unsyncedGames = FindUnsyncedGames();
 			
-			var syncRequest = new Request<GameSyncResponse>(RESOURCE, Method.PUT);
+			var syncRequest = new Request<GameSyncResponse>(RESOURCE, Method.PUT, doInBackground);
 			syncRequest.AddBody(unsyncedGames);
 			syncRequest.OnSuccess += ParseChanges;
 			

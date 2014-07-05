@@ -18,22 +18,10 @@ namespace PYIV.Helper{
 
         private Player player;
 
-
-		//Configuration Camera at startup
-		void Awake(){
-
-			
-			 
-		}
-
 	
 		//Configuration/Initializationcode at startup
 		void Start ()
 		{
-			
-			
-			var pushData = SimpleJson.SimpleJson.DeserializeObject<PushNotificationData>("{\"message\":\"Defend yourself!\",\"android.support.content.wakelockid\":1,\"title\":\"manfred47 attacks your village\",\"from\":\"419590633699\",\"collapse_key\":\"do_not_collapse\",\"type\":\"1\"}");
-			Debug.Log(pushData);
 			
 			//ignores certificate check when dealing with ssl
 			ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
@@ -49,6 +37,11 @@ namespace PYIV.Helper{
             //CreateTestData();
 			
 		}
+		
+		void Update(){
+			 if (Input.GetKeyDown(KeyCode.Escape))
+				ViewRouter.TheViewRouter.GoBack();
+		}
 
         private void ShowStartScreen()
         {
@@ -61,7 +54,7 @@ namespace PYIV.Helper{
             catch (Exception e)
             {
                 Debug.Log(e);
-                ViewRouter.TheViewRouter.ShowView(typeof(RegisterView));
+                ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
             }
         }
 		

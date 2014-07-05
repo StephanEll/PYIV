@@ -13,6 +13,7 @@ namespace PYIV.Menu
 		
 		bool ShouldBeCached();
 		
+		void Back();
 		
 		
 		

@@ -60,7 +60,7 @@ namespace PYIV.Persistence
 			switch (notificationData.NotificationType) {
 			case NotificationType.SYNC:
 				Debug.Log ("Process sync notification");
-				var syncCommand = new SyncCommand(CommandQueue);
+				var syncCommand = new SyncCommand(true, CommandQueue);
 				syncCommand.Execute();
 				break;
 			case NotificationType.CHALLENGE_DENIED:

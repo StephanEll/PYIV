@@ -19,7 +19,10 @@ namespace PYIV.Menu
 		private GameObject guiParent;
 		private GameObject sceneParent;
 		
+
 		private BaseView activeView;
+		
+		
 		
 		
 		void Start(){
@@ -34,23 +37,28 @@ namespace PYIV.Menu
 
 		
 		public void ShowViewWithParameter(Type type, object parameter){
-			BaseView view = GetFromCacheOrCreate(type, parameter);
 
-			
 			if(activeView != null){
+				
 				activeView.RemoveFromScreen();
 			}
 			
+			var newCacheKey = new ViewCacheKey(type, parameter);
+			BaseView view = GetFromCacheOrCreate(newCacheKey);
 			view.AddToScreen(guiParent, sceneParent);
 			view.UnpackParameter(parameter);
+
 			activeView = view;
+			Debug.Log ("ActiveView = " + activeView.GetType());
+
 		}
 
-		public void ShowPopupWithParameter(Type type, PopupParam parameter){
+		public BaseView ShowPopupWithParameter(Type type, PopupParam parameter){
 			//won't cache in this case
 			BaseView popup = CreateAndCacheView(new ViewCacheKey(type, parameter));
 			popup.AddToScreen(guiParent, sceneParent);
 			popup.UnpackParameter(parameter);
+			return popup;
 
 		}
 		
@@ -66,13 +74,16 @@ namespace PYIV.Menu
 			}
 		}
 		
-		
-		private BaseView GetFromCacheOrCreate(Type type, object parameter){
-			BaseView view;
-			ViewCacheKey key = new ViewCacheKey(type, parameter);
+		private BaseView GetFromCache(ViewCacheKey key){
+			BaseView view = null;
 			bool isInCache = viewCache.TryGetValue(key, out view);
+			return view;
+		}
+		
+		private BaseView GetFromCacheOrCreate(ViewCacheKey key){
+			var view = GetFromCache(key);
 			
-			if(!isInCache){
+			if(view == null){
 				view = CreateAndCacheView(key);
 			}
 
@@ -82,11 +93,18 @@ namespace PYIV.Menu
 		private BaseView CreateAndCacheView(ViewCacheKey cacheKey){
 			BaseView view = (BaseView)Activator.CreateInstance(cacheKey.Type);
 			
-			
-			if(view.ShouldBeCached()){
+			if(view.ShouldBeCached())
 				viewCache.Add(cacheKey, view);
-			}
+			
 			return view;
+		}
+		
+		public void GoBack(){
+			if(activeView != null)
+				activeView.Back();
+		}
+		public void Quit(){
+			Application.Quit();
 		}
 		
 		

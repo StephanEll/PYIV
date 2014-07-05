@@ -123,6 +123,11 @@ namespace PYIV.Menu
 			return false;
 		}
 		
+		public override void Back ()
+		{
+
+		}
+		
 	}
 }
 
