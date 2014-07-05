@@ -33,7 +33,12 @@ namespace PYIV.Persistence.Errors
 				return RestExceptionFactory.CreateExceptionFromError (error);
 			
 			}
-			return null;
+			else if(response.StatusCode == System.Net.HttpStatusCode.OK){
+				return null;
+			}
+			else{
+				return RestExceptionFactory.CreateUnknownError();
+			}
 		}
 		
 		

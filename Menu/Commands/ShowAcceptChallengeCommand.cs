@@ -6,6 +6,8 @@ using PYIV.Menu.Popup;
 using PYIV.Helper;
 using PYIV.Helper.GCM;
 using PYIV.Menu;
+using RestSharp;
+using PYIV.Persistence.Errors;
 
 namespace PYIV.Menu.Commands
 {
@@ -33,14 +35,27 @@ namespace PYIV.Menu.Commands
 		private void OnAccept(GameObject button){
 			Debug.Log ("GameAccepted");
 			newGame.MyStatus.IsChallengeAccepted = true;
-			//newGame.Save();
+			newGame.Save(OnSaveSuccess, OnError);
 			HandleNextCommand();
+		}
+		
+		private void OnSaveSuccess(GameData data){
+			LoggedInPlayer.Instance.GameList.Update();
+		}
+		
+		private void OnError(RestException e){
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
+			newGame.IsSynced = false;
 		}
 		
 		private void OnDecline(GameObject button){
 			Debug.Log("GameDeclined");
-			//newGame.Delete();
+			newGame.Delete(OnDeclineSuccess, OnError);
 			HandleNextCommand();
+		}
+		
+		private void OnDeclineSuccess(GameData d){
+			LoggedInPlayer.Instance.GameList.RemoveModel(newGame);
 		}
 		
 	}

@@ -67,8 +67,6 @@ namespace PYIV.Persistence
 	/// </summary>
 	public abstract class ServerModel<T> : ServerModel where T : ServerModel<T>, new()
 	{
-		
-		
 
 		/**
 		 * Syncs the model with the Server. 
@@ -81,6 +79,9 @@ namespace PYIV.Persistence
 			
 			if (this.Id == null) {
 				Create (OnSuccess, OnError);
+			}
+			else{
+				Update(OnSuccess, OnError);
 			}
 			
 		}
@@ -111,9 +112,35 @@ namespace PYIV.Persistence
 			postRequest.ExecuteAsync();
 		}
 		
+		public void Update (Request<T>.SuccessDelegate onSuccess, Request<T>.ErrorDelegate onError)
+		{
+			Debug.Log ("ServerModel :: UPDATE :: send put request to server");
+			var putRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.PUT);
+			putRequest.OnSuccess += ParseOnCreate;
+			putRequest.OnError += onError;
+			putRequest.OnSuccess += onSuccess;
+			
+			
+			putRequest.AddBody(this);
+			putRequest.ExecuteAsync();
+		}
+		
+		public void Delete(Request<T>.SuccessDelegate onSuccess, Request<T>.ErrorDelegate onError){
+			Debug.Log ("ServerModel :: DELETE :: send delete request to server");
+			var deleteRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.DELETE);
+			
+			deleteRequest.OnError += onError;
+			deleteRequest.OnSuccess += onSuccess;
+			
+			
+			deleteRequest.AddBody(this);
+			deleteRequest.ExecuteAsync();
+		}
+		
 		public virtual void ParseOnCreate (T responseObject)
 		{		
-			if(this.Id != responseObject.Id) Debug.Log ("changed id of model");
+			if(this.Id != null && this.Id != responseObject.Id) 
+				Debug.Log ("changed id of model");
 			this.Id = responseObject.Id;
 		}
 		

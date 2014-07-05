@@ -15,7 +15,6 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
-		private GameCollection serverGameCollection;
 		private Dictionary<GameObject, GameData> buttonToGameData;
 
 		
@@ -47,8 +46,9 @@ namespace PYIV.Menu
 			
 			//Unregister listeners
 			
-			serverGameCollection.OnChange -= RefreshGameBoardsFromCollection;
+			
 			if(LoggedInPlayer.IsLoggedIn()){
+				LoggedInPlayer.Instance.GameList.OnChange -= RefreshGameBoardsFromCollection;
 				LoggedInPlayer.Instance.NotificationHandler.CommandQueue.OnFirstCommandAdded -= ExecuteFirstCommand;
 			}
 		}
@@ -86,15 +86,13 @@ namespace PYIV.Menu
 
 		private void OnGameCollectionReceived(GameCollection serverCollection) {
 			
-			serverGameCollection = serverCollection;
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
-			
 			CreateGameBoardsFromCollection();
-			serverGameCollection.OnChange += RefreshGameBoardsFromCollection;
+			LoggedInPlayer.Instance.GameList.OnChange += RefreshGameBoardsFromCollection;
 		}
 		
 		private void CreateGameBoardsFromCollection() {
-			foreach(var obj in serverGameCollection.ModelList) {
+			foreach(var obj in LoggedInPlayer.Instance.GameList.RunningGames) {
 				FillGameBoard(obj);
 			}
 			
@@ -104,7 +102,6 @@ namespace PYIV.Menu
 
 
 		private void RefreshGameBoardsFromCollection() {
-			Debug.Log("refresh " + serverGameCollection.ModelList.Count + " game boards");
 			foreach(Transform obj in GameList_Grid_GameObject.transform) {
 				NGUITools.Destroy(obj.gameObject);
 			}
@@ -113,7 +110,7 @@ namespace PYIV.Menu
 
 		private void ShowNoGamesSign() {
 			GameObject BottomAnchor = sprite.transform.FindChild("BottomAnchor").gameObject;
-			if(serverGameCollection.ModelList.Count == 0) {
+			if(LoggedInPlayer.Instance.GameList.RunningGames.Count == 0) {
 				BottomAnchor.SetActive(true);
 			} else {
 				BottomAnchor.SetActive(false);

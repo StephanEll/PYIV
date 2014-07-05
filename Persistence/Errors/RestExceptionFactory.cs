@@ -1,5 +1,6 @@
 using System;
 using PYIV.Persistence.Errors;
+using PYIV.Helper;
 namespace PYIV.Persistence.Errors
 {
 	public static class RestExceptionFactory
@@ -23,6 +24,10 @@ namespace PYIV.Persistence.Errors
 		
 		public static RestException CreateNoConnectionException(){
 			return new NoConnectionException();
+		}
+		
+		public static RestException CreateUnknownError(){
+			return new RestException(StringConstants.UNKNOWN_ERROR);
 		}
 		
 	}

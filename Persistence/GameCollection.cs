@@ -48,9 +48,12 @@ namespace PYIV.Persistence
 		
 		public void AddModel(GameData model){
 			this.ModelList.Insert(0, model);
-			if(OnChange != null){
-				OnChange();
-			}
+			Update ();
+		}
+		
+		public void RemoveModel(GameData model){
+			this.ModelList.Remove(model);
+			Update();
 		}
 		
 		
@@ -81,6 +84,9 @@ namespace PYIV.Persistence
 						break;
 					}					
 				}
+				
+				//add new games
+				ModelList.Add(updatedGame);
 			}
 			
 			//Delete games from ModelList
@@ -94,10 +100,14 @@ namespace PYIV.Persistence
 			
 			Debug.Log("nach response : " + ModelList.Count);
 			
+			Update ();
+
+		}
+		
+		public void Update(){
 			if(OnChange != null){
 				OnChange();
 			}
-
 		}
 		
 		public void CreateAcceptGameCommandsAndAddToQueue(CommandQueue commandQueue){

@@ -45,7 +45,7 @@ namespace PYIV.Persistence
 			
 			PlayerStatus.Add(new PlayerStatus(challenger));
 			PlayerStatus.Add(new PlayerStatus(defender));
-			
+			MyStatus.IsChallengeAccepted = true;
 		}
 		
 		public override void ParseOnCreate (GameData responseObject)
