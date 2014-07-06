@@ -45,7 +45,6 @@ namespace PYIV.Menu.Commands
 		
 		private void OnError(RestException e){
 			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
-			newGame.IsSynced = false;
 		}
 		
 		private void OnDecline(GameObject button){

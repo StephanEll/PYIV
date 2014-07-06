@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml.Serialization;
+using System;
+using System.Runtime.Serialization;
 
 namespace PYIV.Gameplay
 {
-
+	[Serializable]
     public abstract class ProductType : IIdentifiable
     {
         [XmlElement()]

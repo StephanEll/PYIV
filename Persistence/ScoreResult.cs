@@ -1,59 +1,60 @@
 ﻿using UnityEngine;
 using System.Collections;
 using PYIV.Helper;
+using System;
 using System.Runtime.Serialization;
 
-namespace PYIV.Persistence{
+namespace PYIV.Persistence
+{
+	[DataContract]
+	[Serializable]
+  	public class ScoreResult
+	{
 
-  [DataContract]
-  public class ScoreResult {
+		[DataMember]
+		public int HitCount { get; set; }
 
-    [DataMember]
-    public int HitCount { get; set; }
-    [DataMember]
-    public int KillCount { get; set; }
-    [DataMember]
-    public int MissedShotCount { get; set; }
-    [DataMember]
-    public int RemainingVillageLifepoints { get; set; }
+		[DataMember]
+		public int KillCount { get; set; }
 
-    [IgnoreDataMember]
-    public int AllShots
-    { 
-      get
-      {
-        return HitCount + MissedShotCount;
-      }
-    }
+		[DataMember]
+		public int MissedShotCount { get; set; }
 
-    [IgnoreDataMember]
-    public int VillageDamage 
-    {
-      get
-      {
-        return ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints") - RemainingVillageLifepoints;
-      }
-    }
+		[DataMember]
+		public int RemainingVillageLifepoints { get; set; }
 
-    [IgnoreDataMember]
-    public int Gold
-    { 
-      get
-      {
-        return (int) (((HitCount * 100.0f) / (AllShots + (VillageDamage / 20.0f))) * 10.0f) - VillageDamage;
-      }
-    }
+		[IgnoreDataMember]
+		public int AllShots { 
+			get {
+				return HitCount + MissedShotCount;
+			}
+		}
 
-    public ScoreResult(){
-    }
+		[IgnoreDataMember]
+		public int VillageDamage {
+			get {
+				return ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints") - RemainingVillageLifepoints;
+			}
+		}
 
-    public ScoreResult(int hitCount, int missedShotCount, int killCount, int remainingVillageLifepoints)
-    {
-      HitCount = hitCount;
-      KillCount = killCount;
-      MissedShotCount = missedShotCount;
-      RemainingVillageLifepoints = remainingVillageLifepoints;
-    }
+		[IgnoreDataMember]
+		public int Gold { 
+			get {
+				return (int)(((HitCount * 100.0f) / (AllShots + (VillageDamage / 20.0f))) * 10.0f) - VillageDamage;
+			}
+		}
 
-  }
+		public ScoreResult ()
+		{
+		}
+
+		public ScoreResult (int hitCount, int missedShotCount, int killCount, int remainingVillageLifepoints)
+		{
+			HitCount = hitCount;
+			KillCount = killCount;
+			MissedShotCount = missedShotCount;
+			RemainingVillageLifepoints = remainingVillageLifepoints;
+		}
+
+	}
 }

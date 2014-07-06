@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 
 namespace PYIV.Gameplay.Enemy
 {
-
+	[Serializable]
     public class EnemyType : ProductType
     {
         [XmlElement()]

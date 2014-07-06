@@ -9,6 +9,7 @@ using PYIV.Gameplay.Enemy;
 using System.Collections;
 using System.Collections.Generic;
 using PYIV.Helper.GCM;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -83,12 +84,29 @@ namespace PYIV.Helper{
 		
 		private void ApplicationLostFocus(){
 			GoogleCloudMessageService.instance.SetNotificationEnabled(true);
+			if(LoggedInPlayer.IsLoggedIn()){
+				var gameList = LoggedInPlayer.Instance.GameList;
+				if(gameList.HasUnsyncedGames()){
+					Debug.Log ("Save unsynced games");
+					LocalDataPersistence.Save(gameList.UnsyncedGames, LocalDataPersistence.GAMES_FILENAME);
+				}
+			}
 		}
 		
 		private void ApplicationGotFocus(){
 			GoogleCloudMessageService.instance.SetNotificationEnabled(false);
+
 			if(LoggedInPlayer.IsLoggedIn()){
 				LoggedInPlayer.Instance.NotificationHandler.LoadNotificationsFromStore();
+				SyncMemoryDataWithServer();
+			}
+		}
+		
+		private void SyncMemoryDataWithServer(){
+			if(LoggedInPlayer.Instance.GameList != null && LoggedInPlayer.Instance.GameList.HasUnsyncedGames()){
+				Debug.Log ("Sync games in memory");
+				var syncCommand = new SyncCommand(true, LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
+				syncCommand.Execute();
 			}
 		}
 		

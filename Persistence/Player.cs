@@ -12,6 +12,7 @@ namespace PYIV.Persistence
 	/// <summary>
 	/// Represents a player infront of the phone
 	/// </summary>
+	[Serializable]
 	public class Player : ServerModel<Player>
 	{
 		

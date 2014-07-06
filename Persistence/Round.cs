@@ -13,6 +13,7 @@ using System.Runtime.Serialization;
 namespace PYIV.Persistence
 {
 	[DataContract]
+	[Serializable]
 	public class Round
 	{
 		

@@ -7,6 +7,7 @@ using UnityEngine;
 namespace PYIV.Persistence
 {
 	[DataContract]
+	[Serializable]
 	public class GameData : ServerModel<GameData>
 	{		
 		[DataMember]
@@ -37,6 +38,7 @@ namespace PYIV.Persistence
 		
 		public GameData(){
 			PlayerStatus = new List<PlayerStatus>(2);
+			IsSynced = false;
 
 		}
 		
@@ -51,6 +53,9 @@ namespace PYIV.Persistence
 		public override void ParseOnCreate (GameData responseObject)
 		{
 			base.ParseOnCreate (responseObject);
+			
+			IsSynced = true;
+			
 			this.CreatedAt = responseObject.CreatedAt;
 			this.UpdatedAt = responseObject.UpdatedAt;
 			
@@ -62,7 +67,11 @@ namespace PYIV.Persistence
 			
 		}
 		
-		
+		protected override void HandleError (PYIV.Persistence.Errors.RestException e)
+		{
+			base.HandleError (e);
+			IsSynced = false;
+		}
 		
 		public PlayerStatus GetPlayerOrOpponentStatus(bool isPlayerOfDevice){
 			

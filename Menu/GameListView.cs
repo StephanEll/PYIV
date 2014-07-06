@@ -88,7 +88,7 @@ namespace PYIV.Menu
 			
 			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
 			CreateGameBoardsFromCollection();
-			LoggedInPlayer.Instance.GameList.OnChange += RefreshGameBoardsFromCollection;
+			LoggedInPlayer.Instance.GameList.OnChange += RefreshGameBoardsFromCollection;			
 		}
 		
 		private void CreateGameBoardsFromCollection() {

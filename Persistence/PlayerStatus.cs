@@ -11,6 +11,7 @@ using PYIV.Gameplay.Character;
 namespace PYIV.Persistence
 {
 	[DataContract]
+	[Serializable]
 	public class PlayerStatus : ServerModel<PlayerStatus>
 	{
 		

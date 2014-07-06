@@ -48,10 +48,11 @@ namespace PYIV.Menu.Commands
 			}
 			
 			newGame.Save(NewGameCreated, ErrorCreatingGame);
+			LoggedInPlayer.Instance.GameList.AddModel(newGame);
 		}
 		
 		private void NewGameCreated(GameData gameData){
-			LoggedInPlayer.Instance.GameList.AddModel(newGame);
+			
 			
 			//next screen
 			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
