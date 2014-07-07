@@ -18,6 +18,10 @@ namespace PYIV.Menu.Commands
 		
 		public override void Execute(){
 			base.Execute();
+			
+			var syncCommand = new SyncCommand(true, CommandQueue);
+			syncCommand.Execute();
+			
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), popupParams);
 		}
 		

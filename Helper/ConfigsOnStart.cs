@@ -55,7 +55,7 @@ namespace PYIV.Helper{
             catch (Exception e)
             {
                 Debug.Log(e);
-                ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+                ViewRouter.TheViewRouter.ShowView(typeof(RegisterView));
             }
         }
 		
@@ -106,6 +106,7 @@ namespace PYIV.Helper{
 			if(LoggedInPlayer.Instance.GameList != null && LoggedInPlayer.Instance.GameList.HasUnsyncedGames()){
 				Debug.Log ("Sync games in memory");
 				var syncCommand = new SyncCommand(true, LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
+				
 				syncCommand.Execute();
 			}
 		}
