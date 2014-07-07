@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using RestSharp;
 using PYIV.Menu.Commands;
 using UnityEngine;
+using System.Runtime.Serialization;
 
 
 namespace PYIV.Persistence
 {
+	[Serializable]
 	public class GameCollection
 	{
 		
@@ -15,11 +17,13 @@ namespace PYIV.Persistence
 		
 		public List<GameData> ModelList { get; set; }
 		
+		
 		public List<GameData> RunningGames { 
 			get {
 				return (from game in ModelList where game.MyStatus.IsChallengeAccepted select game).ToList();
 			}
 		}
+		
 		
 		public List<GameData> UnacceptedGames { 
 			get {
@@ -27,14 +31,24 @@ namespace PYIV.Persistence
 			}
 		}
 		
-		public delegate void ChangeDelegate();
-		public event ChangeDelegate OnChange;
+		public List<GameData> UnsyncedGames {
+			get {	
+				return (from game in ModelList where !game.IsSynced select game).ToList();
+			}
+		}
 		
-		private List<GameData> unacceptedGames = new List<GameData>();
+		public delegate void ChangeDelegate();
+		
+		[field:NonSerialized] 
+		public event ChangeDelegate OnChange;
 		
 		
 		public GameCollection ()
 		{
+		}
+		
+		public GameCollection(List<GameData> unsyncedGames){
+			this.ModelList = unsyncedGames;
 		}
 		
 		public static void FetchAll(Request<GameCollection>.SuccessDelegate OnSuccess, Request<GameCollection>.ErrorDelegate OnError){
@@ -48,17 +62,20 @@ namespace PYIV.Persistence
 		
 		public void AddModel(GameData model){
 			this.ModelList.Insert(0, model);
-			if(OnChange != null){
-				OnChange();
-			}
+			Update ();
+		}
+		
+		public void RemoveModel(GameData model){
+			this.ModelList.Remove(model);
+			Update();
 		}
 		
 		
-		public void Sync(Request<GameSyncResponse>.SuccessDelegate OnSuccess, Request<GameSyncResponse>.ErrorDelegate OnError){
-			var unsyncedGames = FindUnsyncedGames();
+		public void Sync(Request<GameSyncResponse>.SuccessDelegate OnSuccess, Request<GameSyncResponse>.ErrorDelegate OnError, bool doInBackground){
 			
-			var syncRequest = new Request<GameSyncResponse>(RESOURCE, Method.PUT);
-			syncRequest.AddBody(unsyncedGames);
+			
+			var syncRequest = new Request<GameSyncResponse>(RESOURCE, Method.PUT, doInBackground);
+			syncRequest.AddBody(UnsyncedGames);
 			syncRequest.OnSuccess += ParseChanges;
 			
 			syncRequest.OnError += OnError;
@@ -78,9 +95,13 @@ namespace PYIV.Persistence
 					if(updatedGame.Equals(existingGame)){
 						Debug.Log("update existing game");
 						existingGame.OpponentStatus.ParseOnCreate(updatedGame.OpponentStatus);
+						existingGame.IsSynced = true;
 						break;
 					}					
 				}
+				
+				//add new games
+				ModelList.Add(updatedGame);
 			}
 			
 			//Delete games from ModelList
@@ -94,10 +115,14 @@ namespace PYIV.Persistence
 			
 			Debug.Log("nach response : " + ModelList.Count);
 			
+			Update ();
+
+		}
+		
+		public void Update(){
 			if(OnChange != null){
 				OnChange();
 			}
-
 		}
 		
 		public void CreateAcceptGameCommandsAndAddToQueue(CommandQueue commandQueue){
@@ -107,8 +132,10 @@ namespace PYIV.Persistence
 			}
 		}
 		
-		private List<GameData> FindUnsyncedGames(){
-			return new List<GameData>();
+		
+		
+		public bool HasUnsyncedGames(){
+			return UnsyncedGames.Count > 0;
 		}
 		
 		

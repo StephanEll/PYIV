@@ -73,6 +73,11 @@ namespace PYIV.Menu
 		{
 			return true;
 		}
+		
+		public override void Back ()
+		{
+			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
+		}
 	}
 }
 

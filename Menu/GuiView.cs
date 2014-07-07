@@ -29,7 +29,7 @@ namespace PYIV.Menu
 			}
 		}
 	
-		public void RemoveFromScreen ()
+		public virtual void RemoveFromScreen ()
 		{
 			if(ShouldBeCached()){
 				NGUITools.SetActive(panel, false);
@@ -50,6 +50,7 @@ namespace PYIV.Menu
 		
 		public virtual void UnpackParameter(object parameter){}
 		
+		public abstract void Back();
 		
 	
 	}

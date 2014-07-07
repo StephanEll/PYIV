@@ -6,19 +6,19 @@ using PYIV.Menu.Popup;
 using PYIV.Helper;
 using PYIV.Helper.GCM;
 using PYIV.Menu;
+using RestSharp;
+using PYIV.Persistence.Errors;
 
 namespace PYIV.Menu.Commands
 {
 	public class ShowAcceptChallengeCommand : QueuedCommand
 	{
 		
-		private Player player;
 		private GameData newGame;
 		private DecisionPopupParam param;
 		
 		public ShowAcceptChallengeCommand (GameData newGame, CommandQueue commandQueue) : base(commandQueue)
 		{
-			this.player = player;
 			this.newGame = newGame;
 			
 			string message = String.Format(StringConstants.NEW_CHALLENGE, newGame.OpponentStatus.Player.Name);
@@ -35,14 +35,26 @@ namespace PYIV.Menu.Commands
 		private void OnAccept(GameObject button){
 			Debug.Log ("GameAccepted");
 			newGame.MyStatus.IsChallengeAccepted = true;
-			//newGame.Save();
+			newGame.Save(OnSaveSuccess, OnError);
 			HandleNextCommand();
+		}
+		
+		private void OnSaveSuccess(GameData data){
+			LoggedInPlayer.Instance.GameList.Update();
+		}
+		
+		private void OnError(RestException e){
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
 		}
 		
 		private void OnDecline(GameObject button){
 			Debug.Log("GameDeclined");
-			//newGame.Delete();
+			newGame.Delete(OnDeclineSuccess, OnError);
 			HandleNextCommand();
+		}
+		
+		private void OnDeclineSuccess(GameData d){
+			LoggedInPlayer.Instance.GameList.RemoveModel(newGame);
 		}
 		
 	}

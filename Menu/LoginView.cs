@@ -84,6 +84,11 @@ namespace PYIV.Menu
 			//immer neu erstellen, um keine Vorbelegung zu haben
 			return false;
 		}
+		
+		public override void Back ()
+		{
+
+		}
 	}
 }
 

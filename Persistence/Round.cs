@@ -10,24 +10,26 @@ using PYIV.Helper;
 using PYIV.Menu;
 using System.Runtime.Serialization;
 
-namespace PYIV.Persistence{
-	
+namespace PYIV.Persistence
+{
 	[DataContract]
-	public class Round {
+	[Serializable]
+	public class Round
+	{
 		
 		
 		private List<string> sentAttackerIds;
 		
 		[DataMember]
-		public List<string> SentAttackerIds{
+		public List<string> SentAttackerIds {
 			
-			get{
+			get {
 				return sentAttackerIds;
 			}
 			
-			set{
+			set {
 				sentAttackerIds = value;
-				SentAttackers = ConvertIdsToEnemyTypes(value);	
+				SentAttackers = ConvertIdsToEnemyTypes (value);	
 			}
 			
 		}
@@ -36,31 +38,33 @@ namespace PYIV.Persistence{
 		
 		[IgnoreDataMember]
 		public List<EnemyType> SentAttackers {
-			get{
+			get {
 				return sentAttackers;
 			}
-			set{
+			set {
 				sentAttackers = value;
 				var ids = from type in value select type.Id;
-				sentAttackerIds = ids.ToList();
+				sentAttackerIds = ids.ToList ();
 			}
 		}
 
-    [DataMember]
-    public ScoreResult ScoreResult { get; set; }
+		[DataMember]
+		public ScoreResult ScoreResult { get; set; }
 		
-		public Round(){
+		public Round ()
+		{
 			
 		}
 		
-		private List<EnemyType> ConvertIdsToEnemyTypes(List<string> enemyIds){
+		private List<EnemyType> ConvertIdsToEnemyTypes (List<string> enemyIds)
+		{
 			
-			return EnemyTypeCollection.Instance.GetSubCollection(enemyIds.ToArray()).ToList<EnemyType>();
+			return EnemyTypeCollection.Instance.GetSubCollection (enemyIds.ToArray ()).ToList<EnemyType> ();
 		}
 		
 		public override string ToString ()
 		{
-      return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, ScoreResult.RemainingVillageLifepoints);
+			return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, ScoreResult.RemainingVillageLifepoints);
 		}
 		
 		

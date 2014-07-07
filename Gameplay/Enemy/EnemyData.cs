@@ -5,9 +5,12 @@ using System.Collections;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Collections.Generic;
+using System;
+using System.Runtime.Serialization;
 
 namespace PYIV.Gameplay.Enemy
 {
+	[Serializable]
     public class EnemyData : IIdentifiable
     {
         [XmlElement()]

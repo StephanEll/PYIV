@@ -116,6 +116,11 @@ namespace PYIV.Menu
 		{
 			return false;
 		}
+		
+		public override void Back ()
+		{
+			throw new NotImplementedException ();
+		}
 	}
 }
 

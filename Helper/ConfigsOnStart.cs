@@ -8,6 +8,8 @@ using System.Net;
 using PYIV.Gameplay.Enemy;
 using System.Collections;
 using System.Collections.Generic;
+using PYIV.Helper.GCM;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -16,18 +18,11 @@ namespace PYIV.Helper{
 
     private Player player;
 
-
-		//Configuration Camera at startup
-		void Awake(){
-
-			
-			 
-		}
-
 	
 		//Configuration/Initializationcode at startup
 		void Start ()
 		{
+			
 			//ignores certificate check when dealing with ssl
 			ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
@@ -41,6 +36,11 @@ namespace PYIV.Helper{
             ShowStartScreen();
             //CreateTestData();
 			
+		}
+		
+		void Update(){
+			 if (Input.GetKeyDown(KeyCode.Escape))
+				ViewRouter.TheViewRouter.GoBack();
 		}
 
         private void ShowStartScreen()
@@ -83,12 +83,29 @@ namespace PYIV.Helper{
 		
 		private void ApplicationLostFocus(){
 			GoogleCloudMessageService.instance.SetNotificationEnabled(true);
+			if(LoggedInPlayer.IsLoggedIn()){
+				var gameList = LoggedInPlayer.Instance.GameList;
+				if(gameList.HasUnsyncedGames()){
+					Debug.Log ("Save unsynced games");
+					LocalDataPersistence.Save(gameList.UnsyncedGames, LocalDataPersistence.GAMES_FILENAME);
+				}
+			}
 		}
 		
 		private void ApplicationGotFocus(){
 			GoogleCloudMessageService.instance.SetNotificationEnabled(false);
+
 			if(LoggedInPlayer.IsLoggedIn()){
 				LoggedInPlayer.Instance.NotificationHandler.LoadNotificationsFromStore();
+				SyncMemoryDataWithServer();
+			}
+		}
+		
+		private void SyncMemoryDataWithServer(){
+			if(LoggedInPlayer.Instance.GameList != null && LoggedInPlayer.Instance.GameList.HasUnsyncedGames()){
+				Debug.Log ("Sync games in memory");
+				var syncCommand = new SyncCommand(true, LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
+				syncCommand.Execute();
 			}
 		}
 		

@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System;
 
 namespace PYIV.Gameplay.Character
 {
-
+	[Serializable]
     public class IndianData : IIdentifiable
     {
 		[XmlElement()]
