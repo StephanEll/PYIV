@@ -4,17 +4,16 @@
 
 <root>
   
-  
 	<EnemyDataCollection>
 	  <EnemyData>
-      <Id>1</Id>
+      	<Id>1</Id>
 	    <MoveSpeed>5</MoveSpeed>
 	    <AttackPower>10</AttackPower>
 	    <LivePoints>10</LivePoints>
-      <Fly>false</Fly>
-      <SpawnTime>0.9</SpawnTime>
-      <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
-    </EnemyData>
+      	<Fly>false</Fly>
+	    <SpawnTime>0.9</SpawnTime>
+	  	<PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+	  </EnemyData>
 	  <EnemyData>
       <Id>2</Id>
 	    <MoveSpeed>3</MoveSpeed>

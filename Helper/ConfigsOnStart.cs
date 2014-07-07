@@ -14,8 +14,7 @@ namespace PYIV.Helper{
 	{
 		private GameData gameData;
 
-
-        private Player player;
+    private Player player;
 
 
 		//Configuration Camera at startup
