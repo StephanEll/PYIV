@@ -19,6 +19,7 @@ namespace PYIV.Menu
 
 		//Flynotes
 		private GameObject onHit_Flynote_Prefab;
+		private GameObject onHit_flynote;
 
 
 		private UISprite village_bar;
@@ -40,6 +41,8 @@ namespace PYIV.Menu
 			game.SetActive (true);
 
 			ui = NGUITools.AddChild (guiParent, inGameGui_Prefab);
+			onHit_flynote = NGUITools.AddChild (guiParent, onHit_Flynote_Prefab);
+			onHit_flynote.SetActive(false);
 			InitViewComponents ();
 
 		}
@@ -88,12 +91,12 @@ namespace PYIV.Menu
 		}
 
 
-    private void OnEnemyHit(Enemy enemy, string message) {
-			GameObject onHit_flynote = NGUITools.AddChild (guiParent, onHit_Flynote_Prefab);
+		private void OnEnemyHit(Enemy enemy, string message) {
 			onHit_flynote.transform.position = enemy.transform.position;
 
 			UILabel flynoteLabel = sprite.transform.FindChild("OnHit_Flynote_Prefab").gameObject.GetComponent<UILabel>();
 			flynoteLabel.text = "Jeetroffeeeen!";
+			onHit_flynote.SetActive(true);
 		}
 
 

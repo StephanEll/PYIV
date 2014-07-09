@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using PYIV.Helper.GCM;
 using PYIV.Menu.Commands;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
@@ -32,7 +33,7 @@ namespace PYIV.Helper{
 			//Push notification initializer
 			var gcm = GoogleCloudMessageService.instance;
 			gcm.SetNotificationEnabled(false);
-			
+      Debug.Log( FlyNoteDataCollection.Instance.GetSubCollection("HitsTypeSpecific")[0].Message );
             ShowStartScreen();
             //CreateTestData();
 			
