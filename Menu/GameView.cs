@@ -5,6 +5,8 @@ using PYIV.Gameplay;
 using PYIV.Persistence;
 using PYIV.Helper;
 using PYIV.Gameplay.Character;
+using PYIV.Gameplay.Enemy;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Menu
 {
@@ -86,7 +88,7 @@ namespace PYIV.Menu
 		}
 
 
-		private void OnEnemyHit(Enemy enemy, string message) {
+    private void OnEnemyHit(Enemy enemy, string message) {
 			GameObject onHit_flynote = NGUITools.AddChild (guiParent, onHit_Flynote_Prefab);
 			onHit_flynote.transform.position = enemy.transform.position;
 

@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using PYIV.Helper;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Enemy
 {
 
     public class EnemyBuilder {
 
-        public static Enemy CreateEnemy(EnemyData enemyData, Transform parent, Score score, Vector3 startPosition)
+        public static Enemy CreateEnemy(EnemyData enemyData, Transform parent, Score.Score score, Vector3 startPosition)
         {
 
             GameObject preafab = Resources.Load<GameObject>(enemyData.PreafabPath);
@@ -19,7 +20,7 @@ namespace PYIV.Gameplay.Enemy
             Enemy.AddAsComponentTo(enemy, enemyData, score);
 
             enemy.transform.parent = parent;
-			enemy.transform.localPosition = enemy.transform.position + startPosition;
+			      enemy.transform.localPosition = enemy.transform.position + startPosition;
 
 
             return enemy.GetComponent<Enemy>();

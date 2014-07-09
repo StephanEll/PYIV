@@ -6,6 +6,7 @@ using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Character;
 using PYIV.Helper;
 using PYIV.Menu;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay{
 
@@ -37,7 +38,7 @@ namespace PYIV.Gameplay{
 			List<EnemyType> enemyTypes = GameData.OpponentStatus.LatestRound.SentAttackers;
 			this.spawnController = SpawnController.AddAsComponentTo(this.gameObject, enemyTypes);
 
-			Score score = Score.AddAsComponentTo(
+			Score.Score score = Score.Score.AddAsComponentTo(
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints"));
         IndianBuilder.CreateIndian(gameData.MyStatus, this.transform);
@@ -80,7 +81,7 @@ namespace PYIV.Gameplay{
       Camera.main.orthographicSize = initialCameraSize;
       Camera.main.gameObject.transform.position = Vector3.zero;
 
-      gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score>().GetScoreResult();
+      gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score.Score>().GetScoreResult();
 
       ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(StatisticView), gameData);
     }

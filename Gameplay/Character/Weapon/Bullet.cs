@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using PYIV.Helper;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Character.Weapon {
 
@@ -9,7 +10,7 @@ namespace PYIV.Gameplay.Character.Weapon {
 
         public int Strength { get; private set; }
 
-        private Score score;
+        private Score.Score score;
 
 
 		void Start () {
@@ -30,7 +31,7 @@ namespace PYIV.Gameplay.Character.Weapon {
 
 		}
 
-        public static void AddAsComponentTo(GameObject go, int Strength, Score score)
+        public static void AddAsComponentTo(GameObject go, int Strength, Score.Score score)
         {
             go.AddComponent<Bullet>().Strength = Strength;
             go.GetComponent<Bullet>().score = score;
