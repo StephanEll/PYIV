@@ -4,16 +4,17 @@
 
 <root>
   
+  
 	<EnemyDataCollection>
 	  <EnemyData>
-      	<Id>1</Id>
-	    <MoveSpeed>5</MoveSpeed>
+      <Id>1</Id>
+	    <MoveSpeed>10</MoveSpeed>
 	    <AttackPower>10</AttackPower>
 	    <LivePoints>10</LivePoints>
-      	<Fly>false</Fly>
-	    <SpawnTime>0.9</SpawnTime>
-	  	<PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
-	  </EnemyData>
+      <Fly>false</Fly>
+      <SpawnTime>0.9</SpawnTime>
+      <PreafabPath>Prefabs/Enemys/Enemy_Rat</PreafabPath>
+    </EnemyData>
 	  <EnemyData>
       <Id>2</Id>
 	    <MoveSpeed>3</MoveSpeed>
@@ -34,7 +35,7 @@
 	  </EnemyData>
 	  <EnemyData>
       <Id>4</Id>
-	    <MoveSpeed>3</MoveSpeed>
+	    <MoveSpeed>6</MoveSpeed>
 	    <AttackPower>60</AttackPower>
 	    <LivePoints>60</LivePoints>
       <Fly>false</Fly>
@@ -52,7 +53,7 @@
 	  </EnemyData>
 	  <EnemyData>
       <Id>6</Id>
-	    <MoveSpeed>2</MoveSpeed>
+	    <MoveSpeed>3</MoveSpeed>
 	    <AttackPower>150</AttackPower>
 	    <LivePoints>150</LivePoints>
       <Fly>false</Fly>
@@ -67,7 +68,7 @@
       <Price>50</Price>
       <Name>10 Ratten</Name>
       <Description>Kaufe 10 Ratten zum Preis von 50 Goldstücken</Description>
-      <Count>10</Count>
+      <Count>1</Count>
       <EnemyDataId>1</EnemyDataId>
     </EnemyType>
     <EnemyType>
@@ -91,7 +92,7 @@
       <Price>180</Price>
       <Name>4 Paviane</Name>
       <Description>Kaufe 4 Paviane zum Preis von 180 Goldstücken</Description>
-      <Count>4</Count>
+      <Count>1</Count>
       <EnemyDataId>4</EnemyDataId>
     </EnemyType>
     <EnemyType>
@@ -107,7 +108,7 @@
       <Price>300</Price>
       <Name>3 Elefanten</Name>
       <Description>Kaufe 3 Elefanten zum Preis von 300 Goldstücken</Description>
-      <Count>3</Count>
+      <Count>1</Count>
       <EnemyDataId>6</EnemyDataId>
     </EnemyType>
 	</EnemyTypeCollection>
