@@ -38,7 +38,7 @@ namespace PYIV.Persistence
 		
 		public GameData(){
 			PlayerStatus = new List<PlayerStatus>(2);
-			IsSynced = false;
+			IsSynced = true;
 
 		}
 		

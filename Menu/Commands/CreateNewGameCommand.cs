@@ -37,23 +37,24 @@ namespace PYIV.Menu.Commands
 			newGame.OpponentStatus.AddRound(round);
 			newGame.MyStatus.AddRound(round);
 			
+			newGame.IsSynced = false;
 			
 		}
 
 		
 		public void Execute(){
-			if(this.opponent.Id == this.challenger.Id){
+			if(this.opponent.Equals(this.challenger)){
 				ViewRouter.TheViewRouter.ShowTextPopup(StringConstants.SELF_MATCH);
 				return;
 			}
 			
 			newGame.Save(NewGameCreated, ErrorCreatingGame);
-			LoggedInPlayer.Instance.GameList.AddModel(newGame);
+			
 		}
 		
 		private void NewGameCreated(GameData gameData){
 			
-			
+			LoggedInPlayer.Instance.GameList.AddModel(newGame);
 			//next screen
 			ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 			
