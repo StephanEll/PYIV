@@ -75,8 +75,8 @@ namespace PYIV.Menu
 		}
 
 		private void OnLogoutButtonClick(GameObject button){
-			LoggedInPlayer.Instance.LogOut();
-			ViewRouter.TheViewRouter.ShowView(typeof(LoginView));
+			var logoutCommand = new LogOutCommand();
+			logoutCommand.Execute();
 		}
 
 		private void OnRefreshButtonClick(GameObject button){

@@ -13,7 +13,7 @@ namespace PYIV.Persistence
 	{
 		
 				
-		private const string GCM_ID_KEY = "gcmIdKey";
+		public const string GCM_ID_KEY = "gcmIdKey";
 		public CommandQueue CommandQueue { get; set; } 
 		
 		public NotificationHandler ()
@@ -73,18 +73,8 @@ namespace PYIV.Persistence
 		
 		private void ActivateGcmIdOnServer(string id){
 			
-			var req = new Request<object>("gcm", RestSharp.Method.POST);
-			GcmData data = new GcmData();
-			data.DeviceId = SystemInfo.deviceUniqueIdentifier;
-			data.GcmId = id;
-			
-			req.AddBody(data);
-			Debug.Log ("sending gcm save request to 3rd party server");
-			req.ExecuteAsync();
-			
-			
-			
-			
+			ICommand gcmCommand = new GcmToServerCommand(id);
+			gcmCommand.Execute();
 		}
 
 		
@@ -103,15 +93,6 @@ namespace PYIV.Persistence
 			Debug.Log ("Registration Id received: "+regId);
 			
 			ActivateGcmIdOnServer(regId);
-		}
-		
-		
-		
-		private class GcmData{
-			
-			public string DeviceId { get; set; }
-			public string GcmId { get; set; }
-			
 		}
 		
 		

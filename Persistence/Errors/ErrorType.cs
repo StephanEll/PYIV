@@ -10,6 +10,7 @@ namespace PYIV.Persistence.Errors
 		ACCESS_DENIED = 13,
 		NOT_FOUND = 14,
 		DUBLICATED = 15,
+		LOGGED_IN_ON_OTHER_DEVICE = 16,
 	}
 }
 

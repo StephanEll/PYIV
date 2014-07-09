@@ -6,6 +6,8 @@ using System;
 
 using PYIV.Persistence.Errors;
 using PYIV.Persistence.Validators;
+using PYIV.Menu.Commands;
+using PYIV.Helper.GCM;
 
 namespace PYIV.Persistence
 {
@@ -67,6 +69,17 @@ namespace PYIV.Persistence
 			
 			loginRequest.AddBody (this);
 			loginRequest.ExecuteAsync();
+		}
+		
+		public void Logout(Request<Player>.SuccessDelegate OnSuccess, Request<Player>.ErrorDelegate OnError){
+			var logoutRequest = new Request<Player>(ComputeResourceName(typeof(Player))+"/login", Method.DELETE);
+			logoutRequest.OnSuccess += OnSuccess;
+			logoutRequest.OnError += OnError;
+			
+			GcmData gcmData = GcmToServerCommand.CreateGcmData(PlayerPrefs.GetString(NotificationHandler.GCM_ID_KEY));
+			
+			logoutRequest.AddBody(gcmData);
+			logoutRequest.ExecuteAsync();
 		}
 		
 		
