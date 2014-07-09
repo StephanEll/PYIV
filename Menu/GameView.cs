@@ -60,6 +60,7 @@ namespace PYIV.Menu
 			game.GetComponent<Game> ().GameData = gameData;
 			Score score = game.GetComponent<Score> ();
 			score.OnScoreChanged += SetVillageBar;
+			score.OnHitFlyNote += OnEnemyHit;
 
 			Indian indian = game.transform.GetComponentInChildren<Indian> ();
 			indian.OnStaminaChanged += SetStaminaBar;
@@ -85,8 +86,12 @@ namespace PYIV.Menu
 		}
 
 
-		private void OnEnemyHit() {
+		private void OnEnemyHit(Enemy enemy, string message) {
+			GameObject onHit_flynote = NGUITools.AddChild (guiParent, onHit_Flynote_Prefab);
+			onHit_flynote.transform.position = enemy.transform.position;
 
+			UILabel flynoteLabel = sprite.transform.FindChild("OnHit_Flynote_Prefab").gameObject.GetComponent<UILabel>();
+			flynoteLabel.text = "Jeetroffeeeen!";
 		}
 
 
