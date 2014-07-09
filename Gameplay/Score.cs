@@ -15,6 +15,12 @@ public class Score : MonoBehaviour {
 	public delegate void ScoreChangedDelegate(int newScore);
 	public event ScoreChangedDelegate OnScoreChanged;
 
+  public delegate void HitDelegate(Enemy enemy, string message);
+  public event HitDelegate OnHitFlyNote;
+
+  public delegate void KillDelegate(Enemy enemy, string message);
+  public event HitDelegate OnKillFlyNote;
+
   private List<Enemy> lastHits = new List<Enemy>();
   private List<Enemy> lastKills = new List<Enemy>();
   
