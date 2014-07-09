@@ -14,6 +14,11 @@ namespace PYIV.Menu
 		private GameObject ui;
 		private GameObject sprite;
 		private GameObject inGameGui_Prefab;
+
+		//Flynotes
+		private GameObject onHit_Flynote_Prefab;
+
+
 		private UISprite village_bar;
 		private UISprite stamina_bar;
 		private float characterStamina;
@@ -24,6 +29,7 @@ namespace PYIV.Menu
 			game.SetActive (false);
 
 			inGameGui_Prefab = Resources.Load<GameObject> ("Prefabs/UI/InGameGUI_Prefab");
+			onHit_Flynote_Prefab = Resources.Load<GameObject> ("Prefabs/UI/OnHit_Flynote_Prefab");
 		}
 		
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
@@ -67,7 +73,6 @@ namespace PYIV.Menu
 
 		private void SetStaminaBar (float stamina)
 		{
-
 			UIWidget staminaWidget = stamina_bar.GetComponent<UIWidget> ();
 			if (stamina < 1.0f / characterStamina)
 				staminaWidget.color = new Color (1.0f, 0, 0);
@@ -79,9 +84,14 @@ namespace PYIV.Menu
 			stamina_bar.fillAmount = stamina;
 		}
 
+
+		private void OnEnemyHit() {
+
+		}
+
+
 		private void InitViewComponents ()
-		{
-			
+		{		
 			// size of UI
 			Vector3 locScale = ui.transform.localScale;
 			locScale.x = 5f;
