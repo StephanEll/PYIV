@@ -40,13 +40,20 @@ public class Score : MonoBehaviour {
 
   public void AddHit(Enemy enemy)
   {
+    if(OnHitFlyNote != null){
+      OnHitFlyNote(enemy,"test");
+    }
     HitCount++;
     lastHits.Add(enemy);
+
     // evtl liste begrenzen
   }
 
   public void AddKill(Enemy enemy)
   {
+    if(OnKillFlyNote != null){
+      OnKillFlyNote(enemy,"test");
+    }
     KillCount++;
     lastKills.Add(enemy);
     // evtl liste begrenzen
