@@ -10,8 +10,19 @@ using System.Runtime.Serialization;
 
 namespace PYIV.Gameplay.Score {
 
+
+
   [Serializable]
   public class FlyNoteData {
+    [XmlIgnore()]
+    public static string HitsTypeSpecific = "HitsTypeSpecific";
+    [XmlIgnore()]
+    public static string HitsNotTypeSpecific = "HitsNotTypeSpecific";
+    [XmlIgnore()]
+    public static string KillsTypeSpecific = "KillsTypeSpecific";
+    [XmlIgnore()]
+    public static string KillsNotTypeSpecific = "KillsNotTypeSpecific";
+
     [XmlElement()]
     public string Type {get; set; }
 

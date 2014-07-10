@@ -44,9 +44,21 @@ namespace PYIV.Gameplay.Score {
     public FlyNoteData[] GetSubCollection(string type)
     {
 
-      var fld = from data in flyNoteData where data.Type == type select data;
+      var fld = from data in flyNoteData where data.Type == type orderby data.Count ascending select data;
 
       return fld.ToArray<FlyNoteData>();
+      
+    }
+
+    public FlyNoteData GetFlyNote(string type, int count)
+    {
+      
+      var fld = from data in flyNoteData where data.Type == type && data.Count == count orderby data.Count ascending select data;
+
+      if (fld == null)
+        return null;
+      else
+        return fld.ToArray<FlyNoteData>() [0];
       
     }
     

@@ -48,6 +48,13 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
+    public string Type {
+      get
+      {
+        return enemyData.Id;  
+      }
+    }
+
     void Start()
     {
       fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
