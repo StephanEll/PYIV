@@ -70,9 +70,15 @@ namespace PYIV.Gameplay{
 		// Update is called once per frame
 		void Update ()
 		{
-      if (spawnController.GetSpawnQueueCount() == 0 && spawnController.GetEnemyContainer().transform.childCount == 0)
+      if (spawnController.GetSpawnQueueCount() == 0)
       {
-         GameFinished();
+        bool finished = true;
+        foreach( Transform tr in spawnController.GetEnemyContainer().transform ){
+          if (tr.gameObject.activeInHierarchy)
+            finished = false;
+        }
+        if( finished)
+          GameFinished();
       }
 		}
 

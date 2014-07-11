@@ -19,11 +19,9 @@ namespace PYIV.Gameplay.Score
     public delegate void ScoreChangedDelegate(int newScore);
     public event ScoreChangedDelegate OnScoreChanged;
 
-    public delegate void HitDelegate(Enemy.Enemy enemy,string message);
+    public delegate void HitDelegate(Enemy.Enemy enemy,FlyNoteData fnd);
     public event HitDelegate OnHitFlyNote;
 
-    public delegate void KillDelegate(Enemy.Enemy enemy,string message);
-    public event HitDelegate OnKillFlyNote;
 
     private List<Enemy.Enemy> lastHits = new List<Enemy.Enemy>();
     private List<Enemy.Enemy> lastKills = new List<Enemy.Enemy>();
@@ -48,30 +46,35 @@ namespace PYIV.Gameplay.Score
     {
     
       HitCount++;
-      lastHits.Add(enemy);
+      lastHits.Insert(0, enemy);
     
       string rememberType = enemy.Type;
       int sameTypeHitCounter = 0;
       int counterHitsInARow = 0;
+
       foreach (Enemy.Enemy hit in lastHits)
       {
-        if (rememberType == hit.Type)
+        if (hit == null)
+          break;
+        if (rememberType == hit.Type){
           sameTypeHitCounter ++;
-        else if (hit != null)
-          counterHitsInARow ++;
-        else 
-          return;
+          rememberType = "stop counting";
+        }
+
+        counterHitsInARow ++;
+
       }
 
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsNotTypeSpecific, counterHitsInARow);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd.Message);
+        OnHitFlyNote(enemy, fnd);
+
       }
       fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsTypeSpecific, sameTypeHitCounter);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd.Message);
+        OnHitFlyNote(enemy, fnd);
       }
       // evtl liste begrenzen
     }
@@ -80,30 +83,32 @@ namespace PYIV.Gameplay.Score
     {
 
       KillCount++;
-      lastKills.Add(enemy);
+      lastKills.Insert(0, enemy);
 
       string rememberType = enemy.Type;
       int sameTypeKillCounter = 0;
       int counterKillsInARow = 0;
+      bool stopCountingKillsInARow = false;
       foreach (Enemy.Enemy killedEnemy in lastKills)
       {
-        if (rememberType == killedEnemy.Type)
+        if(killedEnemy == null)
+          stopCountingKillsInARow = true;
+        else if (rememberType == killedEnemy.Type){
           sameTypeKillCounter ++;
-        else if (killedEnemy != null)
+        }
+        if(!stopCountingKillsInARow)
           counterKillsInARow ++;
-        else 
-          return;
       }
       
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.KillsNotTypeSpecific, counterKillsInARow);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd.Message);
+        OnHitFlyNote(enemy, fnd);
       }
       fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.KillsTypeSpecific, sameTypeKillCounter);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd.Message);
+        OnHitFlyNote(enemy, fnd);
       }
       // evtl liste begrenzen
     }

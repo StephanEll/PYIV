@@ -33,7 +33,6 @@ namespace PYIV.Helper{
 			//Push notification initializer
 			var gcm = GoogleCloudMessageService.instance;
 			gcm.SetNotificationEnabled(false);
-      Debug.Log( FlyNoteDataCollection.Instance.GetSubCollection("HitsTypeSpecific")[0].Message );
             ShowStartScreen();
             //CreateTestData();
 			

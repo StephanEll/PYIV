@@ -91,12 +91,17 @@ namespace PYIV.Menu
 		}
 
 
-		private void OnEnemyHit(Enemy enemy, string message) {
-			onHit_flynote.transform.position = enemy.transform.position;
+    private void OnEnemyHit(Enemy enemy, FlyNoteData fld) {
+      string message = fld.Message;
+      if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.KillsTypeSpecific)
+        message = string.Format(message, enemy.name);
+
+      Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
+			/*onHit_flynote.transform.position = position;
 
 			UILabel flynoteLabel = sprite.transform.FindChild("OnHit_Flynote_Prefab").gameObject.GetComponent<UILabel>();
 			flynoteLabel.text = "Jeetroffeeeen!";
-			onHit_flynote.SetActive(true);
+			onHit_flynote.SetActive(true);*/
 		}
 
 

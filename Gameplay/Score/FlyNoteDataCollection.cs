@@ -52,13 +52,15 @@ namespace PYIV.Gameplay.Score {
 
     public FlyNoteData GetFlyNote(string type, int count)
     {
-      
-      var fld = from data in flyNoteData where data.Type == type && data.Count == count orderby data.Count ascending select data;
+      //Debug.Log("question: " + type + " " + count);
 
-      if (fld == null)
-        return null;
-      else
+      try {
+        var fld = from data in flyNoteData where data.Type == type && data.Count == count orderby data.Count ascending select data;
         return fld.ToArray<FlyNoteData>() [0];
+      } catch (IndexOutOfRangeException e){
+        return null;
+      }
+        
       
     }
     

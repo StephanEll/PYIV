@@ -161,13 +161,13 @@ namespace PYIV.Gameplay.Enemy
 
     private void DestroyGameobject()
     {
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
 
     private void Attack()
     {
       score.SubtractLivepoints(AttackPower);
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
   }
 
