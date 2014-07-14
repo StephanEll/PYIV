@@ -65,17 +65,25 @@ namespace PYIV.Gameplay.Score
 
       }
 
+      bool sendStdMessage = true;
+
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsNotTypeSpecific, counterHitsInARow);
       if (OnHitFlyNote != null && fnd != null)
       {
         OnHitFlyNote(enemy, fnd);
-
-      }
+        sendStdMessage = false;
+      } 
       fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsTypeSpecific, sameTypeHitCounter);
       if (OnHitFlyNote != null && fnd != null)
       {
         OnHitFlyNote(enemy, fnd);
+        sendStdMessage = false;
       }
+      if(sendStdMessage)
+      {
+        OnHitFlyNote(enemy, new FlyNoteData(enemy.LivePoints.ToString()));
+      }
+
       // evtl liste begrenzen
     }
 

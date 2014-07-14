@@ -22,6 +22,8 @@ namespace PYIV.Gameplay.Score {
     public static string KillsTypeSpecific = "KillsTypeSpecific";
     [XmlIgnore()]
     public static string KillsNotTypeSpecific = "KillsNotTypeSpecific";
+    [XmlIgnore()]
+    public static string NoSpecialEvent = "NoSpecialEvent";
 
     [XmlElement()]
     public string Type {get; set; }
@@ -34,6 +36,17 @@ namespace PYIV.Gameplay.Score {
 
     [XmlElement()]
     public string Message {get; set; }
+
+    public FlyNoteData(){
+
+    }
+
+    public FlyNoteData(String Message){
+      this.Message = Message;
+      Type = NoSpecialEvent;
+      ExtraPoints = 0;
+      Count = 0;
+    }
 
   }
 
