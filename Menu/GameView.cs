@@ -92,9 +92,11 @@ namespace PYIV.Menu
 
 
     private void OnEnemyHit(Enemy enemy, FlyNoteData fld) {
-      string message = fld.Message;
-      if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.KillsTypeSpecific)
-        message = string.Format(message, enemy.Type + "s");
+      		string message = fld.Message;
+    		if(message.Substring(0,1).Equals("-")) {
+				message = "0";
+			}
+			message = string.Format(message, enemy.Type + "s");
 
 			flynoteCounter += 1;
 			onHit_flynote = NGUITools.AddChild (sprite, onHit_Flynote_Prefab);
@@ -102,10 +104,30 @@ namespace PYIV.Menu
 			onHit_flynote.name = "Flynote_" + flynoteCounter;
 			onHit_flynote.SetActive(false);
 			onHit_flynote.transform.position = enemy.transform.position;
-			Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
-			
-		}
+			//Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
 
+			UILabel flynoteLabel = sprite.transform.FindChild("Flynote_" + flynoteCounter).gameObject.GetComponent<UILabel>();
+			UIWidget flynoteWidget = flynoteLabel.GetComponent<UIWidget>();
+
+
+			if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.HitsNotTypeSpecific) {
+				flynoteWidget.color = new Color(0.0f, 1.0f, 0.0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+
+			} else if( fld.Type == FlyNoteData.KillsTypeSpecific || fld.Type == FlyNoteData.KillsNotTypeSpecific) {
+				flynoteWidget.color = new Color(1.0f, 0f, 0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+			}
+			else {
+				flynoteWidget.color = new Color(1.0f, 1.0f, 1.0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+			} 
+					
+
+	}
 
 
 		private void InitViewComponents ()

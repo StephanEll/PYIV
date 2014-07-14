@@ -34,7 +34,7 @@ namespace PYIV.Helper{
 			var gcm = GoogleCloudMessageService.instance;
 			gcm.SetNotificationEnabled(false);
             ShowStartScreen();
-      CreateTestData();
+      		CreateTestData();
 			
 		}
 		

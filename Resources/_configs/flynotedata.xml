@@ -10,7 +10,7 @@
 	<FlyNoteData>
     	<Type>HitsTypeSpecific</Type>
 		<ExtraPoints>10</ExtraPoints>
-      	<Count>1</Count>
+      	<Count>5</Count>
       	<Message>5 {0} Hits in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
@@ -25,7 +25,7 @@
     <FlyNoteData>
       	<Type>HitsNotTypeSpecific</Type>
       	<ExtraPoints>5</ExtraPoints>
-      	<Count>1</Count>
+      	<Count>10</Count>
       	<Message>10 Hits in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
@@ -42,14 +42,14 @@
 	<FlyNoteData>
     	<Type>KillsTypeSpecific</Type>
 		<ExtraPoints>10</ExtraPoints>
-      	<Count>1</Count>
-      	<Message>2 {0} Hits in a Row</Message>
+      	<Count>2</Count>
+      	<Message>2 {0} Kills in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
       	<Type>KillsTypeSpecific</Type>
       	<ExtraPoints>25</ExtraPoints>
       	<Count>4</Count>
-      	<Message>4 {0} Hits in a Row</Message>
+      	<Message>4 {0} Kills in a Row</Message>
     </FlyNoteData>
     
     
@@ -58,9 +58,9 @@
   	Dabei darf zwischendurch kein Pfeil ins leere gegangen sein -->
     <FlyNoteData>
       	<Type>KillsNotTypeSpecific</Type>
-      	<ExtraPoints>5</ExtraPoints>
-      	<Count>1</Count>
-      	<Message>4 Hits in a Row</Message>
+      	<ExtraPoints>2</ExtraPoints>
+      	<Count>4</Count>
+      	<Message>4 Kills in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
       	<Type>KillsNotTypeSpecific</Type>
