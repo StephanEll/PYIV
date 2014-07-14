@@ -94,7 +94,7 @@ namespace PYIV.Menu
     private void OnEnemyHit(Enemy enemy, FlyNoteData fld) {
       string message = fld.Message;
       if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.KillsTypeSpecific)
-        message = string.Format(message, enemy.name);
+        message = string.Format(message, enemy.Type + "s");
 
       Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
 			/*onHit_flynote.transform.position = position;
