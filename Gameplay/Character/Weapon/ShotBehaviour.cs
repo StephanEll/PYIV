@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Character.Weapon
 {
@@ -14,14 +15,14 @@ namespace PYIV.Gameplay.Character.Weapon
         private string bulletPreafabPath;
         private int bulletStrength;
 
-        protected Score score;
+        protected Score.Score score;
         private GameObject game;
 
 
         void Start()
         {
             game = GameObject.Find("Game");
-            score = game.GetComponent<Score>();
+            score = game.GetComponent<Score.Score>();
         }
 
         // Update is called once per frame

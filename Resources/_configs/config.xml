@@ -3,6 +3,7 @@
   <directory>
     <enemy-config-xml value="_configs/enemydata" />
     <indian-config-xml value="_configs/indiandata" />
+    <fly-note-config-xml value="_configs/flynotedata" />
 	  <menu-prefab value="UI/" />
   </directory>
   <server>

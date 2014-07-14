@@ -6,6 +6,7 @@ using PYIV.Persistence;
 using PYIV.Helper;
 using PYIV.Gameplay.Character;
 using PYIV.Gameplay.Enemy;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Menu
 {
@@ -90,7 +91,10 @@ namespace PYIV.Menu
 		}
 
 
-		private void OnEnemyHit(Enemy enemy, string message) {
+    private void OnEnemyHit(Enemy enemy, FlyNoteData fld) {
+      string message = fld.Message;
+      if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.KillsTypeSpecific)
+        message = string.Format(message, enemy.Type + "s");
 
 			flynoteCounter += 1;
 			onHit_flynote = NGUITools.AddChild (sprite, onHit_Flynote_Prefab);
@@ -98,11 +102,8 @@ namespace PYIV.Menu
 			onHit_flynote.name = "Flynote_" + flynoteCounter;
 			onHit_flynote.SetActive(false);
 			onHit_flynote.transform.position = enemy.transform.position;
-
-			UILabel flynoteLabel = sprite.transform.FindChild("Flynote_" + flynoteCounter).gameObject.GetComponent<UILabel>();
-			// Wenn Parameter feststehen durch Message ersetzen!
-			flynoteLabel.text = "Jeetroffeeeen!";
-			onHit_flynote.SetActive(true);
+			Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
+			
 		}
 
 

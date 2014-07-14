@@ -2,6 +2,7 @@
 using System.Collections;
 using PYIV.Gameplay.Character.Weapon;
 using PYIV.Helper;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Enemy
 {
@@ -12,7 +13,7 @@ namespace PYIV.Gameplay.Enemy
 
     private EnemyData enemyData;
 
-    private Score score;
+    private Score.Score score;
 
     private bool dead = false;
 
@@ -44,6 +45,13 @@ namespace PYIV.Gameplay.Enemy
       private set 
       {
         enemyData.LivePoints = value;
+      }
+    }
+
+    public string Type {
+      get
+      {
+        return enemyData.Id;  
       }
     }
 
@@ -127,7 +135,7 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
-    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score score)
+    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score)
     {
       Enemy enemy = go.AddComponent<Enemy>();
       enemy.enemyData = enemyData;
@@ -153,13 +161,13 @@ namespace PYIV.Gameplay.Enemy
 
     private void DestroyGameobject()
     {
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
 
     private void Attack()
     {
       score.SubtractLivepoints(AttackPower);
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
   }
 
