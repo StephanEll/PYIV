@@ -14,6 +14,7 @@ namespace PYIV.Gameplay.Character.Weapon
 
     private Score.Score score;
 
+    private bool hit = false;
 
     void Start()
     {
@@ -24,12 +25,12 @@ namespace PYIV.Gameplay.Character.Weapon
 		
     void Update()
     {
-      if (rigidbody2D != null)
+      /*if (!hit)
       {
         Vector2 angle = this.rigidbody2D.velocity;
         angle.Normalize();
-        this.transform.localRotation = Quaternion.EulerAngles(angle.x, 0, angle.y * 1.4f);
-      }
+        this.transform.rotation = Quaternion.EulerAngles(0, 0, angle.y * 1.4f);
+      }*/
       if (transform.position.y < PlayingFieldBoundarys.Bottom)
         Miss();
 
@@ -45,6 +46,7 @@ namespace PYIV.Gameplay.Character.Weapon
     {
       if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>())
       {
+        hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
 
@@ -52,7 +54,6 @@ namespace PYIV.Gameplay.Character.Weapon
           transform.parent = collision.transform.FindChild("back");
         else
           transform.parent = collision.transform.GetChild(0);
-
         score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
       }
     }
