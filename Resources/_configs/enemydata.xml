@@ -64,7 +64,7 @@
 	    <LivePoints>150</LivePoints>
       	<Fly>false</Fly>
       	<SpawnTime>0.5</SpawnTime>
-	    <PreafabPath>Prefabs/Enemys/Enemy_Elephant</PreafabPath>
+	    <PreafabPath>Prefabs/Enemys/Enemy_Nashorn</PreafabPath>
 	  </EnemyData>
 	  
 	</EnemyDataCollection>

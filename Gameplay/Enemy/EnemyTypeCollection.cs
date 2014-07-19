@@ -8,90 +8,118 @@ using PYIV.Helper;
 using System;
 using System.Linq;
 
-namespace PYIV.Gameplay.Enemy {
+namespace PYIV.Gameplay.Enemy
+{
 
-	[XmlRoot("root")]
-	public class EnemyTypeCollection {
-		[XmlArray("EnemyTypeCollection")]
-		[XmlArrayItem("EnemyType", typeof(EnemyType))]
-		public EnemyType[] EnemyType { get; set; }
+  [XmlRoot("root")]
+  public class EnemyTypeCollection
+  {
+    [XmlArray("EnemyTypeCollection")]
+    [XmlArrayItem("EnemyType", typeof(EnemyType))]
+    public EnemyType[] EnemyTypes { get; set; }
 
-        private static volatile EnemyTypeCollection instance;
+    private static volatile EnemyTypeCollection instance;
 
-        private static object syncRoot = new object();
+    private static object syncRoot = new object();
 
-        private EnemyTypeCollection()
-        {
+    private EnemyTypeCollection()
+    {
             
-        }
+    }
 
-        private static EnemyTypeCollection DeserializeEnemyTypeCollection(string filename)
+    private static EnemyTypeCollection DeserializeEnemyTypeCollection(string filename)
+    {
+
+      // Create an instance of the XmlSerializer specifying type and namespace.
+      XmlSerializer serializer = new XmlSerializer(typeof(EnemyTypeCollection));
+
+      XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
+
+      // Use the Deserialize method to restore the object's state.
+      EnemyTypeCollection eTC = (EnemyTypeCollection)serializer.Deserialize(reader);
+
+      //!!!!
+      eTC.AddEnemyData();
+      return eTC;
+    }
+
+    private void AddEnemyData()
+    {
+      Dictionary<string, EnemyData> eDDict = new Dictionary<string, EnemyData>();
+      foreach (EnemyData ed in EnemyDataCollection.Instance.enemyData)
+      {
+        eDDict.Add(ed.Id, ed);
+      }
+
+      foreach (EnemyType et in EnemyTypes)
+      {
+        EnemyData ed;
+
+        bool foundEdInDict = eDDict.TryGetValue(et.EnemyDataId, out ed);
+        if (foundEdInDict)
         {
-
-            // Create an instance of the XmlSerializer specifying type and namespace.
-            XmlSerializer serializer = new XmlSerializer(typeof(EnemyTypeCollection));
-
-            XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
-
-            // Use the Deserialize method to restore the object's state.
-            EnemyTypeCollection eTC = (EnemyTypeCollection) serializer.Deserialize(reader);
-
-            //!!!!
-			eTC.AddEnemyData();
-            return eTC;
-        }
-
-        private void AddEnemyData()
+          et.EnemyData = ed;
+        } else
         {
-            Dictionary<string, EnemyData> eDDict = new Dictionary<string, EnemyData>();
-            foreach (EnemyData ed in EnemyDataCollection.Instance.enemyData)
+          Debug.Log("EnemyData not found for ID " + et.EnemyDataId + ". There could be a Problem with the reference object in your XML file");
+        }
+      }
+    }
+
+    public static EnemyTypeCollection Instance
+    {
+      get
+      {
+        if (instance == null)
+        {
+          lock (syncRoot)
+          {
+            if (instance == null)
             {
-                eDDict.Add(ed.Id, ed);
+              instance = DeserializeEnemyTypeCollection(ConfigReader.Instance.GetSetting("directory", "enemy-config-xml"));
             }
-
-            foreach (EnemyType et in EnemyType)
-            {
-                EnemyData ed;
-
-                bool foundEdInDict = eDDict.TryGetValue(et.EnemyDataId, out ed);
-                if (foundEdInDict)
-                {
-                    et.EnemyData = ed;
-                }
-                else
-                {
-                    Debug.Log("EnemyData not found for ID " + et.EnemyDataId + ". There could be a Problem with the reference object in your XML file");
-                }
-            }
+          }
         }
 
-        public static EnemyTypeCollection Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                        {
-                            instance = DeserializeEnemyTypeCollection(ConfigReader.Instance.GetSetting("directory", "enemy-config-xml"));
-                        }
-                    }
-                }
+        return instance;
+      }
+    }
 
-                return instance;
-            }
+    /* Gibt EnemyTypes für ein Array von IDs zurück und 
+     * summiert für doppelte IDs EnemyType.Count auf so dass keine
+     * doppelten EnemyTypes zurück gegeben werden.
+     * 
+     * @ToDo: Evtl müssen (je nach spawn implementierung )auch EnemyTypes 
+     * die das gleiche EnemyData beinhalten aufsummiert werden.
+     */
+
+    public EnemyType[] GetSubCollection(string[] ids)
+    {
+
+      Dictionary<string, EnemyType> dict = EnemyTypes.ToDictionary(item => item.Id, item => item);
+
+      Dictionary<string, EnemyType> result = new Dictionary<string, EnemyType>();
+
+      foreach (string id in ids)
+      {
+        EnemyType value;
+
+        if(dict.TryGetValue(id, out value)){
+
+          EnemyType resultValue;
+
+          if(result.TryGetValue(id, out resultValue)){
+            resultValue.Count += value.Count;
+          } else {
+            result.Add(id, value);
+          }
         }
+      }
+      return result.Values.ToArray();
 
-        public EnemyType[] GetSubCollection(string[] ids)
-        {
+    }
 
-            return EnemyType.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<EnemyType>();
-
-        }
-
-	}
+  }
 
     
 }
