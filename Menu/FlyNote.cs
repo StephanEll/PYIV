@@ -14,7 +14,6 @@ public class FlyNote : MonoBehaviour {
 		UILabel label = gameObject.GetComponent<UILabel>();
 
 		if(label.alpha <= 0f) {
-			Debug.Log("alpha null!");
 			NGUITools.Destroy(gameObject);
 		} else {
 			label.alpha -= 0.02f;
