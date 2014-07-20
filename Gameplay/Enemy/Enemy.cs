@@ -57,6 +57,7 @@ namespace PYIV.Gameplay.Enemy
 
     void Start()
     {
+      enemyData = enemyData.Clone() as EnemyData;
       fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
       fateOutFramesMax = fateOutFrames;
       //enemyData.print();
