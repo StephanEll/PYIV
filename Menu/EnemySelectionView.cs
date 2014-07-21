@@ -65,8 +65,8 @@ namespace PYIV.Menu
 			UIEventListener.Get(nashorn_button).onClick += OnEnemyButtonClicked;
 			UIEventListener.Get(elefant_button).onClick += OnEnemyButtonClicked;
 
-			UIEventListener.Get(reset_button).onClick += OnResetButtonClicked;
-			UIEventListener.Get(next_button).onClick += OnNextButtonClicked;
+			UIEventListener.Get(resetButton).onClick += OnResetButtonClicked;
+			UIEventListener.Get(nextButton).onClick += OnNextButtonClicked;
 
 		}
 
