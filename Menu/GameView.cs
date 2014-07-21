@@ -7,6 +7,8 @@ using PYIV.Helper;
 using PYIV.Gameplay.Character;
 using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Score;
+using Holoville.HOTween; 
+using Holoville.HOTween.Plugins;
 
 namespace PYIV.Menu
 {
@@ -17,6 +19,8 @@ namespace PYIV.Menu
 		private GameObject sprite;
 		private GameObject inGameGui_Prefab;
 
+		public bool isPaused = false;
+
 		//Flynotes
 		private GameObject onHit_Flynote_Prefab;
 		private GameObject onHit_flynote;
@@ -26,6 +30,7 @@ namespace PYIV.Menu
 		private UISprite village_bar;
 		private UISprite stamina_bar;
 		private float characterStamina;
+		private VillagePointsHelper villagePointsHelper;
 		
 		public GameView ()
 		{
@@ -75,18 +80,25 @@ namespace PYIV.Menu
 		private void SetVillageBar (int villagePoints)
 		{
 			village_bar.fillAmount = (float)villagePoints / ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints"); // wenn federn implementiert werde muss das geändert werden
+			villagePointsHelper.points = (float)villagePoints;
+			Debug.Log ((float)villagePoints);
 		}
 
 		private void SetStaminaBar (float stamina)
 		{
 			UIWidget staminaWidget = stamina_bar.GetComponent<UIWidget> ();
-			if (stamina < 1.0f / characterStamina)
+			if (stamina < 1.0f / characterStamina) {
+				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(1.0f, 0, 0));
 				staminaWidget.color = new Color (1.0f, 0, 0);
-			else if (stamina < 0.5f)
+			}
+			else if (stamina < 0.5f) {
+				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(0.6f, 0.4f, 0));
 				staminaWidget.color = new Color (0.6f, 0.4f, 0);
-			else
+			}
+			else {
+				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(0, 1.0f, 0));
 				staminaWidget.color = new Color (0, 1.0f, 0);
-
+			}
 			stamina_bar.fillAmount = stamina;
 		}
 
@@ -143,10 +155,27 @@ namespace PYIV.Menu
 			GameObject topRight = sprite.transform.FindChild ("TopRight").gameObject;
 			GameObject topLeft = sprite.transform.FindChild ("TopLeft").gameObject;
 			GameObject villageDamage = topRight.transform.FindChild ("Dorf_Damage_Prefab").gameObject;
+			GameObject villagePoints = topRight.transform.FindChild ("villagePoints_label").gameObject;
+			villagePointsHelper = villagePoints.GetComponent<VillagePointsHelper>();
+			villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
+			GameObject pauseButton = topRight.transform.FindChild ("pause_icon").gameObject;
 			GameObject stamina = topLeft.transform.FindChild ("Stamina_Bar_Prefab").gameObject;
-			
+
 			village_bar = villageDamage.transform.FindChild ("dorf_fg").gameObject.GetComponent<UISprite> ();
 			stamina_bar = stamina.transform.FindChild ("stamina_fg").gameObject.GetComponent<UISprite> ();
+
+			UIEventListener.Get(pauseButton).onClick += OnPauseButtonClicked;
+		}
+
+		private void OnPauseButtonClicked(GameObject button) {
+			// TODO!
+			if(!isPaused) {
+
+				isPaused = true;
+			} else {
+
+				isPaused = false;
+			}
 
 		}
 		
