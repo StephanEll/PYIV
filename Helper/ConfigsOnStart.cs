@@ -10,14 +10,14 @@ using System.Collections;
 using System.Collections.Generic;
 using PYIV.Helper.GCM;
 using PYIV.Menu.Commands;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Helper{
 	public class ConfigsOnStart : MonoBehaviour
 	{
 		private GameData gameData;
 
-
-        private Player player;
+    private Player player;
 
 	
 		//Configuration/Initializationcode at startup
@@ -33,9 +33,8 @@ namespace PYIV.Helper{
 			//Push notification initializer
 			var gcm = GoogleCloudMessageService.instance;
 			gcm.SetNotificationEnabled(false);
-			
             ShowStartScreen();
-            //CreateTestData();
+      		CreateTestData();
 			
 		}
 		

@@ -2,6 +2,7 @@
 using System.Collections;
 using PYIV.Gameplay.Character.Weapon;
 using PYIV.Helper;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Enemy
 {
@@ -12,7 +13,7 @@ namespace PYIV.Gameplay.Enemy
 
     private EnemyData enemyData;
 
-    private Score score;
+    private Score.Score score;
 
     private bool dead = false;
 
@@ -47,8 +48,16 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
+    public string Type {
+      get
+      {
+        return enemyData.Id;  
+      }
+    }
+
     void Start()
     {
+      enemyData = enemyData.Clone() as EnemyData;
       fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
       fateOutFramesMax = fateOutFrames;
       //enemyData.print();
@@ -82,7 +91,7 @@ namespace PYIV.Gameplay.Enemy
 
     private void Move()
     {
-      transform.Translate(-MoveSpeed / 300, 0, 0);
+      transform.Translate(-MoveSpeed / 250, 0, 0);
     }
 
     private void Fly()
@@ -127,7 +136,7 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
-    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score score)
+    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score)
     {
       Enemy enemy = go.AddComponent<Enemy>();
       enemy.enemyData = enemyData;
@@ -153,13 +162,13 @@ namespace PYIV.Gameplay.Enemy
 
     private void DestroyGameobject()
     {
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
 
     private void Attack()
     {
       score.SubtractLivepoints(AttackPower);
-      Destroy(gameObject);
+      gameObject.SetActive(false);
     }
   }
 

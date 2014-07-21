@@ -97,7 +97,7 @@ namespace PYIV.Gameplay
 			EnemyBuilder.CreateEnemy(
                 ed, 
 				EnemyContainer.transform,
-                EnemyContainer.transform.parent.GetComponent<Score>(),
+                EnemyContainer.transform.parent.GetComponent<Score.Score>(),
 				enemyStartPosition
                 );
 			lastEnemySpawnTime = ed.SpawnTime;

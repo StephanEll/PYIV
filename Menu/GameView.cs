@@ -5,6 +5,8 @@ using PYIV.Gameplay;
 using PYIV.Persistence;
 using PYIV.Helper;
 using PYIV.Gameplay.Character;
+using PYIV.Gameplay.Enemy;
+using PYIV.Gameplay.Score;
 
 namespace PYIV.Menu
 {
@@ -14,6 +16,13 @@ namespace PYIV.Menu
 		private GameObject ui;
 		private GameObject sprite;
 		private GameObject inGameGui_Prefab;
+
+		//Flynotes
+		private GameObject onHit_Flynote_Prefab;
+		private GameObject onHit_flynote;
+		private int flynoteCounter = 0;
+
+
 		private UISprite village_bar;
 		private UISprite stamina_bar;
 		private float characterStamina;
@@ -24,6 +33,7 @@ namespace PYIV.Menu
 			game.SetActive (false);
 
 			inGameGui_Prefab = Resources.Load<GameObject> ("Prefabs/UI/InGameGUI_Prefab");
+			onHit_Flynote_Prefab = Resources.Load<GameObject> ("Prefabs/UI/OnHit_Flynote_Prefab");
 		}
 		
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
@@ -32,6 +42,7 @@ namespace PYIV.Menu
 			game.SetActive (true);
 
 			ui = NGUITools.AddChild (guiParent, inGameGui_Prefab);
+
 			InitViewComponents ();
 
 		}
@@ -54,6 +65,7 @@ namespace PYIV.Menu
 			game.GetComponent<Game> ().GameData = gameData;
 			Score score = game.GetComponent<Score> ();
 			score.OnScoreChanged += SetVillageBar;
+			score.OnHitFlyNote += OnEnemyHit;
 
 			Indian indian = game.transform.GetComponentInChildren<Indian> ();
 			indian.OnStaminaChanged += SetStaminaBar;
@@ -67,7 +79,6 @@ namespace PYIV.Menu
 
 		private void SetStaminaBar (float stamina)
 		{
-
 			UIWidget staminaWidget = stamina_bar.GetComponent<UIWidget> ();
 			if (stamina < 1.0f / characterStamina)
 				staminaWidget.color = new Color (1.0f, 0, 0);
@@ -79,9 +90,48 @@ namespace PYIV.Menu
 			stamina_bar.fillAmount = stamina;
 		}
 
+
+    private void OnEnemyHit(Enemy enemy, FlyNoteData fld) {
+      		string message = fld.Message;
+    		if(message.Substring(0,1).Equals("-")) {
+				message = "0";
+			}
+			message = string.Format(message, enemy.Type + "s");
+
+			flynoteCounter += 1;
+			onHit_flynote = NGUITools.AddChild (sprite, onHit_Flynote_Prefab);
+			onHit_flynote.AddComponent("FlyNote");
+			onHit_flynote.name = "Flynote_" + flynoteCounter;
+			onHit_flynote.SetActive(false);
+			onHit_flynote.transform.position = enemy.transform.position;
+			//Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
+
+			UILabel flynoteLabel = sprite.transform.FindChild("Flynote_" + flynoteCounter).gameObject.GetComponent<UILabel>();
+			UIWidget flynoteWidget = flynoteLabel.GetComponent<UIWidget>();
+
+
+			if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.HitsNotTypeSpecific) {
+				flynoteWidget.color = new Color(0.0f, 1.0f, 0.0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+
+			} else if( fld.Type == FlyNoteData.KillsTypeSpecific || fld.Type == FlyNoteData.KillsNotTypeSpecific) {
+				flynoteWidget.color = new Color(1.0f, 0f, 0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+			}
+			else {
+				flynoteWidget.color = new Color(1.0f, 1.0f, 1.0f);
+				flynoteLabel.text = message;
+				onHit_flynote.SetActive(true);
+			} 
+					
+
+	}
+
+
 		private void InitViewComponents ()
-		{
-			
+		{		
 			// size of UI
 			Vector3 locScale = ui.transform.localScale;
 			locScale.x = 5f;

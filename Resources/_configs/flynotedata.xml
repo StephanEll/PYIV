@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<root>
+
+<!-- demo Data -->
+
+<FlyNoteDataCollection>
+  
+  	<!-- type specific 5 RATS in a row 
+  	Wird aufgerufen, wenn X Enemys des gleichen Typs ohne Unterbrechung von einem Pfeil getroffen wurden -->
+	<FlyNoteData>
+    	<Type>HitsTypeSpecific</Type>
+		<ExtraPoints>10</ExtraPoints>
+      	<Count>5</Count>
+      	<Message>5 {0} Hits in a Row</Message>
+    </FlyNoteData>
+    <FlyNoteData>
+      	<Type>HitsTypeSpecific</Type>
+      	<ExtraPoints>25</ExtraPoints>
+      	<Count>10</Count>
+      	<Message>10 {0} Hits in a Row</Message>
+    </FlyNoteData>
+    
+    <!-- NOT type specific 5 ENEMYS in a row 
+    Wird aufgerufen, wenn X Enemys egal welchen Typs ohne Unterbrechung von einem Pfeil getroffen wurden -->
+    <FlyNoteData>
+      	<Type>HitsNotTypeSpecific</Type>
+      	<ExtraPoints>5</ExtraPoints>
+      	<Count>10</Count>
+      	<Message>10 Hits in a Row</Message>
+    </FlyNoteData>
+    <FlyNoteData>
+      	<Type>HitsNotTypeSpecific</Type>
+      	<ExtraPoints>15</ExtraPoints>
+      	<Count>20</Count>
+      	<Message>20 Hits in a Row</Message>
+    </FlyNoteData>
+    
+  
+  	<!-- KILLLS  type specific 5 RATS in a row 
+  	Wird aufgerufen, wenn X Enemys des gleichen Typs als KILLED markierd wurden.
+  	Ob zwischendurch Pfeile inns leere gingen spielt keine Rolle -->
+	<FlyNoteData>
+    	<Type>KillsTypeSpecific</Type>
+		<ExtraPoints>10</ExtraPoints>
+      	<Count>2</Count>
+      	<Message>2 {0} Kills in a Row</Message>
+    </FlyNoteData>
+    <FlyNoteData>
+      	<Type>KillsTypeSpecific</Type>
+      	<ExtraPoints>25</ExtraPoints>
+      	<Count>4</Count>
+      	<Message>4 {0} Kills in a Row</Message>
+    </FlyNoteData>
+    
+    
+    <!-- KILLLS  NOT type specific 5 ENEMYS in a row 
+    Wird aufgerufen, wenn X Enemys unterschiedlichen Typs als KILLED markierd wurden.
+  	Dabei darf zwischendurch kein Pfeil ins leere gegangen sein -->
+    <FlyNoteData>
+      	<Type>KillsNotTypeSpecific</Type>
+      	<ExtraPoints>2</ExtraPoints>
+      	<Count>4</Count>
+      	<Message>4 Kills in a Row</Message>
+    </FlyNoteData>
+    <FlyNoteData>
+      	<Type>KillsNotTypeSpecific</Type>
+      	<ExtraPoints>15</ExtraPoints>
+      	<Count>8</Count>
+      	<Message>8 Kills in a Row</Message>
+    </FlyNoteData>
+    
+</FlyNoteDataCollection>
+
+	
+	
+	
+</root>
