@@ -18,6 +18,10 @@ namespace PYIV.Menu
 		private Dictionary<GameObject, GameData> buttonToGameData;
 
 		
+		//########################
+		//CONSTRUCTORS
+		//########################
+		
 		public GameListView() : base("GameListPrefab")
 		{			
 			TouchScreenKeyboard.hideInput = true;
@@ -25,7 +29,10 @@ namespace PYIV.Menu
 			
 		}
 		
-
+		//########################
+		//OVERRIDDEN METHODS FROM BASEVIEW
+		//########################
+		
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
@@ -45,13 +52,25 @@ namespace PYIV.Menu
 			base.RemoveFromScreen();
 			
 			//Unregister listeners
-			
-			
 			if(LoggedInPlayer.IsLoggedIn()){
 				LoggedInPlayer.Instance.GameList.OnChange -= RefreshGameBoardsFromCollection;
 				LoggedInPlayer.Instance.NotificationHandler.CommandQueue.OnFirstCommandAdded -= ExecuteFirstCommand;
 			}
 		}
+		
+		public override bool ShouldBeCached ()
+		{
+			return false;
+		}
+		
+		public override void Back ()
+		{
+			Application.Quit();
+		}
+		
+		//########################
+		// BUTTON CALLBACKS
+		//########################
 
 		
 		private void OnNewGameButtonClick(GameObject button){
@@ -83,31 +102,13 @@ namespace PYIV.Menu
 			var syncCommand = new SyncCommand(false ,LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
 			syncCommand.Execute();
 		}
-
-		private void OnGameCollectionReceived(GameCollection serverCollection) {
-			
-			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
-			CreateGameBoardsFromCollection();
-			LoggedInPlayer.Instance.GameList.OnChange += RefreshGameBoardsFromCollection;			
-		}
 		
-		private void CreateGameBoardsFromCollection() {
-			foreach(var obj in LoggedInPlayer.Instance.GameList.RunningGames) {
-				FillGameBoard(obj);
-			}
-			
-			GameList_Grid_GameObject.GetComponent<UIGrid>().Reposition();
-			ShowNoGamesSign();
-		}
-
-
-		private void RefreshGameBoardsFromCollection() {
-			foreach(Transform obj in GameList_Grid_GameObject.transform) {
-				NGUITools.Destroy(obj.gameObject);
-			}
-			CreateGameBoardsFromCollection();
-		}
-
+		
+		//########################
+		// PANEL INITIALIZATION
+		//########################
+		
+		
 		private void ShowNoGamesSign() {
 			GameObject BottomAnchor = sprite.transform.FindChild("BottomAnchor").gameObject;
 			if(LoggedInPlayer.Instance.GameList.RunningGames.Count == 0) {
@@ -116,12 +117,7 @@ namespace PYIV.Menu
 				BottomAnchor.SetActive(false);
 			}
 		}
-
-		private void OnServerError(RestException e) {
-			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
-		}
-
-
+		
 		private void FillGameBoard(GameData gameData) {
 			var gameBoardObj = NGUITools.AddChild(GameList_Grid_GameObject, gameBoardPrefab);
 			
@@ -161,6 +157,7 @@ namespace PYIV.Menu
 			GameObject GameList_Panel = sprite.transform.FindChild("GameList_Panel").gameObject;
 			GameList_Grid_GameObject = GameList_Panel.transform.FindChild("Grid").gameObject;
 			UIGrid GameList_Grid = GameList_Panel.transform.FindChild("Grid").gameObject.GetComponent<UIGrid>();
+			GameList_Grid.repositionNow = true;
 			
 			GameObject TopAnchor = sprite.transform.FindChild("TopAnchor").gameObject;
 			GameObject newGameButton = TopAnchor.transform.FindChild("new_game_button").gameObject;
@@ -188,6 +185,53 @@ namespace PYIV.Menu
 			GameList_Grid.Reposition();
 		}
 		
+		
+		
+		//########################
+		// GAMEBOARD-MANAGEMENT
+		//########################
+
+		private void OnGameCollectionReceived(GameCollection serverCollection) {
+			
+			gameBoardPrefab = Resources.Load<GameObject>("Prefabs/UI/GameBoard");
+			CreateGameBoardsFromCollection();
+			LoggedInPlayer.Instance.GameList.OnChange += RefreshGameBoardsFromCollection;			
+		}
+		
+		private void CreateGameBoardsFromCollection() {
+			foreach(var obj in LoggedInPlayer.Instance.GameList.RunningGames) {
+				FillGameBoard(obj);
+			}
+			
+			GameList_Grid_GameObject.GetComponent<UIGrid>().Reposition();
+			ShowNoGamesSign();
+		}
+
+
+		private void RefreshGameBoardsFromCollection() {
+			var itemsToDelete = new List<GameObject>();
+			//copy list
+			foreach(Transform obj in GameList_Grid_GameObject.transform) {
+				itemsToDelete.Add(obj.gameObject);
+			}
+			
+			itemsToDelete.ForEach((obj) => NGUITools.Destroy(obj));
+
+			CreateGameBoardsFromCollection();
+		}
+
+		
+
+		private void OnServerError(RestException e) {
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
+		}
+		
+		
+		//########################
+		// COMMAND EXECUTION
+		//########################
+		
+		
 		private void ExecuteFirstCommand(){
 			if(LoggedInPlayer.Instance.NotificationHandler.CommandQueue.Count > 0){
 				LoggedInPlayer.Instance.NotificationHandler.CommandQueue.Dequeue().Execute();
@@ -195,15 +239,7 @@ namespace PYIV.Menu
 			}
 		}
 
-		public override bool ShouldBeCached ()
-		{
-			return false;
-		}
 		
-		public override void Back ()
-		{
-			Application.Quit();
-		}
 		
 	}
 }
