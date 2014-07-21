@@ -66,25 +66,25 @@ namespace PYIV.Gameplay
         {
             EnemyData ed;
             EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-			Debug.Log ("SpawnTime: " + Time.time + " ID " + ed.Id);
+			//Debug.Log ("SpawnTime: " + Time.time + " ID " + ed.Id);
 			switch (ed.Id)
 			{
-				case "1":
+				case "Rat":
 					enemyStartPosition.z =  UnityEngine.Random.Range (-10,-7);
 					break;
-				case "2":
+				case "Tarantula":
 					enemyStartPosition.z =  UnityEngine.Random.Range (-7,-5);
 					break;
-				case "3":
+				case "Eagle":
 					enemyStartPosition.z =  UnityEngine.Random.Range (-5,-1);
 					break;
-				case "4":
+				case "Panther":
 					enemyStartPosition.z =  UnityEngine.Random.Range (0,3);
 					break;
-				case "5":
+				case "Elephant":
 					enemyStartPosition.z =  UnityEngine.Random.Range (3,5);
 					break;
-				case "6":
+				case "Rhino":
 					enemyStartPosition.z =  UnityEngine.Random.Range (5,8);
 					break;
 				default:
@@ -118,13 +118,21 @@ namespace PYIV.Gameplay
             float maxSpawnTime;
             float.TryParse(ConfigReader.Instance.GetSetting("game", "max-spawn-time"), out maxSpawnTime);
             deltaSpawnTime = maxSpawnTime / EnemyIdQueue.Count();
+			
+			Debug.Log("maxSpwanTime "+ maxSpawnTime);
+			Debug.Log("AnzahlViechers "+ EnemyIdQueue.Count());
+			Debug.Log("NewSpwanTime "+ deltaSpawnTime);
         }
 
         private void ComputeNextSpawnTime()
         {	
 			EnemyData ed;
 			EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-			nextSpawntime = Time.time + deltaSpawnTime; //+ UnityEngine.Random.Range (-(deltaSpawnTime*lastEnemySpawnTime),deltaSpawnTime*ed.SpawnTime);
+			//nextSpawntime = Time.time + deltaSpawnTime; 
+			float DeltaCalcu = UnityEngine.Random.Range (-(deltaSpawnTime*lastEnemySpawnTime),deltaSpawnTime*(1.0f-ed.SpawnTime));
+			nextSpawntime = Time.time + deltaSpawnTime+ DeltaCalcu;
+			Debug.Log("DeltaSpawnTime " + deltaSpawnTime);
+			Debug.Log("SpawnTimeDraufrechnung " +DeltaCalcu); 
         }
 
         public GameObject GetEnemyContainer()
