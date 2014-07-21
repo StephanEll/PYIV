@@ -14,7 +14,8 @@ namespace PYIV.Persistence
 		
 				
 		public const string GCM_ID_KEY = "gcmIdKey";
-		public CommandQueue CommandQueue { get; set; } 
+		public CommandQueue CommandQueue { get; set; }
+		 
 		
 		public NotificationHandler ()
 		{
@@ -49,25 +50,43 @@ namespace PYIV.Persistence
 		
 		private void OnStoredNotificationsLoaded(CEvent e){
 			var notifications = e.data as List<PushNotificationData>;
+			
+			
+			bool containsSyncNotification = false;
+			
 			foreach(PushNotificationData notificationData in notifications){
-				ProcessNotification(notificationData, true);
+				
+				if(notificationData.NotificationType == NotificationType.SYNC && !containsSyncNotification){
+					containsSyncNotification = true;
+					ProcessNotification(notificationData, true);
+				}
+				else if(notificationData.NotificationType != NotificationType.SYNC){
+					ProcessNotification(notificationData, true);
+				}
+				
 			}
 			
 		}
 		
 		private void ProcessNotification(PushNotificationData notificationData, bool isFromStore = false){
-			NGUIDebug.Log("NOTIFICATION RECEIVED" + notificationData.message);
+			NGUIDebug.Log("received notification: " + notificationData.message + "::" + notificationData.timestamp);
 			switch (notificationData.NotificationType) {
 			case NotificationType.SYNC:
-				Debug.Log ("Process sync notification");
-				var syncCommand = new SyncCommand(true, CommandQueue);
-				syncCommand.Execute();
+				HandleSyncNotification(notificationData);
 				break;
+				
 			case NotificationType.CHALLENGE_DENIED:
 				var challengeDeniedCommand = new ShowChallengeDeniedCommand(notificationData, CommandQueue);
 				CommandQueue.Enqueue(challengeDeniedCommand);
 				break;
 			}
+		}
+		
+		private void HandleSyncNotification(PushNotificationData notificationData){
+
+			var syncCommand = new SyncCommand(true, CommandQueue, notificationData.timestamp);
+			syncCommand.Execute();
+			
 		}
 
 		

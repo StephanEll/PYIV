@@ -16,7 +16,7 @@ namespace PYIV.Persistence
 		private const string RESOURCE = "gameDataCollection";
 		
 		public List<GameData> ModelList { get; set; }
-		
+		public DateTime LatestSync { get; private set; }
 		
 		public List<GameData> RunningGames { 
 			get {
@@ -89,6 +89,8 @@ namespace PYIV.Persistence
 		{
 			
 			Debug.Log("vor response : " + ModelList.Count);
+			
+			LatestSync = gameSyncResponse.Timestamp;
 			
 			foreach(GameData updatedGame in gameSyncResponse.ModelList){
 				

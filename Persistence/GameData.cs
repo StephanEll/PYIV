@@ -22,8 +22,10 @@ namespace PYIV.Persistence
 		[IgnoreDataMember]
 		public PlayerStatus MyStatus {
 			get{
+				Debug.Log("created at: " + CreatedAt.ToString());
 				return this.GetPlayerOrOpponentStatus(true);
 			}
+			
 		}
 		
 		public bool IsSynced { get; set; }

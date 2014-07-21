@@ -9,6 +9,8 @@ namespace PYIV.Persistence
 		public List<GameData> ModelList { get; set; }
 
 		
+		public DateTime Timestamp { get; set; }
+		
 		
 		public GameSyncResponse ()
 		{

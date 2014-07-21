@@ -55,6 +55,7 @@ namespace PYIV.Persistence
 		{
 			lock (syncRoot) {
 				Player.DeleteAuthData ();
+				LocalDataPersistence.DeleteFile(LocalDataPersistence.GAMES_FILENAME);
 				instance = null;
 			}
 		}

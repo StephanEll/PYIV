@@ -77,9 +77,9 @@ public class GoogleCloudMessageService : Singleton<GoogleCloudMessageService> {
 	//--------------------------------------
 
 	private void OnLastMessageLoaded(string data) {
+		Debug.Log ("PushData received: " + data);
+		PushNotificationData notificationData = DeserializerHelper.Deserialize<PushNotificationData>(data);
 		
-		PushNotificationData notificationData = SimpleJson.SimpleJson.DeserializeObject<PushNotificationData>(data);
-		Debug.Log ("PushData received: " + notificationData);
 		_lastMessage = notificationData;
 		dispatch(CLOUD_MESSAGE_LOADED, lastMessage);
 
@@ -87,7 +87,7 @@ public class GoogleCloudMessageService : Singleton<GoogleCloudMessageService> {
 
 	
 	private void OnGetStoredNotifications(string notifications){
-		var notificationList = SimpleJson.SimpleJson.DeserializeObject<List<PushNotificationData>>(notifications);
+		var notificationList = DeserializerHelper.Deserialize<List<PushNotificationData>>(notifications);
 		Debug.Log ("Deserialized notification list: " + notificationList.Count);
 		
 		dispatch(STORED_NOTIFICATIONS_LOADED, notificationList);

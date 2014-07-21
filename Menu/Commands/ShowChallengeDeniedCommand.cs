@@ -8,10 +8,11 @@ namespace PYIV.Menu.Commands
 	public class ShowChallengeDeniedCommand : QueuedCommand
 	{
 		private PopupParam popupParams;
+		private PushNotificationData pushNotificationData;
 		
 		public ShowChallengeDeniedCommand (PushNotificationData pushNotificationData, CommandQueue commandQueue) : base(commandQueue)
 		{
-			
+			this.pushNotificationData = pushNotificationData;	
 			popupParams = new PopupParam(pushNotificationData.message);
 			popupParams.OnClose = (go) => HandleNextCommand();
 		}
@@ -19,7 +20,7 @@ namespace PYIV.Menu.Commands
 		public override void Execute(){
 			base.Execute();
 			
-			var syncCommand = new SyncCommand(true, CommandQueue);
+			var syncCommand = new SyncCommand(true, CommandQueue, this.pushNotificationData.timestamp);
 			syncCommand.Execute();
 			
 			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(BasePopupView), popupParams);

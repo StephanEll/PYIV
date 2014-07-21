@@ -5,13 +5,14 @@ namespace PYIV.Helper.GCM
 	[DataContract]
 	public class PushNotificationData
 	{
-		[DataMember]
+
 		public string message { get; set; }
 		
-		[DataMember]
 		public string title { get; set; }
 		
 		[DataMember]
+		public DateTime timestamp { get; set; }
+		
 		public String type { 
 			
 			set{

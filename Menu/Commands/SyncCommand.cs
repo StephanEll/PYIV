@@ -11,16 +11,26 @@ namespace PYIV.Menu.Commands
 		
 		private CommandQueue commandQueue;
 		private bool doInBackground;
+		private DateTime timestamp;
 		
-		public SyncCommand (bool doInBackground, CommandQueue commandQueue)
+		public SyncCommand (bool doInBackground, CommandQueue commandQueue, DateTime timestamp=default(DateTime))
 		{
 			this.commandQueue = commandQueue;
 			this.doInBackground = doInBackground;
+			this.timestamp = timestamp;
 		}
 		
 		public void Execute(){
-			if(LoggedInPlayer.Instance.GameList != null){
+			bool syncNecessary = true;
+			if(timestamp != default(DateTime)){
+				syncNecessary = timestamp > LoggedInPlayer.Instance.GameList.LatestSync;
+			}
+			
+			if(syncNecessary){
 				LoggedInPlayer.Instance.GameList.Sync(OnSuccess, OnError, doInBackground);
+			}
+			else{
+				NGUIDebug.Log("skip sync, already up to date");
 			}
 		}
 		
