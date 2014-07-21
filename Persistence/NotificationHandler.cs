@@ -70,15 +70,12 @@ namespace PYIV.Persistence
 		
 		private void ProcessNotification(PushNotificationData notificationData, bool isFromStore = false){
 			NGUIDebug.Log("received notification: " + notificationData.message + "::" + notificationData.timestamp);
-			switch (notificationData.NotificationType) {
-			case NotificationType.SYNC:
+			if(notificationData.NotificationType == NotificationType.SYNC) {
 				HandleSyncNotification(notificationData);
-				break;
-				
-			case NotificationType.CHALLENGE_DENIED:
-				var challengeDeniedCommand = new ShowChallengeDeniedCommand(notificationData, CommandQueue);
-				CommandQueue.Enqueue(challengeDeniedCommand);
-				break;
+			}
+			else if(notificationData.NotificationType == NotificationType.CHALLENGE_DENIED || notificationData.NotificationType == NotificationType.CONTINUE){
+				var infoCommand = new ShowInfoAndSyncCommand(notificationData, CommandQueue);
+				CommandQueue.Enqueue(infoCommand);
 			}
 		}
 		

@@ -5,12 +5,12 @@ using PYIV.Menu;
 
 namespace PYIV.Menu.Commands
 {
-	public class ShowChallengeDeniedCommand : QueuedCommand
+	public class ShowInfoAndSyncCommand : QueuedCommand
 	{
 		private PopupParam popupParams;
 		private PushNotificationData pushNotificationData;
 		
-		public ShowChallengeDeniedCommand (PushNotificationData pushNotificationData, CommandQueue commandQueue) : base(commandQueue)
+		public ShowInfoAndSyncCommand (PushNotificationData pushNotificationData, CommandQueue commandQueue) : base(commandQueue)
 		{
 			this.pushNotificationData = pushNotificationData;	
 			popupParams = new PopupParam(pushNotificationData.message);
