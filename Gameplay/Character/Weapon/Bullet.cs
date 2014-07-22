@@ -5,7 +5,6 @@ using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Character.Weapon
 {
-
   public class Bullet : MonoBehaviour
   {
 
@@ -13,10 +12,7 @@ namespace PYIV.Gameplay.Character.Weapon
     public int Strength { get; private set; }
 
     private Score.Score score;
-
     private bool hit = false;
-
-
 
     void Start()
     {
@@ -24,7 +20,7 @@ namespace PYIV.Gameplay.Character.Weapon
         gameObject.AddComponent<BoxCollider2D>();
 
     }
-		
+    
     void Update()
     {
 
@@ -48,25 +44,26 @@ namespace PYIV.Gameplay.Character.Weapon
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-
       float rememberRotation = transform.localRotation.eulerAngles.z;
 
       if (collision.transform.FindChild("back") != null)
         transform.parent = collision.transform.FindChild("back");
-      else
+      else if (collision.transform.childCount > 0)
         transform.parent = collision.transform.GetChild(0);
       
-      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>())
+      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false)
       {
         hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
-
-        if(collision.transform.localScale.x < 0){
-          if(rememberRotation > 180.0f)
-            transform.localRotation = Quaternion.Euler(0,0, 540.0f - rememberRotation);
+          
+        // Um falscher Stellung von Pfeilen, wenn diese Enemys untergeordnet werden, entgegenzuwirken.
+        if (collision.transform.localScale.x < 0)
+        {
+          if (rememberRotation > 180.0f)
+            transform.localRotation = Quaternion.Euler(0, 0, 540.0f - rememberRotation);
           else
-            transform.localRotation = Quaternion.Euler(0,0, 180.0f - rememberRotation);
+            transform.localRotation = Quaternion.Euler(0, 0, 180.0f - rememberRotation);
         }
 
         score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());

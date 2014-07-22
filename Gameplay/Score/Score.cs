@@ -16,6 +16,8 @@ namespace PYIV.Gameplay.Score
     public int MissedShotCount { get; private set; }
     public int Livepoints { get; private set; }
 
+    public Dictionary<string, int> ExtraPointCount { get; private set; }
+
     public delegate void ScoreChangedDelegate(int newScore);
     public event ScoreChangedDelegate OnScoreChanged;
 
@@ -42,13 +44,15 @@ namespace PYIV.Gameplay.Score
     
     }
 
-    public void AddHit(Enemy.Enemy enemy)
+    public void AddHit(Enemy.Enemy lastHitEnemy)
     {
     
+      Debug.Log("Enemy Hit: " + lastHitEnemy == null);
+
       HitCount++;
-      lastHits.Insert(0, enemy);
+      lastHits.Insert(0, lastHitEnemy);
     
-      string rememberType = enemy.Type;
+      string rememberType = lastHitEnemy.Type;
       int sameTypeHitCounter = 0;
       int counterHitsInARow = 0;
 
@@ -58,6 +62,7 @@ namespace PYIV.Gameplay.Score
           break;
         if (rememberType == hit.Type){
           sameTypeHitCounter ++;
+        } else {
           rememberType = "stop counting";
         }
 
@@ -70,22 +75,25 @@ namespace PYIV.Gameplay.Score
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsNotTypeSpecific, counterHitsInARow);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd);
+        OnHitFlyNote(lastHitEnemy, fnd);
         sendStdMessage = false;
+        IncreaseExtraPoints(fnd);
       } 
       fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.HitsTypeSpecific, sameTypeHitCounter);
       if (OnHitFlyNote != null && fnd != null)
       {
-        OnHitFlyNote(enemy, fnd);
+        OnHitFlyNote(lastHitEnemy, fnd);
         sendStdMessage = false;
+        IncreaseExtraPoints(fnd);
       }
       if(sendStdMessage)
       {
-        OnHitFlyNote(enemy, new FlyNoteData(enemy.LivePoints.ToString()));
+        OnHitFlyNote(lastHitEnemy, new FlyNoteData(lastHitEnemy.LivePoints.ToString()));
       }
 
       // evtl liste begrenzen
     }
+
 
     public void AddKill(Enemy.Enemy enemy)
     {
@@ -112,11 +120,13 @@ namespace PYIV.Gameplay.Score
       if (OnHitFlyNote != null && fnd != null)
       {
         OnHitFlyNote(enemy, fnd);
+        IncreaseExtraPoints(fnd);
       }
       fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.KillsTypeSpecific, sameTypeKillCounter);
       if (OnHitFlyNote != null && fnd != null)
       {
         OnHitFlyNote(enemy, fnd);
+        IncreaseExtraPoints(fnd);
       }
       // evtl liste begrenzen
     }
@@ -124,8 +134,8 @@ namespace PYIV.Gameplay.Score
     public void AddMissed()
     {
       MissedShotCount++;
-      lastHits.Add(null);
-      lastKills.Add(null);
+      lastHits.Insert(0, null);
+      lastKills.Insert(0, null);
     }
 
     public void SubtractLivepoints(int damage)
@@ -150,6 +160,17 @@ namespace PYIV.Gameplay.Score
       return new ScoreResult(this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints);
     }
 
+    private void IncreaseExtraPoints(FlyNoteData fnd){
+      int points = 0;
+      if (ExtraPointCount.TryGetValue(fnd.Type, out points))
+      {
+        points += fnd.ExtraPoints;
+      } 
+      else
+      {
+        ExtraPointCount.Add(fnd.Type, fnd.ExtraPoints);
+      }
+    }
 
   }
 }

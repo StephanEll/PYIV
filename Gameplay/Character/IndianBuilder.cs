@@ -8,10 +8,9 @@ using System;
 
 namespace PYIV.Gameplay.Character
 {
-
-    public class IndianBuilder
-    {
-        /*
+  public class IndianBuilder
+  {
+    /*
         * Hier soll ein Gameobject mit der Komponente Indian erzeugt werden.
         * 
         * (noch nicht implementiert
@@ -19,23 +18,23 @@ namespace PYIV.Gameplay.Character
         * Fähigkeiten des Indianers (indianData) anzupassen. 
         */
 
-        public static Indian CreateIndian(PlayerStatus playerStatus, Transform parent)
-        {
-            GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
+    public static Indian CreateIndian(PlayerStatus playerStatus, Transform parent)
+    {
+      GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
 
-            indianGO.transform.parent = parent;
+      indianGO.transform.parent = parent;
 
-            indianGO.transform.localPosition = indianGO.transform.position;
+      indianGO.transform.localPosition = indianGO.transform.position;
 
-            ShotBehaviour.AddAsComponentFactory(
+      ShotBehaviour.AddAsComponentFactory(
                 indianGO,
                 playerStatus.IndianData.BulletPreafabPath, 
                 playerStatus.IndianData.ShotBehaviourClassName, 
                 playerStatus.IndianData.Strength);
 
-            Indian indian = Indian.AddAsComponent(indianGO, playerStatus.IndianData);
+      Indian indian = Indian.AddAsComponent(indianGO, playerStatus.IndianData);
 
-            return indian;
-        }
+      return indian;
     }
+  }
 }

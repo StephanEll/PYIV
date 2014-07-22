@@ -15,7 +15,7 @@ namespace PYIV.Gameplay.Enemy
 
     private Score.Score score;
 
-    private bool dead = false;
+    public bool Dead { get; private set;}
 
     private float fateOutFrames;
     private float fateOutFramesMax;
@@ -57,6 +57,7 @@ namespace PYIV.Gameplay.Enemy
 
     void Start()
     {
+      Dead = false;
       enemyData = enemyData.Clone() as EnemyData;
       fateOutFrames = ConfigReader.Instance.GetSettingAsFloat("game", "enemy-die-frames");
       fateOutFramesMax = fateOutFrames;
@@ -70,7 +71,7 @@ namespace PYIV.Gameplay.Enemy
     // Update is called once per frame
     public void Update()
     {
-      if (dead)
+      if (Dead)
       {
         FateOut();
       }
@@ -128,7 +129,7 @@ namespace PYIV.Gameplay.Enemy
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-      if (collision.gameObject.GetComponent<Bullet>())
+      if (collision.gameObject.GetComponent<Bullet>() && !Dead)
       {
         this.LivePoints -= collision.gameObject.GetComponent<Bullet>().Strength;
         if (this.LivePoints <= 0)
@@ -151,7 +152,7 @@ namespace PYIV.Gameplay.Enemy
 
       this.GetComponent<Animator>().SetTrigger("dead");
 
-      dead = true;
+      Dead = true;
 
       if (enemyData.Fly)
       {
