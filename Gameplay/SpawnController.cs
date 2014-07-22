@@ -56,64 +56,73 @@ namespace PYIV.Gameplay
         EnemyDataQueue.Add(et.EnemyData.Id, et.EnemyData);
         for (int i = 0; i < et.Count; i++)
         {
-          EnemyIdQueue.Add(et.EnemyData.Id);
+
+            EnemyData ed;
+            EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
+			//Debug.Log ("SpawnTime: " + Time.time + " ID " + ed.Id);
+			switch (ed.Id)
+			{
+				case "Rat":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-10,-7);
+					break;
+				case "Tarantula":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-7,-5);
+					break;
+				case "Eagle":
+					enemyStartPosition.z =  UnityEngine.Random.Range (-5,-1);
+					break;
+				case "Panther":
+					enemyStartPosition.z =  UnityEngine.Random.Range (0,3);
+					break;
+				case "Elephant":
+					enemyStartPosition.z =  UnityEngine.Random.Range (3,5);
+					break;
+				case "Rhino":
+					enemyStartPosition.z =  UnityEngine.Random.Range (5,8);
+					break;
+				default:
+				enemyStartPosition.z =  UnityEngine.Random.Range (-5,-7);
+					break;
+					
+			}
+
+		
+			EnemyBuilder.CreateEnemy(
+                ed, 
+				EnemyContainer.transform,
+                EnemyContainer.transform.parent.GetComponent<Score.Score>(),
+				enemyStartPosition
+                );
+			lastEnemySpawnTime = ed.SpawnTime;
+            EnemyIdQueue.RemoveAt(0);
         }
       }
 
       EnemyIdQueue = EnemyIdQueue.OrderBy(emp => Guid.NewGuid()).ToList();
     }
 
-    private void Spawn()
-    {
-      EnemyData ed;
-      EnemyDataQueue.TryGetValue(EnemyIdQueue [0], out ed);
-      //Debug.Log("SpawnTime: " + Time.time + " ID " + ed.Id);
-      switch (ed.Id)
-      {
-        case "1":
-          enemyStartPosition.z = UnityEngine.Random.Range(-10, -7);
-          break;
-        case "2":
-          enemyStartPosition.z = UnityEngine.Random.Range(-7, -5);
-          break;
-        case "3":
-          enemyStartPosition.z = UnityEngine.Random.Range(-5, -1);
-          break;
-        case "4":
-          enemyStartPosition.z = UnityEngine.Random.Range(0, 3);
-          break;
-        case "5":
-          enemyStartPosition.z = UnityEngine.Random.Range(3, 5);
-          break;
-        case "6":
-          enemyStartPosition.z = UnityEngine.Random.Range(5, 8);
-          break;
-        default:
-          enemyStartPosition.z = UnityEngine.Random.Range(-5, -7);
-          break;
-          
-      }
 
-    
-      EnemyBuilder.CreateEnemy(
-        ed, 
-        EnemyContainer.transform,
-        EnemyContainer.transform.parent.GetComponent<Score.Score>(),
-        enemyStartPosition
-      );
-      lastEnemySpawnTime = ed.SpawnTime;
-      EnemyIdQueue.RemoveAt(0);
-    }
+        private void ComputeDeltaSpawnTime()
+        {
+            float maxSpawnTime;
+            float.TryParse(ConfigReader.Instance.GetSetting("game", "max-spawn-time"), out maxSpawnTime);
+            deltaSpawnTime = maxSpawnTime / EnemyIdQueue.Count();
+			
+			Debug.Log("maxSpwanTime "+ maxSpawnTime);
+			Debug.Log("AnzahlViechers "+ EnemyIdQueue.Count());
+			Debug.Log("NewSpwanTime "+ deltaSpawnTime);
+        }
 
-    public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes)
-    {
-      go.AddComponent<SpawnController>();
-      SpawnController spawnController = go.GetComponent<SpawnController>();
-      spawnController.GenerateEnemyIdQueue(enemyTypes);
-      spawnController.ComputeDeltaSpawnTime();
-      spawnController.ComputeNextSpawnTime();
-      return spawnController;
-    }
+        private void ComputeNextSpawnTime()
+        {	
+			EnemyData ed;
+			EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
+			//nextSpawntime = Time.time + deltaSpawnTime; 
+			float DeltaCalcu = UnityEngine.Random.Range (-(deltaSpawnTime*lastEnemySpawnTime),deltaSpawnTime*(1.0f-ed.SpawnTime));
+			nextSpawntime = Time.time + deltaSpawnTime+ DeltaCalcu;
+			Debug.Log("DeltaSpawnTime " + deltaSpawnTime);
+			Debug.Log("SpawnTimeDraufrechnung " +DeltaCalcu); 
+        }
 
     private void ComputeDeltaSpawnTime()
     {

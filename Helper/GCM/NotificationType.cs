@@ -8,8 +8,8 @@ namespace PYIV.Helper.GCM
 		SYNC = 1,
 		
 		NEW_CHALLENGE = 5,
-		CHALLENGE_DENIED = 6
-		
+		CHALLENGE_DENIED = 6,
+		CONTINUE = 7
 		
 	}
 }
