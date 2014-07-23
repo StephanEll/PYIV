@@ -131,6 +131,7 @@ namespace PYIV.Menu
 			UISprite opponentIcon = gameBoardObj.transform.FindChild("opponent_icon").gameObject.GetComponent<UISprite>();
 			GameObject player_arrow = gameBoardObj.transform.FindChild("player_arrow").gameObject;
 			GameObject opponent_arrow = gameBoardObj.transform.FindChild("opponent_arrow").gameObject;
+			GameObject inactive = gameBoardObj.transform.FindChild("inactive").gameObject;
 			
 			// setting GameBoard content
 			playerName.text = gameData.MyStatus.Player.Name;
@@ -138,8 +139,13 @@ namespace PYIV.Menu
 			roundNr.text = gameData.MyStatus.Rounds.Count + ". R";
 			playerIcon.spriteName = gameData.MyStatus.IndianData.SpriteImageName;
 			opponentIcon.spriteName = gameData.OpponentStatus.IndianData.SpriteImageName;
-			
-			
+
+			// inactive gameboard, if game not accepted yet
+			if(!gameData.OpponentStatus.IsChallengeAccepted) {
+				inactive.SetActive(true);
+			}
+
+			// wer dran ist, ist bunt - wer nicht, schwarz-weiss
 			if(gameData.IsMyTurn()) {
 				opponentIcon.spriteName += "_bw";
 				opponent_arrow.SetActive(false);
