@@ -23,6 +23,9 @@ namespace PYIV.Persistence
 		[DataMember]
 		public int RemainingVillageLifepoints { get; set; }
 
+    [DataMember]
+    public int ExtraPoints { get; set; }
+
 		[IgnoreDataMember]
 		public int AllShots { 
 			get {
@@ -48,12 +51,13 @@ namespace PYIV.Persistence
 		{
 		}
 
-		public ScoreResult (int hitCount, int missedShotCount, int killCount, int remainingVillageLifepoints)
+		public ScoreResult (int hitCount, int missedShotCount, int killCount, int remainingVillageLifepoints, int extraPoints)
 		{
 			HitCount = hitCount;
 			KillCount = killCount;
 			MissedShotCount = missedShotCount;
 			RemainingVillageLifepoints = remainingVillageLifepoints;
+      ExtraPoints = extraPoints;
 		}
 
 	}

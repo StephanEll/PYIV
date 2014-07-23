@@ -28,7 +28,7 @@ namespace PYIV.Gameplay.Character.Weapon
       {
         Vector2 angle = this.rigidbody2D.velocity;
         angle.Normalize();
-        this.transform.rotation = Quaternion.EulerAngles(0, 0, angle.y * 1.41421356237f);
+        this.transform.rotation = Quaternion.Euler(0, 0, angle.y * 1.41421356237f * 45.0f);
       }
 
       if (transform.position.y < PlayingFieldBoundarys.Bottom)
@@ -46,27 +46,29 @@ namespace PYIV.Gameplay.Character.Weapon
     {
       float rememberRotation = transform.localRotation.eulerAngles.z;
 
-      if (collision.transform.FindChild("back") != null)
-        transform.parent = collision.transform.FindChild("back");
-      else if (collision.transform.childCount > 0)
+
+
+
         transform.parent = collision.transform.GetChild(0);
-      
-      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false)
+
+      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() )
       {
         hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
-          
+
+
         // Um falscher Stellung von Pfeilen, wenn diese Enemys untergeordnet werden, entgegenzuwirken.
-        if (collision.transform.localScale.x < 0)
+        /*if (collision.transform.localScale.x < 0)
         {
           if (rememberRotation > 180.0f)
             transform.localRotation = Quaternion.Euler(0, 0, 540.0f - rememberRotation);
           else
             transform.localRotation = Quaternion.Euler(0, 0, 180.0f - rememberRotation);
-        }
+        }*/
 
-        score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
+        if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false)
+          score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
       }
     }
 

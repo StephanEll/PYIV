@@ -57,7 +57,7 @@ namespace PYIV.Gameplay{
 
       initialCameraSize = Camera.main.orthographicSize;
       Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
-      Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2*Camera.main.orthographicSize))/2);
+      Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2 * Camera.main.orthographicSize))/2);
 
 			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;

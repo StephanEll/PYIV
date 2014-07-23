@@ -32,6 +32,8 @@ namespace PYIV.Gameplay.Score
     // Use this for initialization
     void Start()
     {
+
+      ExtraPointCount = new Dictionary<string, int>();
       HitCount = 0;
       MissedShotCount = 0;
       Livepoints = ConfigReader.Instance.GetSettingAsInt("game", "start-village-livepoints");
@@ -47,7 +49,6 @@ namespace PYIV.Gameplay.Score
     public void AddHit(Enemy.Enemy lastHitEnemy)
     {
     
-      Debug.Log("Enemy Hit: " + lastHitEnemy == null);
 
       HitCount++;
       lastHits.Insert(0, lastHitEnemy);
@@ -105,13 +106,18 @@ namespace PYIV.Gameplay.Score
       int sameTypeKillCounter = 0;
       int counterKillsInARow = 0;
       bool stopCountingKillsInARow = false;
+      bool stopCountingSameKillsInARow = false;
+
       foreach (Enemy.Enemy killedEnemy in lastKills)
       {
         if(killedEnemy == null)
           stopCountingKillsInARow = true;
-        else if (rememberType == killedEnemy.Type){
+        else if (rememberType == killedEnemy.Type)
           sameTypeKillCounter ++;
-        }
+        else
+          stopCountingSameKillsInARow = false;
+
+
         if(!stopCountingKillsInARow)
           counterKillsInARow ++;
       }
@@ -157,9 +163,18 @@ namespace PYIV.Gameplay.Score
 
     public ScoreResult GetScoreResult()
     {
-      return new ScoreResult(this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints);
+      int extraPointCount = 0;
+      foreach (int points in ExtraPointCount.Values)
+      {
+        extraPointCount += points;
+      }
+      Debug.Log("extrapoints: " + extraPointCount);
+      return new ScoreResult( this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints, extraPointCount );
     }
 
+    /*
+     * kann noch vereinfacht werden, wenn das Feedback alle ExtraPunkte zusammenfasst
+     */
     private void IncreaseExtraPoints(FlyNoteData fnd){
       int points = 0;
       if (ExtraPointCount.TryGetValue(fnd.Type, out points))
