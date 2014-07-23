@@ -5,6 +5,7 @@ using UnityEngine;
 using RestSharp;
 using System.Runtime.Serialization;
 using PYIV.Gameplay.Character;
+using PYIV.Helper;
 
 
 
@@ -20,6 +21,9 @@ namespace PYIV.Persistence
 		
 		[DataMember]
 		public List<Round> Rounds { get; set; }
+		
+		[DataMember]
+		public int Gold { get; set; }
 		
 		[IgnoreDataMember] 
 		public Round LatestRound {
@@ -59,7 +63,7 @@ namespace PYIV.Persistence
 			
 			this.Player = player;
 			this.IsChallengeAccepted = LoggedInPlayer.Instance.Equals(player) ? true : false;
-			
+			this.Gold = ConfigReader.Instance.GetSettingAsInt("game", "start-gold");
 			
 		}
 		
@@ -74,9 +78,11 @@ namespace PYIV.Persistence
 		}
 		
 		public void AddRound(Round round){
-			Rounds.Add(round);
-			
+			Rounds.Add(round);	
 		}
+		
+		
+		
 		public override string ToString ()
 		{
 			return string.Format ("[PlayerStatus: Rounds={0}, Player={1}, IndianId={2}]", Rounds.Count, Player.ToString(), IndianId);

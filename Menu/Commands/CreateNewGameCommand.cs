@@ -23,18 +23,10 @@ namespace PYIV.Menu.Commands
 			this.challenger = challenger;			
 			newGame = new GameData(challenger, opponent);
 			
-			newGame.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
-			newGame.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
-			
-			List<EnemyType> types = new List<EnemyType>();
-            types.Add(EnemyTypeCollection.Instance.EnemyTypes[0]);
-            types.Add(EnemyTypeCollection.Instance.EnemyTypes[2]);
-            types.Add(EnemyTypeCollection.Instance.EnemyTypes[3]);
-            types.Add(EnemyTypeCollection.Instance.EnemyTypes[5]);
+			//TODO: Auswahl-View hierfür erstellen
+			newGame.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];			
 
 			Round round = new Round();
-			round.SentAttackers = types;
-			newGame.OpponentStatus.AddRound(round);
 			newGame.MyStatus.AddRound(round);
 			
 			newGame.IsSynced = false;
@@ -48,10 +40,14 @@ namespace PYIV.Menu.Commands
 				return;
 			}
 			
-			newGame.Save(NewGameCreated, ErrorCreatingGame);
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), newGame);
+			
+			
+			//newGame.Save(NewGameCreated, ErrorCreatingGame);
 			
 		}
 		
+		/*
 		private void NewGameCreated(GameData gameData){
 			
 			LoggedInPlayer.Instance.GameList.AddModel(newGame);
@@ -62,7 +58,7 @@ namespace PYIV.Menu.Commands
 		
 		private void ErrorCreatingGame(RestException e){
 			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
-		}
+		}*/
 	}
 }
 

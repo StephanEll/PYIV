@@ -18,21 +18,20 @@ namespace PYIV.Persistence
 	{
 		
 		
-		private List<string> sentAttackerIds;
-		
 		[DataMember]
 		public List<string> SentAttackerIds {
 			
 			get {
-				return sentAttackerIds;
+				var ids = from type in SentAttackers select type.Id;
+				return ids.ToList ();
 			}
 			
 			set {
-				sentAttackerIds = value;
 				SentAttackers = ConvertIdsToEnemyTypes (value);	
 			}
 			
 		}
+	
 		
 		private List<EnemyType> sentAttackers;
 		
@@ -43,17 +42,17 @@ namespace PYIV.Persistence
 			}
 			set {
 				sentAttackers = value;
-				var ids = from type in value select type.Id;
-				sentAttackerIds = ids.ToList ();
 			}
 		}
+		
+		
 
 		[DataMember]
 		public ScoreResult ScoreResult { get; set; }
 		
 		public Round ()
 		{
-			
+			SentAttackers = new List<EnemyType>();
 		}
 		
 		private List<EnemyType> ConvertIdsToEnemyTypes (List<string> enemyIds)
@@ -66,6 +65,7 @@ namespace PYIV.Persistence
 		{
 			return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, ScoreResult.RemainingVillageLifepoints);
 		}
+		
 		
 		
 	}

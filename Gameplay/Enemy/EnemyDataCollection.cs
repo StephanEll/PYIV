@@ -26,7 +26,8 @@ namespace PYIV.Gameplay.Enemy {
         {
             
         }
-
+		
+		
         private static EnemyDataCollection DeserializeEnemyDataCollection(string filename)
         {
 
@@ -67,7 +68,18 @@ namespace PYIV.Gameplay.Enemy {
                 return instance;
             }
         }
+		
+		public int MaxLifePoints(){
+			return enemyData.OrderByDescending(data => data.LivePoints).FirstOrDefault().LivePoints;
+		}
+		
+		public int MaxAttackPower(){
+			return enemyData.OrderByDescending(data => data.AttackPower).FirstOrDefault().AttackPower;
+		}
 
+		public float MaxMoveSpeed(){
+			return enemyData.OrderByDescending(data => data.MoveSpeed).FirstOrDefault().MoveSpeed;
+		}
         
 
 	}

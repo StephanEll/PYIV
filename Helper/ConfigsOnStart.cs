@@ -23,7 +23,8 @@ namespace PYIV.Helper
     //Configuration/Initializationcode at startup
     void Start()
     {
-
+			
+			
       //ignores certificate check when dealing with ssl
       ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
