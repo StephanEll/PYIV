@@ -91,15 +91,15 @@ namespace PYIV.Menu
 			UIWidget staminaWidget = stamina_bar.GetComponent<UIWidget> ();
 			if (stamina < 1.0f / characterStamina) {
 				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(1.0f, 0, 0));
-				staminaWidget.color = new Color (1.0f, 0, 0);
+				staminaWidget.color = new Color (0.603f, 0, 0);
 			}
 			else if (stamina < 0.5f) {
 				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(0.6f, 0.4f, 0));
-				staminaWidget.color = new Color (0.6f, 0.4f, 0);
+				staminaWidget.color = new Color (1.0f, 0.765f, 0);
 			}
 			else {
 				//HOTween.To(staminaWidget.color, 0.1f, "color", new Color(0, 1.0f, 0));
-				staminaWidget.color = new Color (0, 1.0f, 0);
+				staminaWidget.color = new Color (0.294f, 0.843f, 0);
 			}
 			stamina_bar.fillAmount = stamina;
 		}
