@@ -5,7 +5,7 @@
 	<IndianDataCollection>
 	
 		<IndianData>
-			<Id>1</Id>
+			<Id>Indian</Id>
 			<Name>Indianer</Name>
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
@@ -19,7 +19,7 @@
 		</IndianData>
 		
 		<IndianData>
-			<Id>2</Id>
+			<Id>Amazone</Id>
 			<Name>Amazone</Name>
 			<Description>20</Description>
 			<SpriteImageName>amazone_icon</SpriteImageName>
@@ -33,7 +33,7 @@
 		</IndianData>
 		
 		<IndianData>
-			<Id>3</Id>
+			<Id>Massai</Id>
 			<Name>Massai</Name>
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
@@ -41,9 +41,9 @@
 			<Strength>30</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponSpear</ShotBehaviourClassName>
-			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
+			<PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
-			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
+			<BackgroundPreafabPath>Prefabs/Environment/Scene_massai</BackgroundPreafabPath>
 		</IndianData>
 		
 	</IndianDataCollection>

@@ -53,14 +53,16 @@ namespace PYIV.Helper
 			LoggedInPlayer.Login(player2);
 			data = new GameData(player1, player2);
 
-			data.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
-			data.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];
+      string[] subCollectionIndian = {"Massai"};
+
+      data.MyStatus.IndianData = IndianDataCollection.Instance.GetSubCollection(subCollectionIndian)[0];
+      data.OpponentStatus.IndianData = IndianDataCollection.Instance.GetSubCollection(subCollectionIndian)[0];
 			
 			List<EnemyType> types = new List<EnemyType>();
+      
+      string[] subCollectionEnemy = {"Ratte10", "Eagle4", "Panther4", "Rhino3", "Elephant3"};
 
-      string[] subCollection = {"Ratte10", "Eagle4", "Panther4", "Rhino3", "Elephant3" };
-
-      EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection(subCollection);
+      EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection(subCollectionEnemy);
 
 
       types.AddRange(ets);
