@@ -58,7 +58,7 @@ namespace PYIV.Helper
 			
 			List<EnemyType> types = new List<EnemyType>();
 
-      string[] subCollection = {"Ratte10", "Eagle4", "Panther4", "Rhino3", "Elephant3" };
+      string[] subCollection = {"Ratte1", "Eagle1", "Panther1", "Rhino1", "Elephant1" };
 
       EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection(subCollection);
 

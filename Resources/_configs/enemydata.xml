@@ -73,7 +73,7 @@
 	<EnemyTypeCollection>
 	
 	    <EnemyType>
-	      <Id>Ratte10</Id>
+	      <Id>Rat1</Id>
 	      <Price>50</Price>
 	      <Name>10 Ratten</Name>
 	      <Description>Kaufe 10 Ratten zum Preis von 50 Goldstücken</Description>
@@ -82,7 +82,7 @@
 	    </EnemyType>
 	    
 	    <EnemyType>
-	      <Id>Tarantel10</Id>
+	      <Id>Bat1</Id>
 	      <Price>60</Price>
 	      <Name>20 Tarantel</Name>
 	      <Description>Kaufe 10 Tarantel zum Preis von 60 Goldstücken</Description>
@@ -91,7 +91,7 @@
 	    </EnemyType>
 	    
 	    <EnemyType>
-	      <Id>Eagle4</Id>
+	      <Id>Eagle1</Id>
 	      <Price>160</Price>
 	      <Name>4 Geier</Name>
 	      <Description>Kaufe 4 Eagle zum Preis von 160 Goldstücken</Description>
@@ -100,7 +100,7 @@
 	    </EnemyType>
 	    
 	    <EnemyType>
-	      <Id>Panther4</Id>
+	      <Id>Panther1</Id>
 	      <Price>180</Price>
 	      <Name>4 Panther</Name>
 	      <Description>Kaufe 4 Panther zum Preis von 180 Goldstücken</Description>
@@ -109,7 +109,7 @@
 	    </EnemyType>
 	    
 	    <EnemyType>
-	      <Id>Rhino3</Id>
+	      <Id>Rhino1</Id>
 	      <Price>270</Price>
 	      <Name>3 Rhinos</Name>
 	      <Description>Kaufe 3 Nashörner zum Preis von 270 Goldstücken</Description>
@@ -118,7 +118,7 @@
 	    </EnemyType>
 	    
 	    <EnemyType>
-	      <Id>Elephant3</Id>
+	      <Id>Elephant1</Id>
 	      <Price>300</Price>
 	      <Name>3 Elephant</Name>
 	      <Description>Kaufe 3 Elephant zum Preis von 300 Goldstücken</Description>
