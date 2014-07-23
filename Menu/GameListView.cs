@@ -143,6 +143,8 @@ namespace PYIV.Menu
 			// inactive gameboard, if game not accepted yet
 			if(!gameData.OpponentStatus.IsChallengeAccepted) {
 				inactive.SetActive(true);
+				BoxCollider inactiveBoxCollider = gameBoardObj.GetComponent<BoxCollider>();
+				inactiveBoxCollider.size = new Vector3(0,0,0);
 			}
 
 			// wer dran ist, ist bunt - wer nicht, schwarz-weiss
