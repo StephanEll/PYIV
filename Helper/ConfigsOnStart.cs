@@ -37,7 +37,7 @@ namespace PYIV.Helper
 
       CreateTestData();
 
-      ShowStartScreen();
+      //ShowStartScreen();
 
       
     }

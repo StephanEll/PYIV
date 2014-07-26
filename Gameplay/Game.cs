@@ -22,6 +22,8 @@ namespace PYIV.Gameplay{
 		private SpawnController spawnController;
     private float initialCameraSize;
 
+		private int spawnCount;
+
 		
 		public GameData GameData { 
 			
@@ -54,16 +56,18 @@ namespace PYIV.Gameplay{
 		
 		void Start ()
 		{
-
+			spawnCount = spawnController.GetSpawnQueueCount();
       initialCameraSize = Camera.main.orthographicSize;
       Camera.main.orthographicSize = (playingFieldWidth/Camera.main.aspect)/2;
       Camera.main.gameObject.transform.Translate(new Vector2 (0,  -(playingFieldHeight - 2 * Camera.main.orthographicSize))/2);
+			Camera.main.farClipPlane = spawnCount + 20;
 
 			var bgPrefab = Resources.Load(gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate(bgPrefab) as GameObject;
       background.transform.parent = transform;
 			
 			background.transform.parent = this.transform;
+			background.transform.position += new Vector3(0,0,spawnCount+10);
 
 		}
 
