@@ -35,13 +35,10 @@ namespace PYIV.Menu.Commands
 		private void OnAccept(GameObject button){
 			Debug.Log ("GameAccepted");
 			newGame.MyStatus.IsChallengeAccepted = true;
-			newGame.Save(OnSaveSuccess, OnError);
-			HandleNextCommand();
+			
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(newGame));
 		}
 		
-		private void OnSaveSuccess(GameData data){
-			LoggedInPlayer.Instance.GameList.Update();
-		}
 		
 		private void OnError(RestException e){
 			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);

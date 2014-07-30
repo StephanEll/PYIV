@@ -20,9 +20,15 @@ namespace PYIV.Persistence
 		public DateTime UpdatedAt { get; set; }
 		
 		[IgnoreDataMember]
+		public GameState State {
+			get{
+				return DetermineGameState();
+			}
+		}
+		
+		[IgnoreDataMember]
 		public PlayerStatus MyStatus {
 			get{
-				Debug.Log("created at: " + CreatedAt.ToString());
 				return this.GetPlayerOrOpponentStatus(true);
 			}
 			
@@ -87,6 +93,36 @@ namespace PYIV.Persistence
 		public bool IsMyTurn() {
 			System.Random rand = new System.Random();
 			return rand.Next(2) == 0;
+		}
+		
+		private GameState DetermineGameState(){
+			if(MyStatus.LatestRound.IsComplete && OpponentStatus.LatestRound.IsComplete){
+				if(MyStatus.LatestRound.ScoreResult.IsVillageDestroyed && OpponentStatus.LatestRound.ScoreResult.IsVillageDestroyed){
+					return GameState.DRAW;
+				}
+				else if(MyStatus.LatestRound.ScoreResult.IsVillageDestroyed){
+					return GameState.LOST;
+				}
+				else if(OpponentStatus.LatestRound.ScoreResult.IsVillageDestroyed){
+					return GameState.WON;
+				}
+				
+			}
+			else if(MyStatus.LatestRound.IsComplete){
+				return GameState.OPPONENT_NEEDS_TO_PLAY;
+			}
+			else if(!MyStatus.LatestRound.IsConfigured){
+				return GameState.PLAYER_NEEDS_TO_CONFIGURE;
+			}
+			else if(OpponentStatus.LatestRound.IsConfigured && !MyStatus.LatestRound.IsComplete){
+				return GameState.READY_TO_PLAY;
+			}
+			else if(!OpponentStatus.LatestRound.IsConfigured){
+				return GameState.OPPONENT_NEEDS_TO_CONFIGURE;
+			}
+			
+			return GameState.CONTINUE;
+			
 		}
 		
 		

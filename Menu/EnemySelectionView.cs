@@ -6,6 +6,7 @@ using PYIV.Menu.Popup;
 using PYIV.Helper;
 using System.Collections.Generic;
 using System.Linq;
+using PYIV.Menu.Commands;
 namespace PYIV.Menu
 {
 
@@ -14,7 +15,7 @@ namespace PYIV.Menu
 	public class EnemySelectionView : GuiView
 	{
 		private List<EnemySelectionField> enemySelectionFields;
-		private EnemySelectionModel enemySelectionModel;
+		private AttackConfigurationModel attackConfigurationModel;
 		private GameObject grid;
 				
 		public EnemySelectionView () : base("EnemySelectionPrefab")
@@ -51,11 +52,12 @@ namespace PYIV.Menu
 
 
 		private void OnResetButtonClicked(GameObject button) {
-			enemySelectionModel.ResetAttackers();
+			attackConfigurationModel.ResetAttackers();
 		}
 
 		private void OnNextButtonClicked(GameObject button) {
-			Debug.Log("Next clicked");
+			ICommand command = new FinishConfigurationCommand(attackConfigurationModel);
+			command.Execute();
 		}
 		
 		public override bool ShouldBeCached ()
@@ -67,13 +69,12 @@ namespace PYIV.Menu
 		public override void UnpackParameter (object parameter)
 		{
 			base.UnpackParameter (parameter);
-			GameData activeGame = parameter as GameData;
+			attackConfigurationModel = parameter as AttackConfigurationModel;
 			
-			enemySelectionModel = new EnemySelectionModel(activeGame.MyStatus);
-			enemySelectionModel.OnChange += () => Debug.Log (enemySelectionModel.Gold);
+			attackConfigurationModel.OnChange += () => Debug.Log (attackConfigurationModel.Gold);
 			
 			string[] enemyTypeIds = { "Rat1", "Eagle1", "Panther1", "Rhino1", "Bat1", "Elephant1" };
-			enemySelectionFields = (from id in enemyTypeIds select new EnemySelectionField(grid, id, enemySelectionModel)).ToList();
+			enemySelectionFields = (from id in enemyTypeIds select new EnemySelectionField(grid, id, attackConfigurationModel)).ToList();
 		}
 		
 		public override void Back ()

@@ -5,7 +5,7 @@ using PYIV.Persistence;
 
 namespace PYIV.Menu
 {
-	public class EnemySelectionModel
+	public class AttackConfigurationModel
 	{
 		
 		private Dictionary<EnemyType, int> buyedEnemys;
@@ -14,16 +14,17 @@ namespace PYIV.Menu
 		
 		public event ChangeDelegate OnChange;
 		
-		private PlayerStatus playerStatus;
+		public GameData GameData { get; set; }
 		
 		public int Gold { get; private set; }
 		
-		public EnemySelectionModel (PlayerStatus playerStatus)
+		public AttackConfigurationModel (GameData gameData)
 		{
 			buyedEnemys = new Dictionary<EnemyType, int>();
-			InitDictFromList(playerStatus.LatestRound.SentAttackers);
-			this.playerStatus = playerStatus;
-			Gold = playerStatus.Gold;
+			this.GameData = gameData;
+			InitDictFromList(gameData.MyStatus.LatestRound.SentAttackers);
+			
+			Gold = GameData.MyStatus.Gold;
 		}
 		
 		public void BuyAttacker(EnemyType enemyType){
@@ -34,7 +35,7 @@ namespace PYIV.Menu
 		
 		public void ResetAttackers(){
 			buyedEnemys.Clear();
-			Gold = playerStatus.Gold;
+			Gold = GameData.MyStatus.Gold;
 			ExecuteChangeEvent();
 		}
 		
@@ -48,7 +49,7 @@ namespace PYIV.Menu
 		}
 		
 		public void ApplyToPlayerStatus(){
-			playerStatus.Gold = Gold;
+			GameData.MyStatus.Gold = Gold;
 			
 			List<EnemyType> attackerList = new List<EnemyType>();
 			
@@ -58,7 +59,7 @@ namespace PYIV.Menu
 				}
 			}
 			
-			playerStatus.LatestRound.SentAttackers = attackerList;
+			GameData.MyStatus.LatestRound.SentAttackers = attackerList;
 			
 		}
 		

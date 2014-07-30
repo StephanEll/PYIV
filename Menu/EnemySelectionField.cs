@@ -18,13 +18,13 @@ namespace PYIV.Menu
 		private UISprite speedBar;
 		
 		private EnemyType enemyType;
-		private EnemySelectionModel enemySelectionModel;
+		private AttackConfigurationModel attackConfigurationModel;
 		
-		public EnemySelectionField (GameObject parent, string enemyId, EnemySelectionModel enemySelectionModel)
+		public EnemySelectionField (GameObject parent, string enemyId, AttackConfigurationModel attackConfigurationModel)
 		{
 			grid = parent;
-			this.enemySelectionModel = enemySelectionModel;
-			this.enemySelectionModel.OnChange += OnRoundChanges;
+			this.attackConfigurationModel = attackConfigurationModel;
+			this.attackConfigurationModel.OnChange += OnRoundChanges;
 			
 			InitViewComponents(enemyId);
 			SetValues();
@@ -48,7 +48,7 @@ namespace PYIV.Menu
 		
 		private void SetValues(){
 
-			countLabel.text = enemySelectionModel.CountEnemyByType(enemyType).ToString();
+			countLabel.text = attackConfigurationModel.CountEnemyByType(enemyType).ToString();
 			priceLabel.text = enemyType.Price.ToString();
 			lifeBar.fillAmount = enemyType.EnemyData.LivePoints / (float)EnemyDataCollection.Instance.MaxLifePoints();
 			powerBar.fillAmount = enemyType.EnemyData.AttackPower / (float)EnemyDataCollection.Instance.MaxAttackPower();
@@ -57,12 +57,12 @@ namespace PYIV.Menu
 		}
 		
 		private void OnClick(GameObject button){
-			enemySelectionModel.BuyAttacker(enemyType);
+			attackConfigurationModel.BuyAttacker(enemyType);
 		}
 		
 		private void OnRoundChanges ()
 		{
-			countLabel.text = enemySelectionModel.CountEnemyByType(enemyType).ToString();
+			countLabel.text = attackConfigurationModel.CountEnemyByType(enemyType).ToString();
 		}
 		
 		

@@ -77,7 +77,7 @@ namespace PYIV.Persistence
 		 * Will create a new Model on the server if it has no Id,
 		 * otherwise it will update the existing one
 		 * */
-		public void Save (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
+		public virtual void Save (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
 		{
 			if (this.Id == null) {
 				Create (OnSuccess, OnError);

@@ -13,6 +13,7 @@ namespace PYIV.Menu
 		
 		public GuiView (string prefabName)
 		{
+			TouchScreenKeyboard.hideInput = true;
             panelPrefab = Resources.Load<GameObject>("Prefabs/UI/"+prefabName);
 		}
 	

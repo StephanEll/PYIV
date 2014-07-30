@@ -68,8 +68,13 @@ namespace PYIV.Helper
 
 			Round round = new Round();
 			round.SentAttackers = types;
+			
+			round.ScoreResult = new ScoreResult(10, 23, 8, 0, 22);
+			
 			data.OpponentStatus.AddRound(round);
 			data.MyStatus.AddRound(round);
+			
+			
 			
 			data.Save(callback, null);
 			

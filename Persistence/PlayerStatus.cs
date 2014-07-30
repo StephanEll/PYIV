@@ -31,6 +31,16 @@ namespace PYIV.Persistence
 				return Rounds[Rounds.Count-1];
 			}
 		}
+		[IgnoreDataMember] 
+		public Round LatestCompletedRound {
+			get{
+				if (LatestRound != null && !LatestRound.IsComplete && Rounds.Count >= 2) 
+					return Rounds[Rounds.Count-2];
+				else if(LatestRound != null && LatestRound.IsComplete)
+					return LatestRound;
+				return null;
+			}
+		}
 		
 		[DataMember]
 		public Player Player {get; set;}
@@ -72,6 +82,7 @@ namespace PYIV.Persistence
 		{
 			base.ParseOnCreate (responseObject);
 			this.Rounds = responseObject.Rounds;
+			this.Gold = responseObject.Gold;
 			this.IndianId = responseObject.IndianId;
 			this.Player.ParseOnCreate(responseObject.Player);
 			

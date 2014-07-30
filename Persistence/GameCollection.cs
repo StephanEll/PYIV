@@ -60,8 +60,10 @@ namespace PYIV.Persistence
 			
 		}
 		
-		public void AddModel(GameData model){
-			this.ModelList.Insert(0, model);
+		public void AddOrUpdateGame(GameData model){
+			if(!this.ModelList.Contains(model)){
+				this.ModelList.Insert(0, model);
+			}
 			Update ();
 		}
 		

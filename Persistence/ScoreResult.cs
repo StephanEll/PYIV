@@ -23,13 +23,34 @@ namespace PYIV.Persistence
 		[DataMember]
 		public int RemainingVillageLifepoints { get; set; }
 
-    [DataMember]
-    public int ExtraPoints { get; set; }
-
+	    [DataMember]
+	    public int ExtraPoints { get; set; }
+		
+		[IgnoreDataMember]
+		public bool IsVillageDestroyed{
+			get { return RemainingVillageLifepoints <= 0; }
+		}
+		
 		[IgnoreDataMember]
 		public int AllShots { 
 			get {
 				return HitCount + MissedShotCount;
+			}
+		}
+		
+		[IgnoreDataMember]
+		public float ShotEfficiencyPercent { 
+			get {
+				return (float)Math.Round((double)HitCount / AllShots * 100);
+			}
+		}
+		
+		[IgnoreDataMember]
+		public float VillageStatusPercent { 
+			get {
+				int startVillageLifePoints = ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
+				float villageStatus = (float)RemainingVillageLifepoints / startVillageLifePoints * 100;				
+				return (float)Math.Round(villageStatus);
 			}
 		}
 
@@ -57,7 +78,7 @@ namespace PYIV.Persistence
 			KillCount = killCount;
 			MissedShotCount = missedShotCount;
 			RemainingVillageLifepoints = remainingVillageLifepoints;
-      ExtraPoints = extraPoints;
+      		ExtraPoints = extraPoints;
 		}
 
 	}

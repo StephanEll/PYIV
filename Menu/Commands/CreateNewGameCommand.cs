@@ -26,8 +26,8 @@ namespace PYIV.Menu.Commands
 			//TODO: Auswahl-View hierfür erstellen
 			newGame.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];			
 
-			Round round = new Round();
-			newGame.MyStatus.AddRound(round);
+			newGame.MyStatus.AddRound(new Round());
+			newGame.OpponentStatus.AddRound(new Round());
 			
 			newGame.IsSynced = false;
 			
@@ -40,7 +40,7 @@ namespace PYIV.Menu.Commands
 				return;
 			}
 			
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), newGame);
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(newGame));
 			
 			
 			//newGame.Save(NewGameCreated, ErrorCreatingGame);

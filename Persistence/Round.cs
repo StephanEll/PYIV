@@ -45,7 +45,15 @@ namespace PYIV.Persistence
 			}
 		}
 		
+		[IgnoreDataMember]
+		public bool IsComplete{
+			get { return ScoreResult != null; }
+		}
 		
+		[IgnoreDataMember]
+		public bool IsConfigured{
+			get { return SentAttackers.Count > 0; }
+		}
 
 		[DataMember]
 		public ScoreResult ScoreResult { get; set; }

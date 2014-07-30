@@ -35,7 +35,7 @@ namespace PYIV.Helper
       var gcm = GoogleCloudMessageService.instance;
       gcm.SetNotificationEnabled(false);
 
-      CreateTestData();
+      //CreateTestData();
 
       ShowStartScreen();
 
@@ -90,7 +90,7 @@ namespace PYIV.Helper
       if (LoggedInPlayer.IsLoggedIn())
       {
         var gameList = LoggedInPlayer.Instance.GameList;
-        if (gameList.HasUnsyncedGames())
+        if (gameList != null && gameList.HasUnsyncedGames())
         {
           Debug.Log("Save unsynced games");
           LocalDataPersistence.Save(gameList.UnsyncedGames, LocalDataPersistence.GAMES_FILENAME);
@@ -128,7 +128,7 @@ namespace PYIV.Helper
     
     private void OnSucess(GameData data)
     {
-      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
+      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
       
     }
 

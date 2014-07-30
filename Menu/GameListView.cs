@@ -12,6 +12,8 @@ namespace PYIV.Menu
 {
 	public class GameListView : GuiView{
 		
+		public const string ATLAS_NAME_NO_INDIAN_ICON = "no_indian_icon";
+		
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
 		GameObject GameList_Grid_GameObject;
@@ -79,7 +81,15 @@ namespace PYIV.Menu
 
 		private void OnGameBoardClick(GameObject button){
 			GameData data = buttonToGameData[button];
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
+			
+			if(data.State == GameState.READY_TO_PLAY)
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
+			else if(data.MyStatus.LatestCompletedRound == null)
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(data));
+			else
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
+			
+			
 		}
 
 		private void OnSoundButtonClick(GameObject button){
@@ -137,18 +147,25 @@ namespace PYIV.Menu
 			playerName.text = gameData.MyStatus.Player.Name;
 			opponentName.text = gameData.OpponentStatus.Player.Name;
 			roundNr.text = gameData.MyStatus.Rounds.Count + ". R";
-			playerIcon.spriteName = gameData.MyStatus.IndianData.SpriteImageName;
-			opponentIcon.spriteName = gameData.OpponentStatus.IndianData.SpriteImageName;
+			playerIcon.spriteName = gameData.MyStatus.IndianData != null ? gameData.MyStatus.IndianData.SpriteImageName : ATLAS_NAME_NO_INDIAN_ICON;
+			opponentIcon.spriteName = gameData.OpponentStatus.IndianData != null ? gameData.OpponentStatus.IndianData.SpriteImageName : ATLAS_NAME_NO_INDIAN_ICON ;
 
 			// inactive gameboard, if game not accepted yet
-			if(!gameData.OpponentStatus.IsChallengeAccepted) {
+			if(!gameData.OpponentStatus.IsChallengeAccepted || gameData.State == GameState.OPPONENT_NEEDS_TO_CONFIGURE) {
+				Debug.Log("game board should be inactive now");
 				inactive.SetActive(true);
 				BoxCollider inactiveBoxCollider = gameBoardObj.GetComponent<BoxCollider>();
 				inactiveBoxCollider.size = new Vector3(0,0,0);
 			}
-
+			
+			bool isPlayersTurn = gameData.State == GameState.PLAYER_NEEDS_TO_CONFIGURE || 
+								gameData.State == GameState.READY_TO_PLAY || 
+								gameData.State == GameState.CONTINUE;
+			
+			
+			Debug.Log(gameData.State);
 			// wer dran ist, ist bunt - wer nicht, schwarz-weiss
-			if(gameData.IsMyTurn()) {
+			if(isPlayersTurn) {
 				opponentIcon.spriteName += "_bw";
 				opponent_arrow.SetActive(false);
 			} else {
