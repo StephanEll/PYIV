@@ -6,8 +6,6 @@ using PYIV.Gameplay.Enemy;
 using PYIV.Gameplay.Character;
 using PYIV.Persistence.Errors;
 
-
-
 namespace PYIV.Helper
 {
 	public class TestData
@@ -16,67 +14,68 @@ namespace PYIV.Helper
 		Player player1;
 		Player player2;
 		GameData data;
-		
-		
 		public Request<GameData>.SuccessDelegate callback;
 		
 		public TestData (Request<GameData>.SuccessDelegate callback)
 		{
 
 			this.callback = callback;
-			player1 = new Player();
-			player1.Name = "Henrik"+DateTime.Now.Millisecond;
-			player1.Mail = "Test@test.de+"+DateTime.Now.Millisecond;
+			player1 = new Player ();
+			player1.Name = "Henrik" + DateTime.Now.Millisecond;
+			player1.Mail = "Test@test.de+" + DateTime.Now.Millisecond;
 			player1.Password = "123456";
 			
-			player1.Save(Player1Created, OnError);
+			player1.Save (Player1Created, OnError);
 			
 			
 		}
 		
-		void OnError(RestException e){
-			NGUIDebug.Log(e.Message);
+		void OnError (RestException e)
+		{
+			NGUIDebug.Log (e.Message);
 		}
 		
-		void Player1Created(Player player){
+		void Player1Created (Player player)
+		{
 			
-			player2 = new Player();
-			player2.Name = "Manfred"+DateTime.Now.Millisecond;
+			player2 = new Player ();
+			player2.Name = "Manfred" + DateTime.Now.Millisecond;
 			player2.Password = "123456";
-			player2.Mail = "Test@test.de"+DateTime.Now.Millisecond;
+			player2.Mail = "Test@test.de" + DateTime.Now.Millisecond;
 			
-			player2.Save(Player2Created, null);
+			player2.Save (Player2Created, null);
 			
 		}
 		
-		void Player2Created(Player player){
-			LoggedInPlayer.Login(player2);
-			data = new GameData(player1, player2);
+		void Player2Created (Player player)
+		{
+			LoggedInPlayer.Login (player2);
+			data = new GameData (player1, player2);
 
-      string[] subCollectionIndian = {"Massai"};
+			string[] subCollectionIndian = {"Amazone"};
 
-      data.MyStatus.IndianData = IndianDataCollection.Instance.GetSubCollection(subCollectionIndian)[0];
-      data.OpponentStatus.IndianData = IndianDataCollection.Instance.GetSubCollection(subCollectionIndian)[0];
+			data.MyStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
+			data.OpponentStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
 			
-			List<EnemyType> types = new List<EnemyType>();
+			List<EnemyType> types = new List<EnemyType> ();
       
-      string[] subCollectionEnemy = {"Ratte1", "Eagle1", "Panther1", "Rhino1", "Elephant1" };
+			string[] subCollectionEnemy = {"Ratte1", "Eagle1", "Panther1", "Rhino1", "Elephant1" };
 
-      EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection(subCollectionEnemy);
+			EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection (subCollectionEnemy);
 
-      types.AddRange(ets);
+			types.AddRange (ets);
 
-			Round round = new Round();
+			Round round = new Round ();
 			round.SentAttackers = types;
 			
-			round.ScoreResult = new ScoreResult(10, 23, 8, 0, 22);
+			//round.ScoreResult = new ScoreResult(10, 23, 8, 0, 22);
 			
-			data.OpponentStatus.AddRound(round);
-			data.MyStatus.AddRound(round);
+			data.OpponentStatus.AddRound (round);
+			data.MyStatus.AddRound (round);
 			
 			
 			
-			data.Save(callback, null);
+			data.Save (callback, null);
 			
 		}
 		

@@ -31,5 +31,10 @@ namespace PYIV.Gameplay.Character
         public string BulletPreafabPath { get; set; }
         [XmlElement()]
         public string BackgroundPreafabPath { get; set; }
+		
+		public override string ToString ()
+		{
+			return string.Format ("[IndianData: Id={0}, Name={1}, Description={2}, SpriteImageName={3}, Stamina={4}, Strength={5}, Accuracy={6}, ShotBehaviourClassName={7}, PreafabPath={8}, BulletPreafabPath={9}, BackgroundPreafabPath={10}]", Id, Name, Description, SpriteImageName, Stamina, Strength, Accuracy, ShotBehaviourClassName, PreafabPath, BulletPreafabPath, BackgroundPreafabPath);
+		}
     }
 }

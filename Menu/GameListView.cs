@@ -82,6 +82,8 @@ namespace PYIV.Menu
 		private void OnGameBoardClick(GameObject button){
 			GameData data = buttonToGameData[button];
 			
+			Debug.Log("gameboard click: " + data.MyStatus);
+			
 			if(data.State == GameState.READY_TO_PLAY)
 				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 			else if(data.MyStatus.LatestCompletedRound == null)
@@ -152,7 +154,7 @@ namespace PYIV.Menu
 
 			// inactive gameboard, if game not accepted yet
 			if(!gameData.OpponentStatus.IsChallengeAccepted || gameData.State == GameState.OPPONENT_NEEDS_TO_CONFIGURE) {
-				Debug.Log("game board should be inactive now");
+				Debug.Log("game board should be inactive now " + gameData.State);
 				inactive.SetActive(true);
 				BoxCollider inactiveBoxCollider = gameBoardObj.GetComponent<BoxCollider>();
 				inactiveBoxCollider.size = new Vector3(0,0,0);

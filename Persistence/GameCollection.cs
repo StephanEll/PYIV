@@ -101,8 +101,7 @@ namespace PYIV.Persistence
 				foreach(GameData existingGame in ModelList){
 					if(updatedGame.Equals(existingGame)){
 						Debug.Log("update existing game with id: " + updatedGame.Id);
-						existingGame.OpponentStatus.ParseOnCreate(updatedGame.OpponentStatus);
-						existingGame.IsSynced = true;
+						existingGame.ParseOnCreate(updatedGame);
 						isGameExisting = true;
 						break;
 					}					

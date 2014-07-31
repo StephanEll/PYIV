@@ -20,6 +20,8 @@ namespace PYIV.Gameplay.Character
 
     public static Indian CreateIndian(PlayerStatus playerStatus, Transform parent)
     {
+		Debug.Log(playerStatus.IndianData);
+		Debug.Log("playerStatus.IndianData.PreafabPath: " + playerStatus.IndianData.PreafabPath);
       GameObject indianGO = GameObject.Instantiate(Resources.Load<GameObject>(playerStatus.IndianData.PreafabPath)) as GameObject;
 
       indianGO.transform.parent = parent;

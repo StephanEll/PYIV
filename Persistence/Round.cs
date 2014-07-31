@@ -69,12 +69,12 @@ namespace PYIV.Persistence
 			return EnemyTypeCollection.Instance.GetSubCollection (enemyIds.ToArray ()).ToList<EnemyType> ();
 		}
 		
+		
+		
 		public override string ToString ()
 		{
-			return string.Format ("[Round: SentAttackerIds={0}, RemainingVillageLifepoints={1}]", SentAttackerIds.Count, ScoreResult.RemainingVillageLifepoints);
+			return string.Format ("[Round: SentAttackerIds={0}, SentAttackers={1}, IsComplete={2}, IsConfigured={3}, ScoreResult={4}]", SentAttackerIds, SentAttackers, IsComplete, IsConfigured, ScoreResult);
 		}
-		
-		
 		
 	}
 	

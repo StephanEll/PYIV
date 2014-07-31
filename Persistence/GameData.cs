@@ -68,9 +68,9 @@ namespace PYIV.Persistence
 			this.UpdatedAt = responseObject.UpdatedAt;
 			
 			//Parse player status
-			GetPlayerOrOpponentStatus(true).ParseOnCreate(responseObject.GetPlayerOrOpponentStatus(true));
+			MyStatus.ParseOnCreate(responseObject.MyStatus);
 			//Parse opponent status
-			GetPlayerOrOpponentStatus(false).ParseOnCreate(responseObject.GetPlayerOrOpponentStatus(false));	
+			OpponentStatus.ParseOnCreate(responseObject.OpponentStatus);	
 
 			
 		}

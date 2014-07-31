@@ -25,7 +25,7 @@ namespace PYIV.Menu.Commands
 			
 			//TODO: Auswahl-View hierfür erstellen
 			newGame.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];			
-
+			newGame.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];	
 			newGame.MyStatus.AddRound(new Round());
 			newGame.OpponentStatus.AddRound(new Round());
 			

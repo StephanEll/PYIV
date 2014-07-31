@@ -59,6 +59,7 @@ namespace PYIV.Persistence
 			set{
 				if(value != null){
 					var indians = IndianDataCollection.Instance.GetSubCollection(new [] { value });
+					Debug.Log ("indian: " + indians[0]);
 					IndianData = indians[0];
 				}
 			}
@@ -82,10 +83,16 @@ namespace PYIV.Persistence
 		{
 			base.ParseOnCreate (responseObject);
 			this.Rounds = responseObject.Rounds;
+			
+			string log= "these are the parsed rounds!: ";
+			foreach(Round r in this.Rounds){
+				log+= r.ToString() + " ::: ";
+			}
+			Debug.Log(log);
 			this.Gold = responseObject.Gold;
 			this.IndianId = responseObject.IndianId;
 			this.Player.ParseOnCreate(responseObject.Player);
-			
+			this.IsChallengeAccepted = responseObject.IsChallengeAccepted;
 		}
 		
 		public void AddRound(Round round){

@@ -69,6 +69,7 @@ namespace PYIV.Menu
 		public void UnpackParameter (object initParameter)
 		{
 			GameData gameData = initParameter as GameData;
+			Debug.Log("unpack: " + gameData.MyStatus);
 			game.GetComponent<Game> ().GameData = gameData;
 			Score score = game.GetComponent<Score> ();
 			score.OnScoreChanged += SetVillageBar;

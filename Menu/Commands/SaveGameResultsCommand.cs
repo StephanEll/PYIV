@@ -1,26 +1,28 @@
 using System;
 using PYIV.Persistence;
+using UnityEngine;
 
 namespace PYIV.Menu.Commands
 {
 	public class SaveGameResultsCommand : ICommand
 	{
 		
-		private GameData savedGame;
+		private GameData game;
 		
 		public SaveGameResultsCommand (GameData saveGame)
 		{
-			this.savedGame = savedGame;
+			this.game = saveGame;
 			
 		}
 		
 		public void Execute(){
-			savedGame.MyStatus.Gold = savedGame.MyStatus.LatestRound.ScoreResult.Gold;
-			savedGame.Save(OnSaveSuccess, null);
+			
+			game.MyStatus.Gold += game.MyStatus.LatestRound.ScoreResult.Gold;
+			game.Save(OnSaveSuccess, null);
 		}
 		
 		private void OnSaveSuccess(GameData data){
-			
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), game);
 		}
 		
 		

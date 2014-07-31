@@ -128,7 +128,10 @@ namespace PYIV.Helper
     
     private void OnSucess(GameData data)
     {
-      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
+			
+		var saveResultsCommand = new SaveGameResultsCommand(data);
+		saveResultsCommand.Execute();
+		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
       
     }
 
