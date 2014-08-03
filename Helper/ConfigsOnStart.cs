@@ -35,9 +35,9 @@ namespace PYIV.Helper
       var gcm = GoogleCloudMessageService.instance;
       gcm.SetNotificationEnabled(false);
 
-      //CreateTestData();
+      CreateTestData();
 
-      ShowStartScreen();
+      //ShowStartScreen();
 
       
     }
@@ -129,9 +129,9 @@ namespace PYIV.Helper
     private void OnSucess(GameData data)
     {
 			
-		var saveResultsCommand = new SaveGameResultsCommand(data);
-		saveResultsCommand.Execute();
-		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
+		//var saveResultsCommand = new SaveGameResultsCommand(data);
+		//saveResultsCommand.Execute();
+		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
       
     }
 
