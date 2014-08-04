@@ -10,7 +10,7 @@
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
 			<Stamina>6</Stamina>
-			<Strength>10</Strength>
+			<Strength>15</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
@@ -24,7 +24,7 @@
 			<Description>20</Description>
 			<SpriteImageName>amazone_icon</SpriteImageName>
 			<Stamina>4</Stamina>
-			<Strength>20</Strength>
+			<Strength>30</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
@@ -38,7 +38,7 @@
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
 			<Stamina>2</Stamina>
-			<Strength>30</Strength>
+			<Strength>45</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponSpear</ShotBehaviourClassName>
 			<PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
@@ -53,7 +53,7 @@
 	
 		<FeatherType>
 			<Id>1</Id>
-			<Price>100</Price>
+			<Price>200</Price>
 			<Name>Stamina Feather</Name>
 			<Description>Allows you to shoot more often without getting out of stamina.</Description>
 		</FeatherType>
@@ -63,6 +63,13 @@
 			<Price>120</Price>
 			<Name>Village Feather</Name>
 			<Description>Your town wall will be improved.</Description>
+		</FeatherType>
+	
+		<FeatherType>
+			<Id>3</Id>
+			<Price>200</Price>
+			<Name>Strength Feather</Name>
+			<Description>Allows you to shoot more powerfull.</Description>
 		</FeatherType>
 		
 	</FeatherTypeCollection>
