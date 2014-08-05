@@ -82,7 +82,7 @@
 	  </EnemyType>
 	    
 	  <EnemyType>
-	      <Id>Bat7</Id>
+	      <Id>Bat1</Id>
 	      <Price>150</Price>
 	      <Name>7 Fledermäuse</Name>
 	      <Description>Kaufe 7 Fledermäuse zum Preis von 150 Goldstücken</Description>
@@ -91,7 +91,7 @@
 	  </EnemyType>
 	    
 	  <EnemyType>
-	      <Id>Eagle5</Id>
+	      <Id>Eagle1</Id>
 	      <Price>210</Price>
 	      <Name>5 Adler</Name>
 	      <Description>Kaufe 5 Aler zum Preis von 210 Goldstücken</Description>
@@ -100,7 +100,7 @@
 	  </EnemyType>
 	    
 	  <EnemyType>
-	      <Id>Panther4</Id>
+	      <Id>Panther1</Id>
 	      <Price>360</Price>
 	      <Name>4 Panter</Name>
 	      <Description>Kaufe 4 Panter zum Preis von 360 Goldstücken</Description>
@@ -109,7 +109,7 @@
 	  </EnemyType>
 	    
 	  <EnemyType>
-	      <Id>Rhino3</Id>
+	      <Id>Rhino1</Id>
 	      <Price>300</Price>
 	      <Name>3 Nashörner</Name>
 	      <Description>Kaufe 3 Nashörner zum Preis von 300 Goldstücken</Description>
@@ -118,7 +118,7 @@
 	  </EnemyType>
 	    
 	  <EnemyType>
-	      <Id>Elephant3</Id>
+	      <Id>Elephant1</Id>
 	      <Price>300</Price>
 	      <Name>3 Elefanten</Name>
 	      <Description>Kaufe 3 Elefanten zum Preis von 300 Goldstücken</Description>

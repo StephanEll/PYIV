@@ -20,6 +20,23 @@ namespace PYIV.Menu
 		private EnemyType enemyType;
 		private AttackConfigurationModel attackConfigurationModel;
 		
+		private bool isActive = true;
+		public bool IsActive { 
+			get 
+			{
+				return isActive;
+			}
+			
+			set 
+			{
+				if(isActive != value){
+					isActive = value;
+					ChangeButtonState();
+					
+				}
+			}
+		}
+		
 		public EnemySelectionField (GameObject parent, string enemyId, AttackConfigurationModel attackConfigurationModel)
 		{
 			grid = parent;
@@ -29,6 +46,8 @@ namespace PYIV.Menu
 			InitViewComponents(enemyId);
 			SetValues();
 			UIEventListener.Get(Button).onClick += OnClick;
+			//Set initial state
+			OnRoundChanges();
 		}
 
 		
@@ -54,6 +73,25 @@ namespace PYIV.Menu
 			powerBar.fillAmount = enemyType.EnemyData.AttackPower / (float)EnemyDataCollection.Instance.MaxAttackPower();
 			speedBar.fillAmount = enemyType.EnemyData.MoveSpeed / EnemyDataCollection.Instance.MaxMoveSpeed();
 			
+			
+			
+		}
+		
+		private void ChangeButtonState(){
+			if(IsActive){
+				UIEventListener.Get(Button).onClick += OnClick;
+				Button.GetComponent<UIWidget>().alpha = 1.0f;
+			}
+			else{
+				UIEventListener.Get(Button).onClick -= OnClick;
+				Button.GetComponent<UIWidget>().alpha = 0.25f;
+			}
+			
+			
+		}
+		
+		private bool ShouldBeActive(){
+			return enemyType.Price <= attackConfigurationModel.Gold;
 		}
 		
 		private void OnClick(GameObject button){
@@ -63,6 +101,8 @@ namespace PYIV.Menu
 		private void OnRoundChanges ()
 		{
 			countLabel.text = attackConfigurationModel.CountEnemyByType(enemyType).ToString();
+			
+			IsActive = ShouldBeActive();
 		}
 		
 		
