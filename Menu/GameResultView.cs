@@ -30,8 +30,8 @@ namespace PYIV.Menu
 			var container = panel.transform.Find ("Sprite");
 			titleLabel = container.transform.Find ("TopAnchorLabel/title_label").GetComponent<UILabel> ();
 			boardParent = container.transform.Find ("TopAnchorInteraction").gameObject;
-			buttonsParent = container.transform.Find("BottomAnchorButton").gameObject;
-			menuButton = buttonsParent.transform.Find("MenuButton").gameObject;
+			buttonsParent = container.transform.FindChild("BottomAnchorButton").gameObject;
+			menuButton = buttonsParent.transform.FindChild("MenuButton").gameObject;
 			Debug.Log ("MenuButton : " + menuButton);
 			UIEventListener.Get(menuButton).onClick += ToMenu;
 		}
@@ -76,8 +76,7 @@ namespace PYIV.Menu
 					GameObject nextRoundButton = ButtonHelper.AddButtonToParent(buttonsParent, StringConstants.BUTTON_NEXT_ROUND, new Vector2(320, 0));
 					UIEventListener.Get(nextRoundButton).onClick += StartNextRound;
 				}
-			}
-			
+			}			
 		}
 		
 		private void StartNextRound(GameObject go){
@@ -93,6 +92,7 @@ namespace PYIV.Menu
 		
 		private void SetTitle ()
 		{
+			/*
 			switch(gameData.State){
 			case GameState.WON:
 				titleLabel.text = StringConstants.GAME_WON;
@@ -104,6 +104,7 @@ namespace PYIV.Menu
 				titleLabel.text = StringConstants.GAME_LOST;
 				break;
 			}
+			*/
 		}
 
 		public override void Back ()

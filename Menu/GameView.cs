@@ -32,7 +32,7 @@ namespace PYIV.Menu
 		private UISprite village_bar;
 		private UISprite stamina_bar;
 		private float characterStamina;
-		private VillagePointsHelper villagePointsHelper;
+		private PointsHelper villagePointsHelper;
 		
 		public GameView ()
 		{
@@ -84,7 +84,6 @@ namespace PYIV.Menu
 		{
 			village_bar.fillAmount = (float)villagePoints / ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints"); // wenn federn implementiert werde muss das geändert werden
 			villagePointsHelper.points = (float)villagePoints;
-			Debug.Log ((float)villagePoints);
 		}
 
 		private void SetStaminaBar (float stamina)
@@ -159,7 +158,7 @@ namespace PYIV.Menu
 			GameObject topLeft = sprite.transform.FindChild ("TopLeft").gameObject;
 			GameObject villageDamage = topRight.transform.FindChild ("Dorf_Damage_Prefab").gameObject;
 			GameObject villagePoints = topRight.transform.FindChild ("villagePoints_label").gameObject;
-			villagePointsHelper = villagePoints.GetComponent<VillagePointsHelper>();
+			villagePointsHelper = villagePoints.GetComponent<PointsHelper>();
 			villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
 			GameObject pauseButton = topRight.transform.FindChild ("pause_icon").gameObject;
 			GameObject stamina = topLeft.transform.FindChild ("Stamina_Bar_Prefab").gameObject;
