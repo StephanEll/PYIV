@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PYIV.Menu.MenuHelper
 {
-public class VillagePointsHelper : MonoBehaviour {
+public class PointsHelper : MonoBehaviour {
 
 		public float points;
 		private UILabel pointsLabel;

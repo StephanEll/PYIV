@@ -19,8 +19,8 @@
 	  
 	  <EnemyData>
       		<Id>Bat</Id>
-	    	<MoveSpeed>7</MoveSpeed>
-	    	<AttackPower>30</AttackPower>
+	    	<MoveSpeed>4</MoveSpeed>
+	    	<AttackPower>45</AttackPower>
 	    	<LivePoints>30</LivePoints>
       		<Fly>false</Fly>
       		<SpawnTime>0.5</SpawnTime>
@@ -29,7 +29,7 @@
 	  
 	  <EnemyData>
       		<Id>Eagle</Id>
-	    	<MoveSpeed>4</MoveSpeed>
+	    	<MoveSpeed>5</MoveSpeed>
 	    	<AttackPower>75</AttackPower>
 	    	<LivePoints>45</LivePoints>
       		<Fly>true</Fly>
@@ -50,7 +50,7 @@
 	  <EnemyData>
       		<Id>Rhino</Id>
 	    	<MoveSpeed>3</MoveSpeed>
-	    	<AttackPower>105</AttackPower>
+	    	<AttackPower>120</AttackPower>
 	    	<LivePoints>120</LivePoints>
       		<Fly>false</Fly>
       		<SpawnTime>0.5</SpawnTime>
@@ -60,7 +60,7 @@
 	  <EnemyData>
       		<Id>Elephant</Id>
 	    	<MoveSpeed>3</MoveSpeed>
-	    	<AttackPower>90</AttackPower>
+	    	<AttackPower>105</AttackPower>
 	    	<LivePoints>150</LivePoints>
       		<Fly>false</Fly>
       		<SpawnTime>0.1</SpawnTime>
@@ -83,9 +83,9 @@
 	    
 	  <EnemyType>
 	      <Id>Bat1</Id>
-	      <Price>150</Price>
+	      <Price>120</Price>
 	      <Name>7 Fledermäuse</Name>
-	      <Description>Kaufe 7 Fledermäuse zum Preis von 150 Goldstücken</Description>
+	      <Description>Kaufe 7 Fledermäuse zum Preis von 120 Goldstücken</Description>
 	      <Count>7</Count>
 	      <EnemyDataId>Bat</EnemyDataId>
 	  </EnemyType>
@@ -119,10 +119,10 @@
 	    
 	  <EnemyType>
 	      <Id>Elephant1</Id>
-	      <Price>300</Price>
-	      <Name>3 Elefanten</Name>
-	      <Description>Kaufe 3 Elefanten zum Preis von 300 Goldstücken</Description>
-	      <Count>3</Count>
+	      <Price>270</Price>
+	      <Name>2 Elefanten</Name>
+	      <Description>Kaufe 2 Elefanten zum Preis von 270 Goldstücken</Description>
+	      <Count>2</Count>
 	      <EnemyDataId>Elephant</EnemyDataId>
 	  </EnemyType>
 	    

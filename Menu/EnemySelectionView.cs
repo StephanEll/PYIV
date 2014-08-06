@@ -7,6 +7,7 @@ using PYIV.Helper;
 using System.Collections.Generic;
 using System.Linq;
 using PYIV.Menu.Commands;
+using PYIV.Menu.MenuHelper;
 namespace PYIV.Menu
 {
 
@@ -17,6 +18,8 @@ namespace PYIV.Menu
 		private List<EnemySelectionField> enemySelectionFields;
 		private AttackConfigurationModel attackConfigurationModel;
 		private GameObject grid;
+		private UILabel goldLabel;
+		private PointsHelper goldPointsHelper;
 				
 		public EnemySelectionView () : base("EnemySelectionPrefab")
 		{
@@ -40,6 +43,10 @@ namespace PYIV.Menu
 			GameObject bottomAnchorButtons = sprite.transform.FindChild("BottomAnchorButton").gameObject;
 			GameObject resetButton = bottomAnchorButtons.transform.FindChild("Reset_Button").gameObject; 
 			GameObject nextButton = bottomAnchorButtons.transform.FindChild("Next_Button").gameObject;
+			GameObject gold = bottomAnchorButtons.transform.FindChild("Gold").gameObject;
+			UILabel goldLabel = gold.transform.FindChild("goldLabel").gameObject.GetComponent<UILabel>();
+			goldPointsHelper = goldLabel.GetComponent<PointsHelper>();
+
 
 			grid = topAnchorInteraction.transform.FindChild("EnemyGrid").gameObject;
 			
@@ -70,11 +77,16 @@ namespace PYIV.Menu
 		{
 			base.UnpackParameter (parameter);
 			attackConfigurationModel = parameter as AttackConfigurationModel;
-			
-			attackConfigurationModel.OnChange += () => Debug.Log (attackConfigurationModel.Gold);
+			goldPointsHelper.points = (float) attackConfigurationModel.Gold;
+			attackConfigurationModel.OnChange += SetGold;
 			
 			string[] enemyTypeIds = { "Rat1", "Eagle1", "Panther1", "Rhino1", "Bat1", "Elephant1" };
 			enemySelectionFields = (from id in enemyTypeIds select new EnemySelectionField(grid, id, attackConfigurationModel)).ToList();
+		}
+
+		private void SetGold() {
+			int gold = attackConfigurationModel.Gold;
+			goldPointsHelper.points = (float) gold;
 		}
 		
 		public override void Back ()

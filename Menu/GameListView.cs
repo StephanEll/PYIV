@@ -12,7 +12,7 @@ namespace PYIV.Menu
 {
 	public class GameListView : GuiView{
 		
-		public const string ATLAS_NAME_NO_INDIAN_ICON = "no_indian_icon";
+		public const string ATLAS_NAME_NO_INDIAN_ICON = "unknown_icon";
 		
 		private GameObject sprite;
 		private GameObject gameBoardPrefab;
