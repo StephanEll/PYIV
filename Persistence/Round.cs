@@ -61,6 +61,7 @@ namespace PYIV.Persistence
 		public Round ()
 		{
 			SentAttackers = new List<EnemyType>();
+			
 		}
 		
 		private List<EnemyType> ConvertIdsToEnemyTypes (List<string> enemyIds)

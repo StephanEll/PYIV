@@ -64,7 +64,9 @@ namespace PYIV.Persistence
 		[IgnoreDataMember]
 		public int Gold { 
 			get {
-				return (int)(((HitCount * 100.0f) / (AllShots + (VillageDamage / 20.0f))) * 10.0f) - VillageDamage;
+				//TODO: Die Nummer der Runde berücksichtigen, um mehr Gold in späteren Runden zu erhalten
+				int gold = (int)(ShotEfficiencyPercent * 5.0f + RemainingVillageLifepoints + ExtraPoints);
+				return gold;
 			}
 		}
 

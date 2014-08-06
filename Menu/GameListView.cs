@@ -148,7 +148,14 @@ namespace PYIV.Menu
 			// setting GameBoard content
 			playerName.text = gameData.MyStatus.Player.Name;
 			opponentName.text = gameData.OpponentStatus.Player.Name;
-			roundNr.text = gameData.MyStatus.Rounds.Count + ". R";
+			
+			if(gameData.HasEnded){
+				roundNr.text = gameData.State.ToString();
+			}
+			else{
+				roundNr.text = gameData.MyStatus.Rounds.Count + ". R";
+			}
+			
 			playerIcon.spriteName = gameData.MyStatus.IndianData != null ? gameData.MyStatus.IndianData.SpriteImageName : ATLAS_NAME_NO_INDIAN_ICON;
 			opponentIcon.spriteName = gameData.OpponentStatus.IndianData != null ? gameData.OpponentStatus.IndianData.SpriteImageName : ATLAS_NAME_NO_INDIAN_ICON ;
 

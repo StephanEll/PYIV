@@ -22,7 +22,7 @@ namespace PYIV.Helper
 		public const string GAME_WON = "Congratulation - you won!";
 		
 		public const string BUTTON_NEXT_ROUND = "Next round";
-		public const string BUTTON_REPLAY = "Replay";
+		public const string BUTTON_REPLAY = "Play again";
 		/// Strings for Ingame
 		/// 
 		/// 

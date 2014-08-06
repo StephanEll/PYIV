@@ -118,8 +118,15 @@ namespace PYIV.Gameplay.Enemy
       return result.Values.ToArray();
 
     }
+		
+		
+	public EnemyType GetById(string id){
+		return (from type in EnemyTypes where type.Id == id select type).ToArray()[0];
+	}
 
   }
+	
+	
 
     
 }

@@ -18,10 +18,13 @@ namespace PYIV.Menu
 		
 		public int Gold { get; private set; }
 		
+		private int goldSpentForEnemies = 0;
+		
 		public AttackConfigurationModel (GameData gameData)
 		{
 			buyedEnemys = new Dictionary<EnemyType, int>();
 			this.GameData = gameData;
+			AddFreeRats();
 			InitDictFromList(gameData.MyStatus.LatestRound.SentAttackers);
 			
 			Gold = GameData.MyStatus.Gold;
@@ -30,12 +33,20 @@ namespace PYIV.Menu
 		public void BuyAttacker(EnemyType enemyType){
 			AddTypeToDict(enemyType);
 			Gold -= enemyType.Price;
+			goldSpentForEnemies += enemyType.Price;
 			ExecuteChangeEvent();
+		}
+		
+		private void AddFreeRats(){
+			AddTypeToDict( EnemyTypeCollection.Instance.GetById("Rat1") );
+			
 		}
 		
 		public void ResetAttackers(){
 			buyedEnemys.Clear();
-			Gold = GameData.MyStatus.Gold;
+			AddFreeRats();
+			Gold += goldSpentForEnemies;
+			goldSpentForEnemies = 0;
 			ExecuteChangeEvent();
 		}
 		

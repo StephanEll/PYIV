@@ -3,6 +3,7 @@ using PYIV.Persistence;
 using UnityEngine;
 using PYIV.Helper;
 using PYIV.Menu.MenuHelper;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Menu
 {
@@ -61,9 +62,7 @@ namespace PYIV.Menu
 			playerResultBoard = new PlayerResultBoard (gameData.MyStatus);	
 			playerResultBoard.AddBoardToParent (boardParent, new Vector2 (-280, -200));
 			
-			
-			Debug.Log("configure screen, the status of game is: " + GameState.OPPONENT_NEEDS_TO_PLAY);
-			
+						
 			if(gameData.State != GameState.OPPONENT_NEEDS_TO_PLAY){
 				
 				opponentResultBoard = new PlayerResultBoard (gameData.OpponentStatus);
@@ -71,13 +70,34 @@ namespace PYIV.Menu
 				
 				menuButton.transform.localPosition = new Vector3(-320, 0, 0);
 				
-				
+				Vector2 secondButtonPosition = new Vector2(320, 0);
 				if(gameData.State == GameState.PLAYER_NEEDS_TO_CONFIGURE){
-					GameObject nextRoundButton = ButtonHelper.AddButtonToParent(buttonsParent, StringConstants.BUTTON_NEXT_ROUND, new Vector2(320, 0));
+					GameObject nextRoundButton = ButtonHelper.AddButtonToParent(buttonsParent, StringConstants.BUTTON_NEXT_ROUND, secondButtonPosition);
 					UIEventListener.Get(nextRoundButton).onClick += StartNextRound;
+				}
+				else if(gameData.HasEnded){
+					GameObject nextRoundButton = ButtonHelper.AddButtonToParent(buttonsParent, StringConstants.BUTTON_REPLAY, secondButtonPosition);
+					UIEventListener.Get(nextRoundButton).onClick += delegate {
+						CreateNewGameCommand newGameCommand = new CreateNewGameCommand(gameData.OpponentStatus.Player, gameData.MyStatus.Player);
+						newGameCommand.Execute();
+					};
 				}
 			}
 			
+		}
+		
+		public override void RemoveFromScreen ()
+		{
+			Debug.Log("remoce from screen");
+			if(gameData.ReadyForDeleting){
+				ICommand deleteCommand = new DeleteEndedGameCommand(gameData, delegate {
+					base.RemoveFromScreen();
+				});
+				deleteCommand.Execute();
+			}
+			
+			
+			base.RemoveFromScreen ();
 		}
 		
 		private void StartNextRound(GameObject go){

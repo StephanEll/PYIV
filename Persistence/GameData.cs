@@ -26,6 +26,14 @@ namespace PYIV.Persistence
 			}
 		}
 		
+		public bool ReadyForDeleting { get; private set; }
+		
+		public bool HasEnded { 
+			get {
+				return State == GameState.LOST || State == GameState.DRAW || State == GameState.WON; 
+			}
+		}
+		
 		[IgnoreDataMember]
 		public PlayerStatus MyStatus {
 			get{
@@ -47,6 +55,7 @@ namespace PYIV.Persistence
 		public GameData(){
 			PlayerStatus = new List<PlayerStatus>(2);
 			IsSynced = true;
+			ReadyForDeleting = false;
 
 		}
 		
@@ -70,8 +79,13 @@ namespace PYIV.Persistence
 			//Parse player status
 			MyStatus.ParseOnCreate(responseObject.MyStatus);
 			//Parse opponent status
+			
+			bool opponentAddedResults = !OpponentStatus.LatestRound.IsComplete && responseObject.OpponentStatus.LatestRound.IsComplete;
 			OpponentStatus.ParseOnCreate(responseObject.OpponentStatus);	
-
+			
+			if(opponentAddedResults && HasEnded){
+				ReadyForDeleting = true;
+			}
 			
 		}
 		
