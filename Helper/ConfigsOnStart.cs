@@ -131,7 +131,7 @@ namespace PYIV.Helper
 			
 		//var saveResultsCommand = new SaveGameResultsCommand(data);
 		//saveResultsCommand.Execute();
-		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
+		ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameListView), data);
       
     }
 

@@ -56,22 +56,26 @@ namespace PYIV.Helper
 
 			data.MyStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
 			data.OpponentStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
-			
+			data.OpponentStatus.IsChallengeAccepted = true;
 			List<EnemyType> types = new List<EnemyType> ();
       
-			string[] subCollectionEnemy = {"Ratte1", "Eagle1", "Panther1", "Rhino1", "Elephant1" };
+			string[] subCollectionEnemy = {"Rat1" };
 
 			EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection (subCollectionEnemy);
 
-			types.AddRange (ets);
+			types.AddRange(ets);
 
 			Round round = new Round ();
 			round.SentAttackers = types;
 			
-			//round.ScoreResult = new ScoreResult(10, 23, 8, 0, 22);
+			round.ScoreResult = new ScoreResult(10, 23, 8, 0, 22);
 			
 			data.OpponentStatus.AddRound (round);
-			data.MyStatus.AddRound (round);
+			
+			
+			var otherRound = new Round();
+			otherRound.SentAttackers = types;
+			data.MyStatus.AddRound (otherRound);
 			
 			
 			
