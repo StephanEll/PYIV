@@ -48,7 +48,6 @@ namespace PYIV.Persistence
 		
 		//Add payload, the object will be json-serialized
 		public void AddBody(object model){
-			
 			request.AddParameter("model", SimpleJson.SimpleJson.SerializeObject(model));
 		
 		}

@@ -85,6 +85,7 @@ namespace PYIV.Menu
 		}
 
 		private void SetGold() {
+		Debug.Log ("set gold");
 			int gold = attackConfigurationModel.Gold;
 			goldPointsHelper.points = (float) gold;
 		}

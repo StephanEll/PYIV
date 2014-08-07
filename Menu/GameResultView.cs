@@ -86,19 +86,7 @@ namespace PYIV.Menu
 			
 		}
 		
-		public override void RemoveFromScreen ()
-		{
-			Debug.Log("remoce from screen");
-			if(gameData.ReadyForDeleting){
-				ICommand deleteCommand = new DeleteEndedGameCommand(gameData, delegate {
-					base.RemoveFromScreen();
-				});
-				deleteCommand.Execute();
-			}
-			
-			
-			base.RemoveFromScreen ();
-		}
+
 		
 		private void StartNextRound(GameObject go){
 			Debug.Log("latest round should be unconfigured: " + !gameData.MyStatus.LatestRound.IsConfigured);
