@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
 using PYIV.Persistence;
+using PYIV.Gameplay.Character;
 
 namespace PYIV.Menu
 {
@@ -17,6 +18,18 @@ namespace PYIV.Menu
 		public GameData GameData { get; set; }
 		
 		public int Gold { get; private set; }
+		
+		private IndianData selectedIndian;
+		public IndianData SelectedIndian { 
+			get	{
+				return selectedIndian;
+			} 
+			
+			set {
+				selectedIndian = value;
+				ExecuteChangeEvent();
+			}
+		}
 		
 		private int goldSpentForEnemies = 0;
 		
@@ -71,6 +84,9 @@ namespace PYIV.Menu
 			}
 			
 			GameData.MyStatus.LatestRound.SentAttackers = attackerList;
+			
+			
+			GameData.MyStatus.IndianData = SelectedIndian;
 			
 		}
 		

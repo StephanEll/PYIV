@@ -36,7 +36,7 @@ namespace PYIV.Menu.Commands
 			Debug.Log ("GameAccepted");
 			newGame.MyStatus.IsChallengeAccepted = true;
 			
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(newGame));
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(newGame));
 		}
 		
 		

@@ -18,6 +18,8 @@ namespace PYIV.Menu
 		private AttackConfigurationModel attackConfigurationModel;
 		private GameObject grid;
 		
+		private List<IndianSelectionField> indianSelectionFields;
+		
 		public IndianSelectionView () : base("IndianSelectionPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
@@ -32,7 +34,6 @@ namespace PYIV.Menu
 		
 		
 		
-		
 		private void InitViewComponents() {
 			
 			GameObject sprite = panel.transform.FindChild("Sprite").gameObject;
@@ -41,35 +42,33 @@ namespace PYIV.Menu
 			GameObject nextButton = bottomAnchorButtons.transform.FindChild("Next_Button").gameObject;
 			
 			grid = topAnchorInteraction.transform.FindChild("IndianGrid").gameObject;
-
-			GameObject amazon = grid.transform.FindChild("Amazon").gameObject;
-			GameObject indian = grid.transform.FindChild("Indian").gameObject;
-			GameObject massai = grid.transform.FindChild("Massai").gameObject;
-
 			UIEventListener.Get(nextButton).onClick += OnNextButtonClicked;
-			UIEventListener.Get(amazon).onClick += OnIndianButtonClicked;
-			UIEventListener.Get(indian).onClick += OnIndianButtonClicked;
-			UIEventListener.Get(massai).onClick += OnIndianButtonClicked;
+	
 			
 		}
 
-		private void OnIndianButtonClicked(GameObject button) {
-
-		}
 
 		private void OnNextButtonClicked(GameObject button) {
-
+			if(attackConfigurationModel.SelectedIndian != null){
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), attackConfigurationModel);
+			}
+			else{
+				ViewRouter.TheViewRouter.ShowTextPopup(StringConstants.NO_INDIAN_SELECTED);
+			}
 		}
 		
 		public override bool ShouldBeCached ()
 		{
-			//immer neu erstellen, um keine Vorbelegung zu haben
-			return false;
+			return true;
 		}
 		
 		public override void UnpackParameter (object parameter)
 		{
 			base.UnpackParameter (parameter);
+			
+			attackConfigurationModel = parameter as AttackConfigurationModel;
+			string[] indianIds = { "Amazone", "Indian", "Massai" };
+			indianSelectionFields = (from id in indianIds select new IndianSelectionField(grid, id, attackConfigurationModel)).ToList();
 
 		}
 		

@@ -91,7 +91,7 @@ namespace PYIV.Menu
 		private void StartNextRound(GameObject go){
 			Debug.Log("latest round should be unconfigured: " + !gameData.MyStatus.LatestRound.IsConfigured);
 			
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(gameData));
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(gameData));
 		}
 		
 		private void ToMenu(GameObject go){

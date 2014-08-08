@@ -87,7 +87,7 @@ namespace PYIV.Menu
 			if(data.State == GameState.READY_TO_PLAY)
 				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameView), data);
 			else if(data.MyStatus.LatestCompletedRound == null)
-				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(data));
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(data));
 			else
 				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), data);
 			

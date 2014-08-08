@@ -40,7 +40,7 @@ namespace PYIV.Menu.Commands
 				return;
 			}
 			
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(newGame));
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(newGame));
 			
 			
 			//newGame.Save(NewGameCreated, ErrorCreatingGame);

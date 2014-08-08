@@ -65,8 +65,15 @@ namespace PYIV.Gameplay.Character {
             return IndianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
 
         }
+		
+		public IndianData GetById(string id){
+			return (from indianData in IndianData where indianData.Id == id select indianData).ToArray()[0];
+		}
+		
 
 	}
+	
+	
 
 
 
