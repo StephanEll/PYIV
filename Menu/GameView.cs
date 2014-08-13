@@ -22,6 +22,7 @@ namespace PYIV.Menu
 		private GameObject inGameGui_Prefab;
 
 		public bool isPaused = false;
+    private float rememberTimeScale;
 
 		//Flynotes
 		private GameObject onHit_Flynote_Prefab;
@@ -41,6 +42,7 @@ namespace PYIV.Menu
 
 			inGameGui_Prefab = Resources.Load<GameObject> ("Prefabs/UI/InGameGUI_Prefab");
 			onHit_Flynote_Prefab = Resources.Load<GameObject> ("Prefabs/UI/OnHit_Flynote_Prefab");
+      rememberTimeScale = Time.timeScale;
 		}
 		
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
@@ -159,7 +161,7 @@ namespace PYIV.Menu
 			GameObject villageDamage = topRight.transform.FindChild ("Dorf_Damage_Prefab").gameObject;
 			GameObject villagePoints = topRight.transform.FindChild ("villagePoints_label").gameObject;
 			villagePointsHelper = villagePoints.GetComponent<PointsHelper>();
-			villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
+      villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
 			GameObject pauseButton = topRight.transform.FindChild ("pause_icon").gameObject;
 			GameObject stamina = topLeft.transform.FindChild ("Stamina_Bar_Prefab").gameObject;
 
@@ -172,10 +174,10 @@ namespace PYIV.Menu
 		private void OnPauseButtonClicked(GameObject button) {
 			// TODO!
 			if(!isPaused) {
-
+        Time.timeScale = 0;
 				isPaused = true;
 			} else {
-
+        Time.timeScale = rememberTimeScale;
 				isPaused = false;
 			}
 

@@ -28,8 +28,11 @@ namespace PYIV.Gameplay.Character.Weapon
     // Update is called once per frame
     void Update()
     {
-      HandleSwipeGesture();
-      HandleDebugShotWithKeys();
+      if (Time.timeScale != 0)
+      {
+        HandleSwipeGesture();
+        HandleDebugShotWithKeys();
+      }
     }
 
     /* 

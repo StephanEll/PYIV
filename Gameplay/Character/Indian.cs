@@ -24,7 +24,8 @@ namespace PYIV.Gameplay.Character
 
     void Update()
     {
-      RebuildStamina();
+      if (Time.timeScale != 0)
+        RebuildStamina();
     }
 
     private void RebuildStamina()

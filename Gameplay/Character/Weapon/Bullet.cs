@@ -23,16 +23,18 @@ namespace PYIV.Gameplay.Character.Weapon
     
     void Update()
     {
-
-      if (!hit)
+      if (Time.timeScale != 0)
       {
-        Vector2 angle = this.rigidbody2D.velocity;
-        angle.Normalize();
-        this.transform.rotation = Quaternion.Euler(0, 0, angle.y * 1.41421356237f * 45.0f);
-      }
+        if (!hit)
+        {
+          Vector2 angle = this.rigidbody2D.velocity;
+          angle.Normalize();
+          this.transform.rotation = Quaternion.Euler(0, 0, angle.y * 1.41421356237f * 45.0f);
+        }
 
-      if (transform.position.y < PlayingFieldBoundarys.Bottom)
-        Miss();
+        if (transform.position.y < PlayingFieldBoundarys.Bottom)
+          Miss();
+      }
 
     }
 

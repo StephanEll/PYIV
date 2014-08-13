@@ -75,7 +75,7 @@ namespace PYIV.Gameplay.Enemy
       {
         FateOut();
       }
-      else
+      else if (Time.timeScale != 0)
       {
 
         if (enemyData.Fly)

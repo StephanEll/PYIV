@@ -12,14 +12,11 @@ namespace PYIV.Gameplay
   {
     private List<string> EnemyIdQueue = new List<string>();
     private Dictionary<string, EnemyData> EnemyDataQueue = new Dictionary<string, EnemyData>();
-	private Dictionary<string, int> EnemySpawnStartPos = new Dictionary< string, int>();
-	
-	
+    private Dictionary<string, int> EnemySpawnStartPos = new Dictionary< string, int>();
     private float deltaSpawnTime;
     private float nextSpawntime;
     private float countTime = 0;
     private float lastEnemySpawnTime;
-    
     private Vector3 enemyStartPosition;
     private GameObject EnemyContainer;
     
@@ -32,10 +29,10 @@ namespace PYIV.Gameplay
         new Vector3(
         Screen.width, 
         Screen.height * ConfigReader.Instance.GetSettingAsFloat("game", "spawning-height")
-        )
-        );
+      )
+      );
       
-      enemyStartPosition = new Vector3(3,0,0);
+      enemyStartPosition = new Vector3(3, 0, 0);
       
     }
     
@@ -43,9 +40,11 @@ namespace PYIV.Gameplay
     void Update()
     {
       
-      if (nextSpawntime < Time.time && EnemyIdQueue.Count != 0) {
+      if (nextSpawntime < Time.time && EnemyIdQueue.Count != 0)
+      {
         Spawn();
-        if(EnemyIdQueue.Count != 0) ComputeNextSpawnTime();
+        if (EnemyIdQueue.Count != 0)
+          ComputeNextSpawnTime();
       }
       
     }
@@ -56,9 +55,9 @@ namespace PYIV.Gameplay
       foreach (EnemyType et in enemyTypes)
       {
         EnemyDataQueue.Add(et.EnemyData.Id, et.EnemyData);
-		EnemySpawnStartPos.Add(et.EnemyData.Id, et.Count);
-		
-        for (int i = 0; i < et.Count; i++ )
+        EnemySpawnStartPos.Add(et.EnemyData.Id, et.Count);
+    
+        for (int i = 0; i < et.Count; i++)
         {
           EnemyIdQueue.Add(et.EnemyData.Id);
 
@@ -66,96 +65,93 @@ namespace PYIV.Gameplay
         }
       }
 
-		int spawningPosCounter = 1;
+      int spawningPosCounter = 1;
 
-		if ( EnemyIdQueue.Exists(x => x.Contains("Rat")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Rat"];
-				EnemySpawnStartPos["Rat"] = spawningPosCounter;
-			}
-		if ( EnemyIdQueue.Exists(x => x.Contains("Tarantula")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Tarantula"];
-				EnemySpawnStartPos["Tarantula"] = spawningPosCounter;
+      if (EnemyIdQueue.Exists(x => x.Contains("Rat")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Rat"];
+        EnemySpawnStartPos ["Rat"] = spawningPosCounter;
+      }
+      if (EnemyIdQueue.Exists(x => x.Contains("Tarantula")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Tarantula"];
+        EnemySpawnStartPos ["Tarantula"] = spawningPosCounter;
 
-			}
-		if ( EnemyIdQueue.Exists(x => x.Contains("Eagle")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Eagle"];
-				EnemySpawnStartPos["Eagle"] = spawningPosCounter;
-				
-			}
-		if ( EnemyIdQueue.Exists(x => x.Contains("Panther")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Panther"];
-				EnemySpawnStartPos["Panther"] = spawningPosCounter;
-				
-			}
-		if ( EnemyIdQueue.Exists(x => x.Contains("Elephant")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Elephant"];
-				EnemySpawnStartPos["Elephant"] = spawningPosCounter;
-				
-			}
-		if ( EnemyIdQueue.Exists(x => x.Contains("Rhino")))
-			{
-				spawningPosCounter += EnemySpawnStartPos["Rhino"];
-				EnemySpawnStartPos["Rhino"] = spawningPosCounter;
-				
-			}
-
-		
-
-		
+      }
+      if (EnemyIdQueue.Exists(x => x.Contains("Eagle")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Eagle"];
+        EnemySpawnStartPos ["Eagle"] = spawningPosCounter;
+        
+      }
+      if (EnemyIdQueue.Exists(x => x.Contains("Panther")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Panther"];
+        EnemySpawnStartPos ["Panther"] = spawningPosCounter;
+        
+      }
+      if (EnemyIdQueue.Exists(x => x.Contains("Elephant")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Elephant"];
+        EnemySpawnStartPos ["Elephant"] = spawningPosCounter;
+        
+      }
+      if (EnemyIdQueue.Exists(x => x.Contains("Rhino")))
+      {
+        spawningPosCounter += EnemySpawnStartPos ["Rhino"];
+        EnemySpawnStartPos ["Rhino"] = spawningPosCounter;
+        
+      }
+    
       
       EnemyIdQueue = EnemyIdQueue.OrderBy(emp => Guid.NewGuid()).ToList();
     }
     
     private void Spawn()
     {
-      	EnemyData ed;
-      	EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
-	
-		int enemyStartPos;
-		EnemySpawnStartPos.TryGetValue(  EnemyIdQueue[0] ,out enemyStartPos);
-	  
+      EnemyData ed;
+      EnemyDataQueue.TryGetValue(EnemyIdQueue [0], out ed);
+  
+      int enemyStartPos;
+      EnemySpawnStartPos.TryGetValue(EnemyIdQueue [0], out enemyStartPos);
+    
       //Debug.Log ("SpawnTime: " + Time.time + " ID " + ed.Id);
       switch (ed.Id)
       {
         case "Rat":
 
-				enemyStartPosition.z =  enemyStartPos ;
-				enemyStartPos --;
-				EnemySpawnStartPos["Rat"] = enemyStartPos;
-          		break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Rat"] = enemyStartPos;
+          break;
         case "Tarantula":
-				enemyStartPosition.z =  enemyStartPos;
-				enemyStartPos --;
-				EnemySpawnStartPos["Tarantula"] = enemyStartPos;
-				break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Tarantula"] = enemyStartPos;
+          break;
         case "Eagle":
-				enemyStartPosition.z =  enemyStartPos;
-				enemyStartPos --;
-				EnemySpawnStartPos["Eagle"] = enemyStartPos;
-				break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Eagle"] = enemyStartPos;
+          break;
         case "Panther":
-				enemyStartPosition.z =  enemyStartPos;
-				enemyStartPos --;
-				EnemySpawnStartPos["Panther"] = enemyStartPos;
-				break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Panther"] = enemyStartPos;
+          break;
         case "Elephant":
-				enemyStartPosition.z =  enemyStartPos;
-				enemyStartPos --;
-				EnemySpawnStartPos["Elephant"] = enemyStartPos;
-				break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Elephant"] = enemyStartPos;
+          break;
         case "Rhino":
-				enemyStartPosition.z =  enemyStartPos;
-				enemyStartPos --;
-				EnemySpawnStartPos["Rhino"] = enemyStartPos;
-				break;
+          enemyStartPosition.z = enemyStartPos;
+          enemyStartPos --;
+          EnemySpawnStartPos ["Rhino"] = enemyStartPos;
+          break;
         default:
-				enemyStartPosition.z =  1;
-				break;
+          enemyStartPosition.z = 1;
+          break;
           
       }
       
@@ -165,13 +161,14 @@ namespace PYIV.Gameplay
         EnemyContainer.transform,
         EnemyContainer.transform.parent.GetComponent<Score.Score>(),
         enemyStartPosition
-        );
+      );
       lastEnemySpawnTime = ed.SpawnTime;
       EnemyIdQueue.RemoveAt(0);
-	  
+    
     }
     
-    public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes){
+    public static SpawnController AddAsComponentTo(GameObject go, List<EnemyType> enemyTypes)
+    {
       go.AddComponent<SpawnController>();
       SpawnController spawnController = go.GetComponent<SpawnController>();
       spawnController.GenerateEnemyIdQueue(enemyTypes);
@@ -192,10 +189,10 @@ namespace PYIV.Gameplay
     private void ComputeNextSpawnTime()
     { 
       EnemyData ed;
-      EnemyDataQueue.TryGetValue( EnemyIdQueue[0] , out ed);
+      EnemyDataQueue.TryGetValue(EnemyIdQueue [0], out ed);
       //nextSpawntime = Time.time + deltaSpawnTime; 
-      float DeltaCalcu = UnityEngine.Random.Range (-(deltaSpawnTime*lastEnemySpawnTime),deltaSpawnTime*(1.0f-ed.SpawnTime));
-      nextSpawntime = Time.time + deltaSpawnTime+ DeltaCalcu;
+      float DeltaCalcu = UnityEngine.Random.Range(-(deltaSpawnTime * lastEnemySpawnTime), deltaSpawnTime * (1.0f - ed.SpawnTime));
+      nextSpawntime = Time.time + deltaSpawnTime + DeltaCalcu;
       
     }
     
@@ -206,6 +203,7 @@ namespace PYIV.Gameplay
     
     public int GetSpawnQueueCount()
     {
+
       return EnemyIdQueue.Count;
 
     }
