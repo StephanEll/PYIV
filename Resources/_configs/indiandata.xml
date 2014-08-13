@@ -57,19 +57,19 @@
 			<Name>Stamina Feather</Name>
 			<Description>Allows you to shoot more often without getting out of stamina.</Description>
 		</FeatherType>
-		
-		<FeatherType>
-			<Id>2</Id>
-			<Price>120</Price>
-			<Name>Village Feather</Name>
-			<Description>Your town wall will be improved.</Description>
-		</FeatherType>
 	
 		<FeatherType>
-			<Id>3</Id>
+			<Id>2</Id>
 			<Price>200</Price>
 			<Name>Strength Feather</Name>
 			<Description>Allows you to shoot more powerfull.</Description>
+		</FeatherType>
+		
+		<FeatherType>
+			<Id>3</Id>
+			<Price>200</Price>
+			<Name>Village Feather</Name>
+			<Description>Your town wall will be improved.</Description>
 		</FeatherType>
 		
 	</FeatherTypeCollection>
@@ -82,8 +82,26 @@
 			<IndianId>1</IndianId>
 			<FeatherTypeId>1</FeatherTypeId>
 			<EffectedProperty>Stamina</EffectedProperty>
-			<PriceIncrease>5</PriceIncrease>
-			<ValueIncrease>5</ValueIncrease>
+			<PriceIncrease>100</PriceIncrease>
+			<ValueIncrease>2</ValueIncrease>
+		</FeaterData>
+		
+		<FeaterData>
+			<Id>2</Id>
+			<IndianId>1</IndianId>
+			<FeatherTypeId>2</FeatherTypeId>
+			<EffectedProperty>Strength</EffectedProperty>
+			<PriceIncrease>100</PriceIncrease>
+			<ValueIncrease>15</ValueIncrease>
+		</FeaterData>
+		
+		<FeaterData>
+			<Id>3</Id>
+			<IndianId>1</IndianId>
+			<FeatherTypeId>3</FeatherTypeId>
+			<EffectedProperty>Village</EffectedProperty>
+			<PriceIncrease>200</PriceIncrease>
+			<ValueIncrease>100</ValueIncrease>
 		</FeaterData>
 		
 	</FeatherDataCollection>
