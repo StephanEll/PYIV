@@ -59,7 +59,7 @@ namespace PYIV.Helper
 			data.OpponentStatus.IsChallengeAccepted = true;
 			List<EnemyType> types = new List<EnemyType> ();
       
-			string[] subCollectionEnemy = {"Rat1" };
+      string[] subCollectionEnemy = {"Rat1", "Rat1", "Eagle1", "Panther1", "Rhino1", "Elephant1" };
 
 			EnemyType[] ets = EnemyTypeCollection.Instance.GetSubCollection (subCollectionEnemy);
 

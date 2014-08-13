@@ -38,7 +38,7 @@
   
   	<!-- KILLLS  type specific 5 RATS in a row 
   	Wird aufgerufen, wenn X Enemys des gleichen Typs als KILLED markierd wurden.
-  	Ob zwischendurch Pfeile inns leere gingen spielt keine Rolle -->
+  	Ob zwischendurch Pfeile inns leere gingen spielt eine Rolle -->
 	<FlyNoteData>
     	<Type>KillsTypeSpecific</Type>
 		<ExtraPoints>10</ExtraPoints>

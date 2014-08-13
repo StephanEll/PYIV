@@ -105,10 +105,12 @@ namespace PYIV.Gameplay.Score
       string rememberType = enemy.Type;
       int sameTypeKillCounter = 0;
       int counterKillsInARow = 0;
-      bool stopCountingKillsInARow = false;
-      bool stopCountingSameKillsInARow = false;
+      //bool stopCountingKillsInARow = false;
+      //bool stopCountingSameKillsInARow = false;
 
-      foreach (Enemy.Enemy killedEnemy in lastKills)
+      // Ob zwischendurch Pfeile inns leere gehen spielt KEINE Rolle
+
+      /*foreach (Enemy.Enemy killedEnemy in lastKills)
       {
         if(killedEnemy == null)
           stopCountingKillsInARow = true;
@@ -120,7 +122,28 @@ namespace PYIV.Gameplay.Score
 
         if(!stopCountingKillsInARow)
           counterKillsInARow ++;
+      }*/
+
+
+      // Ob Pfeile inns leere gehen spielt eine Rolle
+
+      foreach (Enemy.Enemy kill in lastKills)
+      {
+        if (kill == null)
+          break;
+
+        if (rememberType == kill.Type){
+          sameTypeKillCounter ++;
+        } else {
+          rememberType = "stop counting";
+        }
+        
+        counterKillsInARow ++;
+        
       }
+
+
+      Debug.Log("kill kill kill kill kill: " + sameTypeKillCounter);
       
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.KillsNotTypeSpecific, counterKillsInARow);
       if (OnHitFlyNote != null && fnd != null)

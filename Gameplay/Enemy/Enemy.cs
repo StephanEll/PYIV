@@ -23,11 +23,15 @@ namespace PYIV.Gameplay.Enemy
     private bool flightSwitch = false;
     private float flightHight = 20.0f;
 
-    public float MoveSpeed { 
+    public float MoveSpeed
+    { 
       get
       {
         return enemyData.MoveSpeed;
-      } 
+      }
+      private set {
+        enemyData.MoveSpeed = value;
+      }
     }
 
     public int AttackPower { 
@@ -66,6 +70,8 @@ namespace PYIV.Gameplay.Enemy
       {
         fateOutFramesMax = fateOutFramesMax / 2;
       }
+      if (transform.localRotation.y == 0.0f)
+        MoveSpeed = -MoveSpeed;
     }
 
     // Update is called once per frame
@@ -92,10 +98,7 @@ namespace PYIV.Gameplay.Enemy
 
     private void Move()
     {
-      if ( transform.localRotation.y != 0.0f )
-        transform.Translate(MoveSpeed / 250, 0, 0);
-      else
-        transform.Translate(-MoveSpeed / 250, 0, 0);
+       transform.Translate(MoveSpeed / 250, 0, 0);
     }
 
     private void Fly()
@@ -114,7 +117,7 @@ namespace PYIV.Gameplay.Enemy
         flightSwitch = true;
       }
 
-      transform.Translate(-MoveSpeed / 300, ySin / flightHight, 0);
+      transform.Translate(MoveSpeed / 300, ySin / flightHight, 0);
 
     }
 
