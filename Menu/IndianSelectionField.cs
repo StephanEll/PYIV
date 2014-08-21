@@ -15,11 +15,13 @@ namespace PYIV.Menu
 
 		
 		public GameObject Button;
+		public GameObject activeState;
 		
 		public IndianSelectionField(GameObject parent, string indianId, AttackConfigurationModel attackConfigurationModel)
 		{
 			this.grid = parent;
 			this.Button = this.grid.transform.Find(indianId).gameObject;
+			this.activeState = this.Button.transform.FindChild("active").gameObject;
 			Debug.Log(grid);
 			this.attackConfigurationModel = attackConfigurationModel;
 			this.attackConfigurationModel.OnChange += OnChange;
@@ -35,6 +37,12 @@ namespace PYIV.Menu
 		
 		private void SelectIndian(bool selectIndian){
 			//Button.GetComponent<UIWidget>().alpha = selectIndian ? 1.0f : 0.5f;
+			if(selectIndian) {
+				activeState.SetActive(true);
+			}
+			else {
+				activeState.SetActive(false);
+			}
 		}
 		
 		private void OnClick(GameObject go){
