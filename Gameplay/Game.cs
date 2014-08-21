@@ -21,6 +21,7 @@ namespace PYIV.Gameplay
 		private SpawnController spawnController;
 		private float initialCameraSize;
 		private int spawnCount;
+    private Indian indian;
 		
 		public GameData GameData { 
 			
@@ -41,8 +42,8 @@ namespace PYIV.Gameplay
 			Score.Score score = Score.Score.AddAsComponentTo (
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints"));
-			IndianBuilder.CreateIndian (gameData.MyStatus, this.transform);
-
+			
+      indian = IndianBuilder.CreateIndian (gameData.MyStatus, this.transform);
 			score.OnScoreChanged += HandleOnScoreChanged;
 		}
 
@@ -60,12 +61,25 @@ namespace PYIV.Gameplay
 			Camera.main.gameObject.transform.Translate (new Vector2 (0, -(playingFieldHeight - 2 * Camera.main.orthographicSize)) / 2);
 			Camera.main.farClipPlane = spawnCount + 50;
 
+
+
 			var bgPrefab = Resources.Load (gameData.MyStatus.IndianData.BackgroundPreafabPath);
 			background = Instantiate (bgPrefab) as GameObject;
 			background.transform.parent = transform;
 			
 			background.transform.parent = this.transform;
 			background.transform.position += new Vector3 (0, 0, spawnCount + 10);
+
+      float screenWidthPercent = Screen.width / 4.0f; 
+      
+      float height = Camera.main.ScreenToWorldPoint(
+        new Vector3(0, Screen.width / 2.65f, 0)
+        ).y;
+
+      indian.transform.position = new Vector3(
+          indian.transform.position.x,
+          height,
+          indian.transform.position.z);
 
 		}
 

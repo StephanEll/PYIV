@@ -26,7 +26,7 @@ namespace PYIV.Gameplay.Character
 
       indianGO.transform.parent = parent;
 
-      indianGO.transform.localPosition = indianGO.transform.position;
+
 
       ShotBehaviour.AddAsComponentFactory(
                 indianGO,

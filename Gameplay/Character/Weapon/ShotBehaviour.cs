@@ -84,8 +84,8 @@ namespace PYIV.Gameplay.Character.Weapon
         
           EndSwipeHandler(
             bullet.GetComponent<Bullet>(),
-            startPosition,
-            endPosition,
+            (startPosition / Screen.width) * 1000,
+            (endPosition / Screen.width) * 1000,
             duration);
         } else
         {
@@ -112,8 +112,8 @@ namespace PYIV.Gameplay.Character.Weapon
 
           EndSwipeHandler(
                         bullet.GetComponent<Bullet>(),
-                        startPosition,
-                        endPosition,
+                        (startPosition / Screen.width) * 1000,
+                        (endPosition / Screen.width) * 1000,
                         duration);
         } else
         {
@@ -124,14 +124,17 @@ namespace PYIV.Gameplay.Character.Weapon
 
       if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
       {
-        UpdateSwipeHandler(startPosition, Input.GetTouch(0).position, Time.time - startTime);
+        UpdateSwipeHandler(
+          (startPosition / Screen.width) * 1000 , 
+          (Input.GetTouch(0).position / Screen.width) * 1000 , 
+          Time.time - startTime);
       }
 
       if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
       {
         startPosition = Input.GetTouch(0).position;
         startTime = Time.time;
-        StartSwipeHandler(startPosition);
+        StartSwipeHandler((startPosition / Screen.width) * 1000);
       }
     }
 
