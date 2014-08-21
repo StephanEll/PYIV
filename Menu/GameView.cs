@@ -20,9 +20,11 @@ namespace PYIV.Menu
 		private GameObject ui;
 		private GameObject sprite;
 		private GameObject inGameGui_Prefab;
+		private GameObject pauseButton;
+		private GameObject pauseMessage;
 
 		public bool isPaused = false;
-    private float rememberTimeScale;
+    	private float rememberTimeScale;
 
 		//Flynotes
 		private GameObject onHit_Flynote_Prefab;
@@ -34,6 +36,7 @@ namespace PYIV.Menu
 		private UISprite stamina_bar;
 		private float characterStamina;
 		private PointsHelper villagePointsHelper;
+		private PointsHelper goldPointsHelper;
 		
 		public GameView ()
 		{
@@ -158,12 +161,17 @@ namespace PYIV.Menu
 			sprite = ui.transform.FindChild ("Sprite").gameObject;
 			GameObject topRight = sprite.transform.FindChild ("TopRight").gameObject;
 			GameObject topLeft = sprite.transform.FindChild ("TopLeft").gameObject;
+			GameObject center = sprite.transform.FindChild ("Center").gameObject;
+			pauseMessage = center.transform.FindChild("PauseLabel").gameObject;
 			GameObject villageDamage = topRight.transform.FindChild ("Dorf_Damage_Prefab").gameObject;
 			GameObject villagePoints = topRight.transform.FindChild ("villagePoints_label").gameObject;
 			villagePointsHelper = villagePoints.GetComponent<PointsHelper>();
-      villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
-			GameObject pauseButton = topRight.transform.FindChild ("pause_icon").gameObject;
+      		villagePointsHelper.points = (float) ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
+			pauseButton = topRight.transform.FindChild ("pause_icon").gameObject;
 			GameObject stamina = topLeft.transform.FindChild ("Stamina_Bar_Prefab").gameObject;
+
+			GameObject goldPoints = topRight.transform.FindChild ("goldPoints_label").gameObject;
+			goldPointsHelper = goldPoints.GetComponent<PointsHelper>();
 
 			village_bar = villageDamage.transform.FindChild ("dorf_fg").gameObject.GetComponent<UISprite> ();
 			stamina_bar = stamina.transform.FindChild ("stamina_fg").gameObject.GetComponent<UISprite> ();
@@ -173,12 +181,18 @@ namespace PYIV.Menu
 
 		private void OnPauseButtonClicked(GameObject button) {
 			// TODO!
+
+			UISprite pauseSprite = pauseButton.GetComponent<UISprite>();
 			if(!isPaused) {
-        Time.timeScale = 0;
+        		Time.timeScale = 0;
 				isPaused = true;
+				pauseSprite.spriteName = "play_icon";
+				pauseMessage.SetActive(true);
 			} else {
-        Time.timeScale = rememberTimeScale;
+        		Time.timeScale = rememberTimeScale;
 				isPaused = false;
+				pauseSprite.spriteName = "pause_icon";
+				pauseMessage.SetActive(false);
 			}
 
 		}
