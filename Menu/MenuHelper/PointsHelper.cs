@@ -18,7 +18,12 @@ public class PointsHelper : MonoBehaviour {
 			if(float.Parse(pointsLabel.text) > points) {
 				float p = float.Parse(pointsLabel.text) - 0.05f;
 				pointsLabel.text = ((int)p).ToString();
-			}
+			} 
+
+			if(float.Parse(pointsLabel.text) < points) {
+				float p = float.Parse(pointsLabel.text) + 1f;
+				pointsLabel.text = ((int)p).ToString();
+			} 
 		}
 	}
 }

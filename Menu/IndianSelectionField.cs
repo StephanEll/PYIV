@@ -34,7 +34,7 @@ namespace PYIV.Menu
 		}
 		
 		private void SelectIndian(bool selectIndian){
-			Button.GetComponent<UIWidget>().alpha = selectIndian ? 1.0f : 0.5f;
+			//Button.GetComponent<UIWidget>().alpha = selectIndian ? 1.0f : 0.5f;
 		}
 		
 		private void OnClick(GameObject go){

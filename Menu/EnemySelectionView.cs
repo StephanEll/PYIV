@@ -59,7 +59,11 @@ namespace PYIV.Menu
 
 
 		private void OnResetButtonClicked(GameObject button) {
+
+
 			attackConfigurationModel.ResetAttackers();
+			SetGold();
+
 		}
 
 		private void OnNextButtonClicked(GameObject button) {
@@ -85,7 +89,7 @@ namespace PYIV.Menu
 		}
 
 		private void SetGold() {
-		Debug.Log ("set gold");
+			Debug.Log ("set gold");
 			int gold = attackConfigurationModel.Gold;
 			goldPointsHelper.points = (float) gold;
 		}
