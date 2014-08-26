@@ -107,7 +107,7 @@ namespace PYIV.Menu
 			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
 
 			registerButton = bottomAnchorButton.transform.FindChild("Register_Button").gameObject;
-			loginLink = bottomAnchorLinks.transform.FindChild("login_link").gameObject;
+			loginLink = bottomAnchorLinks.transform.FindChild("login_button").gameObject;
 			nameField = topAnchorInteraction.transform.FindChild("name_input").gameObject.GetComponent<UIInput>();
 			emailField = topAnchorInteraction.transform.FindChild("email_input").gameObject.GetComponent<UIInput>();
 			passwordField = topAnchorInteraction.transform.FindChild("password_input").gameObject.GetComponent<UIInput>();

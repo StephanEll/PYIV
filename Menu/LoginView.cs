@@ -68,8 +68,8 @@ namespace PYIV.Menu
 
 			GameObject loginButton = topAnchorInteraction.transform.FindChild("Login_Button").gameObject;
 
-			GameObject registerLink = bottomAnchorLinks.transform.FindChild("register_link").gameObject;
-			GameObject forgotPwLink = bottomAnchorLinks.transform.FindChild("lost_link").gameObject;
+			GameObject registerLink = bottomAnchorLinks.transform.FindChild("register_button").gameObject;
+			GameObject forgotPwLink = bottomAnchorLinks.transform.FindChild("forgot_PW").gameObject;
 			
 			nameField = topAnchorInteraction.transform.FindChild("name_input").gameObject.GetComponent<UIInput>();
 			passwordField = topAnchorInteraction.transform.FindChild("password_input").gameObject.GetComponent<UIInput>();
