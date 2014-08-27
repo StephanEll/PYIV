@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
 using PYIV.Persistence;
 using PYIV.Gameplay.Character;
-using UnityEditor;
 
 namespace PYIV.Menu
 {

@@ -21,6 +21,9 @@ namespace PYIV.Gameplay.Score
     public delegate void ScoreChangedDelegate(int newScore);
     public event ScoreChangedDelegate OnScoreChanged;
 
+    public delegate void ExtraPointsChangedDelegate(int newScore);
+    public event ExtraPointsChangedDelegate OnExtraPointsChanged;
+
     public delegate void HitDelegate(Enemy.Enemy enemy,FlyNoteData fnd);
     public event HitDelegate OnHitFlyNote;
 
@@ -142,8 +145,6 @@ namespace PYIV.Gameplay.Score
         
       }
 
-
-      Debug.Log("kill kill kill kill kill: " + sameTypeKillCounter);
       
       FlyNoteData fnd = FlyNoteDataCollection.Instance.GetFlyNote(FlyNoteData.KillsNotTypeSpecific, counterKillsInARow);
       if (OnHitFlyNote != null && fnd != null)
@@ -186,13 +187,17 @@ namespace PYIV.Gameplay.Score
 
     public ScoreResult GetScoreResult()
     {
+      Debug.Log("extrapoints: " + CountExtraPoints());
+      return new ScoreResult( this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints, CountExtraPoints() );
+    }
+
+    private int CountExtraPoints(){
       int extraPointCount = 0;
       foreach (int points in ExtraPointCount.Values)
       {
         extraPointCount += points;
       }
-      Debug.Log("extrapoints: " + extraPointCount);
-      return new ScoreResult( this.HitCount, this.MissedShotCount, this.KillCount, this.Livepoints, extraPointCount );
+      return extraPointCount;
     }
 
     /*
@@ -207,6 +212,10 @@ namespace PYIV.Gameplay.Score
       else
       {
         ExtraPointCount.Add(fnd.Type, fnd.ExtraPoints);
+      }
+      if (OnExtraPointsChanged != 0)
+      {
+        OnExtraPointsChanged(CountExtraPoints());
       }
     }
 

@@ -63,7 +63,6 @@ namespace PYIV.Menu
 		{
 			GameObject.Destroy (game);
 			GameObject.Destroy (ui);
-
 		}
 
 		public bool ShouldBeCached ()
@@ -79,11 +78,16 @@ namespace PYIV.Menu
 			Score score = game.GetComponent<Score> ();
 			score.OnScoreChanged += SetVillageBar;
 			score.OnHitFlyNote += OnEnemyHit;
+      score.OnExtraPointsChanged += SetExtraPointLable;
 
 			Indian indian = game.transform.GetComponentInChildren<Indian> ();
 			indian.OnStaminaChanged += SetStaminaBar;
 			characterStamina = indian.IndianData.Stamina;
 		}
+
+    private void SetExtraPointLable(int extraPoints){
+
+    }
 
 		private void SetVillageBar (int villagePoints)
 		{
