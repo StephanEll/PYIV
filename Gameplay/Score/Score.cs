@@ -213,7 +213,7 @@ namespace PYIV.Gameplay.Score
       {
         ExtraPointCount.Add(fnd.Type, fnd.ExtraPoints);
       }
-      if (OnExtraPointsChanged != 0)
+      if (OnExtraPointsChanged != null)
       {
         OnExtraPointsChanged(CountExtraPoints());
       }
