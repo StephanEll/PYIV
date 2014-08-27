@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
 using PYIV.Persistence;
 using PYIV.Gameplay.Character;
+using UnityEditor;
 
 namespace PYIV.Menu
 {
@@ -19,8 +20,10 @@ namespace PYIV.Menu
 		
 		public int Gold { get; private set; }
 		
+
 		private IndianData selectedIndian;
-		public IndianData SelectedIndian { 
+		
+    public IndianData SelectedIndian {
 			get	{
 				return selectedIndian;
 			} 
@@ -52,11 +55,11 @@ namespace PYIV.Menu
 		
 		private void AddFreeRats(){
 			AddTypeToDict( EnemyTypeCollection.Instance.GetById("Rat1") );
-			
 		}
 		
 		public void ResetAttackers(){
 			buyedEnemys.Clear();
+
 			AddFreeRats();
 			Gold += goldSpentForEnemies;
 			goldSpentForEnemies = 0;
@@ -111,8 +114,6 @@ namespace PYIV.Menu
 			if(OnChange != null)
 				OnChange();
 		}
-		
-		
 		
 	}
 }

@@ -24,6 +24,12 @@ namespace PYIV.Helper
     void Start()
     {
 			
+      EnemyType[] et = EnemyTypeCollection.Instance.GetSubCollection(new[] { "Rat1", "Rat1", "Rat1" });
+      Debug.Log("Count First: " + et[0].Count);
+      
+      et = EnemyTypeCollection.Instance.GetSubCollection(new[] { "Rat1", "Rat1", "Rat1" });
+      Debug.Log("Count Second: " + et[0].Count);
+
       //ignores certificate check when dealing with ssl
       ServicePointManager.ServerCertificateValidationCallback = (p1, p2, p3, p4) => true;
 
