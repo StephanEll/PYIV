@@ -59,11 +59,8 @@ namespace PYIV.Menu
 
 
 		private void OnResetButtonClicked(GameObject button) {
-
-
 			attackConfigurationModel.ResetAttackers();
 			SetGold();
-
 		}
 
 		private void OnNextButtonClicked(GameObject button) {
