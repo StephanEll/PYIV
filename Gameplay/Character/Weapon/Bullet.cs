@@ -48,13 +48,15 @@ namespace PYIV.Gameplay.Character.Weapon
     {
       float rememberRotation = transform.localRotation.eulerAngles.z;
 
-      if (transform.childCount == 0)
-        transform.parent = collision.transform;
-      else
-        transform.parent = collision.transform.GetChild(0);
 
-      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() )
+      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false )
       {
+        if (transform.childCount == 0)
+          transform.parent = collision.transform;
+        else
+          transform.parent = collision.transform.GetChild(0);
+
+
         hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
@@ -69,8 +71,7 @@ namespace PYIV.Gameplay.Character.Weapon
             transform.localRotation = Quaternion.Euler(0, 0, 180.0f - rememberRotation);
         }*/
 
-        if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false)
-          score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
+        score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
       }
     }
 
