@@ -48,6 +48,9 @@ namespace PYIV.Gameplay.Character.Weapon
     {
       float rememberRotation = transform.localRotation.eulerAngles.z;
 
+      if (transform.childCount == 0)
+        transform.parent = collision.transform;
+      else
         transform.parent = collision.transform.GetChild(0);
 
       if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() )

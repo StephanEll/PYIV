@@ -127,10 +127,15 @@ namespace PYIV.Gameplay.Enemy
       if (fateOutFrames == 0)
         DestroyGameobject();
       else
-        foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
-        {
-          sr.color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
-        }
+      {
+        if(transform.childCount == 0)
+          GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
+        else
+          foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
+          {
+            sr.color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
+          }
+      }
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
