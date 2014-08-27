@@ -10,7 +10,6 @@ using System.Linq;
 
 namespace PYIV.Gameplay.Enemy
 {
-
   [XmlRoot("root")]
   public class EnemyTypeCollection
   {
@@ -19,7 +18,6 @@ namespace PYIV.Gameplay.Enemy
     public EnemyType[] EnemyTypes { get; set; }
 
     private static volatile EnemyTypeCollection instance;
-
     private static object syncRoot = new object();
 
     private EnemyTypeCollection()
@@ -100,33 +98,40 @@ namespace PYIV.Gameplay.Enemy
 
       Dictionary<string, EnemyType> result = new Dictionary<string, EnemyType>();
 
+      Debug.Log("dict Size: " + dict.Count);
+
       foreach (string id in ids)
       {
         EnemyType value;
 
-        if(dict.TryGetValue(id, out value)){
+        if (dict.TryGetValue(id, out value))
+        {
 
           EnemyType resultValue;
 
-          if(result.TryGetValue(id, out resultValue)){
+          if (result.TryGetValue(id, out resultValue))
+          {
             resultValue.Count += value.Count;
-          } else {
-            result.Add(id, value);
+          } 
+          else
+          {
+            result.Add(id, value.Clone());
           }
         }
       }
       return result.Values.ToArray();
 
     }
-		
-		
-	public EnemyType GetById(string id){
-		return (from type in EnemyTypes where type.Id == id select type).ToArray()[0];
-	}
+    
+    public EnemyType GetById(string id)
+    {
+      EnemyType et = (from type in EnemyTypes where type.Id == id select type).ToArray() [0];
+      return et;
+    }
 
   }
-	
-	
+  
+  
 
     
 }
