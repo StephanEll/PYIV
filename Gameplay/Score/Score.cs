@@ -169,7 +169,9 @@ namespace PYIV.Gameplay.Score
     }
 
     public void SubtractLivepoints(int damage)
-    {
+	{
+		var paPrefab = Resources.Load ("Prefabs/FX/fx_village_damage");
+		Instantiate(paPrefab, new Vector3(-14f, -5.5f, 0f), Quaternion.identity);
       this.Livepoints -= damage;
       if (OnScoreChanged != null)
       {
