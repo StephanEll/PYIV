@@ -37,6 +37,8 @@ namespace PYIV.Menu
 		private float characterStamina;
 		private PointsHelper villagePointsHelper;
 		private PointsHelper goldPointsHelper;
+
+		private Vector3 lastFlynotePos = new Vector3(0,0,0);
 		
 		public GameView ()
 		{
@@ -45,7 +47,7 @@ namespace PYIV.Menu
 
 			inGameGui_Prefab = Resources.Load<GameObject> ("Prefabs/UI/InGameGUI_Prefab");
 			onHit_Flynote_Prefab = Resources.Load<GameObject> ("Prefabs/UI/OnHit_Flynote_Prefab");
-      rememberTimeScale = Time.timeScale;
+      		rememberTimeScale = Time.timeScale;
 		}
 		
 		public void AddToScreen (GameObject guiParent, GameObject sceneParent)
@@ -78,16 +80,16 @@ namespace PYIV.Menu
 			Score score = game.GetComponent<Score> ();
 			score.OnScoreChanged += SetVillageBar;
 			score.OnHitFlyNote += OnEnemyHit;
-      score.OnExtraPointsChanged += SetExtraPointLable;
+      		score.OnExtraPointsChanged += SetExtraPointLabel;
 
 			Indian indian = game.transform.GetComponentInChildren<Indian> ();
 			indian.OnStaminaChanged += SetStaminaBar;
 			characterStamina = indian.IndianData.Stamina;
 		}
 
-    private void SetExtraPointLable(int extraPoints){
-
-    }
+	    private void SetExtraPointLabel(int extraPoints){
+			goldPointsHelper.points = (float) extraPoints;
+	    }
 
 		private void SetVillageBar (int villagePoints)
 		{
@@ -126,7 +128,15 @@ namespace PYIV.Menu
 			onHit_flynote.AddComponent("FlyNote");
 			onHit_flynote.name = "Flynote_" + flynoteCounter;
 			onHit_flynote.SetActive(false);
+
 			onHit_flynote.transform.position = enemy.transform.position;
+			if(lastFlynotePos == onHit_flynote.transform.position) {
+				Debug.Log("same position");
+				FlyNote flyNoteScript = onHit_flynote.GetComponent<FlyNote>();
+				flyNoteScript.wait = true;
+			}
+			lastFlynotePos = onHit_flynote.transform.position;
+
 			//Debug.Log("msg:" + message + " at position: " + enemy.transform.position);
 
 			UILabel flynoteLabel = sprite.transform.FindChild("Flynote_" + flynoteCounter).gameObject.GetComponent<UILabel>();
@@ -134,12 +144,12 @@ namespace PYIV.Menu
 
 
 			if (fld.Type == FlyNoteData.HitsTypeSpecific || fld.Type == FlyNoteData.HitsNotTypeSpecific) {
-				flynoteWidget.color = new Color(0.0f, 1.0f, 0.0f);
+				flynoteWidget.color = new Color(0.294f, 0.843f, 0);
 				flynoteLabel.text = message;
 				onHit_flynote.SetActive(true);
 
 			} else if( fld.Type == FlyNoteData.KillsTypeSpecific || fld.Type == FlyNoteData.KillsNotTypeSpecific) {
-				flynoteWidget.color = new Color(1.0f, 0f, 0f);
+				flynoteWidget.color = new Color(0.603f, 0, 0);
 				flynoteLabel.text = message;
 				onHit_flynote.SetActive(true);
 			}
