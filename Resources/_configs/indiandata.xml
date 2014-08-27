@@ -16,6 +16,11 @@
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_BlowTubeArrow</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
+			<ColorateEnemys>
+				<x>0.75</x>
+				<y>0.75</y>
+				<z>0.7</z>
+			</ColorateEnemys>
 		</IndianData>
 		
 		<IndianData>
@@ -30,6 +35,11 @@
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
+			<ColorateEnemys>
+				<x>0.75</x>
+				<y>0.78</y>
+				<z>0.7</z>
+			</ColorateEnemys>
 		</IndianData>
 		
 		<IndianData>
@@ -44,6 +54,11 @@
 			<PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_massai</BackgroundPreafabPath>
+			<ColorateEnemys>
+				<x>0.75</x>
+				<y>0.75</y>
+				<z>0.7</z>
+			</ColorateEnemys>
 		</IndianData>
 		
 	</IndianDataCollection>

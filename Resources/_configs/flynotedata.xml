@@ -10,14 +10,14 @@
 	<FlyNoteData>
     	<Type>HitsTypeSpecific</Type>
 		<ExtraPoints>10</ExtraPoints>
-      	<Count>2</Count>
-      	<Message>2 {0} Hits in a Row</Message>
+      	<Count>5</Count>
+      	<Message>5 {0} Hits in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
       	<Type>HitsTypeSpecific</Type>
       	<ExtraPoints>25</ExtraPoints>
-      	<Count>4</Count>
-      	<Message>4 {0} Hits in a Row</Message>
+      	<Count>10</Count>
+      	<Message>10 {0} Hits in a Row</Message>
     </FlyNoteData>
     
     <!-- NOT type specific 5 ENEMYS in a row 
@@ -41,15 +41,15 @@
   	Ob zwischendurch Pfeile inns leere gingen spielt eine Rolle -->
 	<FlyNoteData>
     	<Type>KillsTypeSpecific</Type>
-		<ExtraPoints>10</ExtraPoints>
-      	<Count>2</Count>
-      	<Message>2 {0} Kills in a Row</Message>
+		<ExtraPoints>100</ExtraPoints>
+      	<Count>5</Count>
+      	<Message>5 {0} Kills in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
       	<Type>KillsTypeSpecific</Type>
-      	<ExtraPoints>25</ExtraPoints>
-      	<Count>4</Count>
-      	<Message>4 {0} Kills in a Row</Message>
+      	<ExtraPoints>500</ExtraPoints>
+      	<Count>10</Count>
+      	<Message>10 {0} Kills in a Row</Message>
     </FlyNoteData>
     
     
@@ -58,15 +58,15 @@
   	Dabei darf zwischendurch kein Pfeil ins leere gegangen sein -->
     <FlyNoteData>
       	<Type>KillsNotTypeSpecific</Type>
-      	<ExtraPoints>2</ExtraPoints>
-      	<Count>3</Count>
-      	<Message>3 Kills in a Row</Message>
+      	<ExtraPoints>30</ExtraPoints>
+      	<Count>5</Count>
+      	<Message>5 Kills in a Row</Message>
     </FlyNoteData>
     <FlyNoteData>
       	<Type>KillsNotTypeSpecific</Type>
-      	<ExtraPoints>15</ExtraPoints>
-      	<Count>6</Count>
-      	<Message>6 Kills in a Row</Message>
+      	<ExtraPoints>100</ExtraPoints>
+      	<Count>10</Count>
+      	<Message>10 Kills in a Row</Message>
     </FlyNoteData>
     
 </FlyNoteDataCollection>

@@ -30,6 +30,7 @@ namespace PYIV.Gameplay.Character
 
     private void RebuildStamina()
     {
+
       if (currentStamina < maxStamina)
       {
         if (currentStamina < 0.5){

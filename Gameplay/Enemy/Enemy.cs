@@ -9,19 +9,21 @@ namespace PYIV.Gameplay.Enemy
 
   public class Enemy : MonoBehaviour
   {
-    private float timeDelta = 0;
-
-    private EnemyData enemyData;
-
-    private Score.Score score;
-
     public bool Dead { get; private set;}
+
+
+
+    private float timeDelta = 0;
+    private EnemyData enemyData;
+    private Score.Score score;
 
     private float fateOutFrames;
     private float fateOutFramesMax;
 
     private bool flightSwitch = false;
     private float flightHight = 20.0f;
+
+    private Color enemyColor;
 
     public float MoveSpeed
     { 
@@ -129,11 +131,11 @@ namespace PYIV.Gameplay.Enemy
       else
       {
         if(transform.childCount == 0)
-          GetComponent<SpriteRenderer>().color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
+          GetComponent<SpriteRenderer>().color = new Vector4(enemyColor.r, enemyColor.g, enemyColor.b, fateOutFrames / fateOutFramesMax);
         else
           foreach (SpriteRenderer sr in transform.GetComponentsInChildren<SpriteRenderer>())
           {
-            sr.color = new Vector4(1.0f, 1.0f, 1.0f, fateOutFrames / fateOutFramesMax);
+            sr.color = new Vector4(enemyColor.r, enemyColor.g, enemyColor.b, fateOutFrames / fateOutFramesMax);
           }
       }
     }
@@ -148,11 +150,13 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
-    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score)
+    public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score, Color enemyColor)
     {
       Enemy enemy = go.AddComponent<Enemy>();
       enemy.enemyData = enemyData;
       enemy.score = score;
+      enemy.enemyColor = enemyColor;
+
       if (go.gameObject.GetComponent<BoxCollider2D>() == null)
         go.gameObject.AddComponent<BoxCollider2D>();
     }

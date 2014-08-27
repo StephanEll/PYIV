@@ -7,73 +7,72 @@ using System.Xml.Serialization;
 using PYIV.Helper;
 using System.Linq;
 
-namespace PYIV.Gameplay.Character {
+namespace PYIV.Gameplay.Character
+{
+  [XmlRoot("root")]
+  public class IndianDataCollection
+  {
+    
+    [XmlArray("IndianDataCollection")]
+    [XmlArrayItem("IndianData", typeof(IndianData))]
+    public IndianData[] IndianData { get; set; }
 
-	[XmlRoot("root")]
-	public class IndianDataCollection {
-		
-        [XmlArray("IndianDataCollection")]
-		[XmlArrayItem("IndianData", typeof(IndianData))]
-		public IndianData[] IndianData { get; set; }
+    private static volatile IndianDataCollection instance;
+    private static object syncRoot = new object();
 
-        private static volatile IndianDataCollection instance;
-
-        private static object syncRoot = new object();
-
-
-        private IndianDataCollection()
-        {
+    private IndianDataCollection()
+    {
             
-        }
+    }
 
-        private static IndianDataCollection DeserializeIndianDataCollection(string filename)
+    private static IndianDataCollection DeserializeIndianDataCollection(string filename)
+    {
+
+      // Create an instance of the XmlSerializer specifying type and namespace.
+      XmlSerializer serializer = new XmlSerializer(typeof(IndianDataCollection));
+
+      XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
+
+      // Use the Deserialize method to restore the object's state.
+      IndianDataCollection eDC = (IndianDataCollection)serializer.Deserialize(reader);
+      return eDC;
+    }
+
+    public static IndianDataCollection Instance
+    {
+      get
+      {
+        if (instance == null)
         {
-
-            // Create an instance of the XmlSerializer specifying type and namespace.
-            XmlSerializer serializer = new XmlSerializer(typeof(IndianDataCollection));
-
-            XmlReader reader = XMLHelper.LoadXMLReaderFromResource(filename);
-
-            // Use the Deserialize method to restore the object's state.
-            IndianDataCollection eDC = (IndianDataCollection)serializer.Deserialize(reader);
-            return eDC;
-        }
-
-
-        public static IndianDataCollection Instance
-        {
-            get
+          lock (syncRoot)
+          {
+            if (instance == null)
             {
-                if (instance == null)
-                {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                        {
-                            instance = DeserializeIndianDataCollection(ConfigReader.Instance.GetSetting("directory", "indian-config-xml"));
-                        }
-                    }
-                }
-
-                return instance;
+              instance = DeserializeIndianDataCollection(ConfigReader.Instance.GetSetting("directory", "indian-config-xml"));
             }
+          }
         }
 
-        public IndianData[] GetSubCollection(string[] ids)
-        {
+        return instance;
+      }
+    }
 
-            return IndianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
+    public IndianData[] GetSubCollection(string[] ids)
+    {
 
-        }
-		
-		public IndianData GetById(string id){
-			return (from indianData in IndianData where indianData.Id == id select indianData).ToArray()[0];
-		}
-		
+      return IndianData.Where(data => Array.IndexOf(ids, data.Id) >= 0).ToArray<IndianData>();
 
-	}
-	
-	
+    }
+    
+    public IndianData GetById(string id)
+    {
+      return (from indianData in IndianData where indianData.Id == id select indianData).ToArray() [0];
+    }
+    
+
+  }
+  
+  
 
 
 
