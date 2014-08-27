@@ -9,7 +9,8 @@ namespace PYIV.Gameplay.Character.Weapon {
             //Debug.Log("end swipe");
 
             bullet.transform.position = this.transform.position;
-            Invoke("GoToStartPosition", 0.5f);
+			bullet.transform.Translate (new Vector3 (2.0f, 0.5f, 0.0f));
+			Invoke("GoToStartPosition", 0.5f);
             
             this.GetComponent<Animator>().SetTrigger("shot");
 
@@ -42,7 +43,6 @@ namespace PYIV.Gameplay.Character.Weapon {
                 this.GetComponent<Animator>().SetBool("aim", true);
 
                 float angle = Mathf.Atan2(-endPos.y, endPos.x) - Mathf.Atan2(-startPos.y, endPos.x);
-
                 transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, angle);
             }
         }

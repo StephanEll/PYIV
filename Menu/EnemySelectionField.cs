@@ -10,6 +10,7 @@ namespace PYIV.Menu
 		private GameObject grid;
 		
 		public GameObject Button { get; private set; }
+		private GameObject button_inactive;
 		private UILabel countLabel;
 		private UILabel priceLabel;
 		
@@ -57,6 +58,8 @@ namespace PYIV.Menu
 			
 			Button = grid.transform.Find(enemyId).gameObject;
 			countLabel = Button.transform.Find("count").gameObject.GetComponent<UILabel>();
+
+			button_inactive = Button.transform.Find("Enemy_inactive").gameObject;
 			
 			lifeBar = Button.transform.Find("enemyInfo/bars/lifeBar").gameObject.GetComponent<UISprite>();
 			powerBar = Button.transform.Find("enemyInfo/bars/powerBar").gameObject.GetComponent<UISprite>();
@@ -80,11 +83,13 @@ namespace PYIV.Menu
 		private void ChangeButtonState(){
 			if(IsActive){
 				UIEventListener.Get(Button).onClick += OnClick;
-				Button.GetComponent<UIWidget>().alpha = 1.0f;
+				//Button.GetComponent<UIWidget>().alpha = 1.0f;
+				button_inactive.SetActive(false);
 			}
 			else{
 				UIEventListener.Get(Button).onClick -= OnClick;
-				Button.GetComponent<UIWidget>().alpha = 0.25f;
+				//Button.GetComponent<UIWidget>().alpha = 0.25f;
+				button_inactive.SetActive(true);
 			}
 			
 			
