@@ -77,9 +77,9 @@ namespace PYIV.Gameplay
         ).y;
 
       indian.transform.position = new Vector3(
-          indian.transform.position.x,
-          height,
-          indian.transform.position.z);
+          indian.transform.localPosition.x,
+          indian.transform.localPosition.y+height,
+          indian.transform.localPosition.z);
 
 		}
 
