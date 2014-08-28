@@ -98,7 +98,7 @@ namespace PYIV.Gameplay.Score
       }
       if (sendStdMessage)
       {
-        OnHitFlyNote(lastHitEnemy, new FlyNoteData("Hit"));//lastHitEnemy.LivePoints.ToString()));
+        //OnHitFlyNote(lastHitEnemy, new FlyNoteData("Hit"));//lastHitEnemy.LivePoints.ToString()));
       }
 
       // evtl liste begrenzen
@@ -171,7 +171,7 @@ namespace PYIV.Gameplay.Score
 
       if (sendStdMessage)
       {
-        OnHitFlyNote(enemy, new FlyNoteData("Hit"));//lastHitEnemy.LivePoints.ToString()));
+        OnHitFlyNote(enemy, new FlyNoteData("Kill"));//lastHitEnemy.LivePoints.ToString()));
       }
       // evtl liste begrenzen
     }

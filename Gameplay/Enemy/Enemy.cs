@@ -142,12 +142,7 @@ namespace PYIV.Gameplay.Enemy
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-      if (collision.gameObject.GetComponent<Bullet>() && !Dead)
-      {
-        this.LivePoints -= collision.gameObject.GetComponent<Bullet>().Strength;
-        if (this.LivePoints <= 0)
-          Die();
-      }
+
     }
 
     public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score, Color enemyColor)
@@ -161,7 +156,7 @@ namespace PYIV.Gameplay.Enemy
         go.gameObject.AddComponent<BoxCollider2D>();
     }
 
-    private void Die()
+    public void Die()
     {
       score.AddKill(this);
 

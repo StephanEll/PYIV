@@ -46,22 +46,35 @@ namespace PYIV.Gameplay.Character.Weapon
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-      float rememberRotation = transform.localRotation.eulerAngles.z;
-
 
       if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false )
       {
-        if (collision.transform.childCount == 0)
-          transform.parent = collision.transform;
+
+        // Stick Bullet to Enemy
+
+        PYIV.Gameplay.Enemy.Enemy hitEnemy = collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>();
+
+        if (hitEnemy.transform.childCount == 0)
+          transform.parent = hitEnemy.transform;
         else
-          transform.parent = collision.transform.GetChild(0);
+          transform.parent = hitEnemy.transform.GetChild(0);
 
 
         hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
 
-        score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
+        score.AddHit(hitEnemy.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
+
+        //Reduce Enemy Livepoints here
+
+        if (collision.gameObject.GetComponent<Bullet>() && ! hitEnemy.Dead)
+        {
+          hitEnemy.LivePoints -= collision.gameObject.GetComponent<Bullet>().Strength;
+          if (hitEnemy.LivePoints <= 0)
+            hitEnemy.Die();
+        }
+
       }
     }
 
