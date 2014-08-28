@@ -48,7 +48,7 @@ namespace PYIV.Gameplay.Enemy
       {
         return enemyData.LivePoints;  
       } 
-      private set 
+      set 
       {
         enemyData.LivePoints = value;
       }

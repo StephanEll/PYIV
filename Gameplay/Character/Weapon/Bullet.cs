@@ -64,13 +64,13 @@ namespace PYIV.Gameplay.Character.Weapon
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
 
-        score.AddHit(hitEnemy.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
+        score.AddHit(hitEnemy);
 
         //Reduce Enemy Livepoints here
 
-        if (collision.gameObject.GetComponent<Bullet>() && ! hitEnemy.Dead)
+        if (! hitEnemy.Dead)
         {
-          hitEnemy.LivePoints -= collision.gameObject.GetComponent<Bullet>().Strength;
+          hitEnemy.LivePoints -= this.Strength;
           if (hitEnemy.LivePoints <= 0)
             hitEnemy.Die();
         }
