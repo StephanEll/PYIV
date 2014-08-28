@@ -141,7 +141,8 @@ namespace PYIV.Gameplay.Character.Weapon
     protected void GoToStartPosition()
     {
       this.GetComponent<Animator>().SetBool("aim", false);
-      transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
+      if(transform.FindChild("aim_group") != null)
+        transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
     }
   }
 }

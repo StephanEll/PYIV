@@ -51,7 +51,7 @@ namespace PYIV.Gameplay.Character.Weapon
 
       if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false )
       {
-        if (transform.childCount == 0)
+        if (collision.transform.childCount == 0)
           transform.parent = collision.transform;
         else
           transform.parent = collision.transform.GetChild(0);
@@ -60,16 +60,6 @@ namespace PYIV.Gameplay.Character.Weapon
         hit = true;
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
-
-
-        // Um falscher Stellung von Pfeilen, wenn diese Enemys untergeordnet werden, entgegenzuwirken.
-        /*if (collision.transform.localScale.x < 0)
-        {
-          if (rememberRotation > 180.0f)
-            transform.localRotation = Quaternion.Euler(0, 0, 540.0f - rememberRotation);
-          else
-            transform.localRotation = Quaternion.Euler(0, 0, 180.0f - rememberRotation);
-        }*/
 
         score.AddHit(collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>());
       }
