@@ -140,10 +140,6 @@ namespace PYIV.Gameplay.Enemy
       }
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-
-    }
 
     public static void AddAsComponentTo(GameObject go, EnemyData enemyData, Score.Score score, Color enemyColor)
     {
@@ -152,7 +148,7 @@ namespace PYIV.Gameplay.Enemy
       enemy.score = score;
       enemy.enemyColor = enemyColor;
 
-      if (go.gameObject.GetComponent<BoxCollider2D>() == null)
+      if (go.gameObject.GetComponent<Collider2D>() == null)
         go.gameObject.AddComponent<BoxCollider2D>();
     }
 
@@ -163,6 +159,8 @@ namespace PYIV.Gameplay.Enemy
       this.GetComponent<Animator>().SetTrigger("dead");
 
       Dead = true;
+
+      Destroy(GetComponent<Collider2D>());
 
       if (enemyData.Fly)
       {

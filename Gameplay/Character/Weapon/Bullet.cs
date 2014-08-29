@@ -44,10 +44,16 @@ namespace PYIV.Gameplay.Character.Weapon
       go.GetComponent<Bullet>().score = score;
     }
 
+
+    /*
+     * Is Handeling The collision for Enemys and Bullets
+     * because of order of different events
+     */
     public void OnCollisionEnter2D(Collision2D collision)
     {
 
-      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false )
+      if (collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>() 
+          && collision.gameObject.GetComponent<PYIV.Gameplay.Enemy.Enemy>().Dead == false )
       {
 
         // Stick Bullet to Enemy
@@ -61,8 +67,12 @@ namespace PYIV.Gameplay.Character.Weapon
 
 
         hit = true;
+
+        // Destroy BulletCollider
         Destroy(gameObject.GetComponent<Rigidbody2D>());
         Destroy(gameObject.GetComponent<BoxCollider2D>());
+
+
 
         score.AddHit(hitEnemy);
 
@@ -71,8 +81,9 @@ namespace PYIV.Gameplay.Character.Weapon
         if (! hitEnemy.Dead)
         {
           hitEnemy.LivePoints -= this.Strength;
-          if (hitEnemy.LivePoints <= 0)
+          if (hitEnemy.LivePoints <= 0){
             hitEnemy.Die();
+          }
         }
 
       }
