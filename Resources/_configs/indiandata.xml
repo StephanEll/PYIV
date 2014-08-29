@@ -5,22 +5,17 @@
 	<IndianDataCollection>
 	
 		<IndianData>
-			<Id>Indian</Id>
-			<Name>Indianer</Name>
+			<Id>Azteke</Id>
+			<Name>Azteke</Name>
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
 			<Stamina>6</Stamina>
 			<Strength>15</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
-			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
+			<PreafabPath>Prefabs/Characters/Character_Azteke</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_BlowTubeArrow</BulletPreafabPath>
-			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
-			<ColorateEnemys>
-				<x>0.75</x>
-				<y>0.75</y>
-				<z>0.7</z>
-			</ColorateEnemys>
+			<BackgroundPreafabPath>Prefabs/Environment/Scene_azteke</BackgroundPreafabPath>
 		</IndianData>
 		
 		<IndianData>
@@ -28,18 +23,13 @@
 			<Name>Amazone</Name>
 			<Description>20</Description>
 			<SpriteImageName>amazone_icon</SpriteImageName>
-			<Stamina>4</Stamina>
+			<Stamina>3</Stamina>
 			<Strength>30</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
-			<ColorateEnemys>
-				<x>0.75</x>
-				<y>0.78</y>
-				<z>0.7</z>
-			</ColorateEnemys>
 		</IndianData>
 		
 		<IndianData>
@@ -54,11 +44,6 @@
 			<PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_massai</BackgroundPreafabPath>
-			<ColorateEnemys>
-				<x>0.75</x>
-				<y>0.75</y>
-				<z>0.7</z>
-			</ColorateEnemys>
 		</IndianData>
 		
 	</IndianDataCollection>

@@ -6,8 +6,11 @@ namespace PYIV.Gameplay.Character.Weapon {
 
         public override void EndSwipeHandler(Bullet bullet, Vector2 startPos, Vector2 endPos, float duration)
         {
-            this.GetComponent<Animator>().SetTrigger("shot");
-            this.GetComponent<Animator>().SetBool("aim", false);
+			bullet.transform.position = this.transform.position;
+			bullet.transform.Translate (new Vector3 (2.0f, 0.5f, 0.0f));
+			Invoke("GoToStartPosition", 0.5f);
+            
+			this.GetComponent<Animator>().SetTrigger("shot");
 
             Vector2 delta = endPos - startPos;
 
