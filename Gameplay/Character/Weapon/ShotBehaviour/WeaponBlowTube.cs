@@ -18,7 +18,7 @@ namespace PYIV.Gameplay.Character.Weapon {
 
             if (delta.x < 2 || speed < 800.0f) {
 				//do nothing
-				Destroy(bullet);
+				Destroy(bullet.gameObject);
 			} else {
 				bullet.rigidbody2D.AddForce(delta.normalized * 1000.0f);
 			}
