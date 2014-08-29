@@ -5,19 +5,15 @@ using PYIV.Gameplay.Score;
 
 namespace PYIV.Gameplay.Character.Weapon
 {
-
   public abstract class ShotBehaviour : MonoBehaviour
   {
 
     private Vector2 startPosition = new Vector2(0, 0);
     private float startTime;
-
     private string bulletPreafabPath;
     private int bulletStrength;
-
     protected Score.Score score;
     private GameObject game;
-
 
     void Start()
     {
@@ -62,14 +58,16 @@ namespace PYIV.Gameplay.Character.Weapon
     public abstract void StartSwipeHandler(Vector2 startPos);
 
     public abstract void UpdateSwipeHandler(Vector2 startPos, Vector2 endPos, float duration);
-        
 
     private void HandleDebugShotWithKeys()
     {
+
+
+
       if (Input.GetKeyUp(KeyCode.S))
       {
-        Vector2 startPosition = new Vector2(0, 0);
-        Vector2 endPosition = new Vector2(-400, -200);
+        Vector2 startPosition = Camera.main.WorldToScreenPoint( gameObject.transform.position );
+        Vector2 endPosition = Input.mousePosition;
         Vector2 delta = endPosition - startPosition;
       
         //float dist = Mathf.Sqrt(Mathf.Pow(delta.x, 2) + Mathf.Pow(delta.y, 2));
@@ -84,8 +82,8 @@ namespace PYIV.Gameplay.Character.Weapon
         
           EndSwipeHandler(
             bullet.GetComponent<Bullet>(),
-            (startPosition / Screen.width) * 1000,
-            (endPosition / Screen.width) * 1000,
+            (startPosition / Screen.width) * 2000,
+            (endPosition / Screen.width) * 2000,
             duration);
         } else
         {
@@ -93,6 +91,7 @@ namespace PYIV.Gameplay.Character.Weapon
         }
       }
     }
+
     private void HandleSwipeGesture()
     {
       if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
@@ -125,8 +124,8 @@ namespace PYIV.Gameplay.Character.Weapon
       if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
       {
         UpdateSwipeHandler(
-          (startPosition / Screen.width) * 1000 , 
-          (Input.GetTouch(0).position / Screen.width) * 1000 , 
+          (startPosition / Screen.width) * 1000, 
+          (Input.GetTouch(0).position / Screen.width) * 1000, 
           Time.time - startTime);
       }
 
@@ -141,7 +140,7 @@ namespace PYIV.Gameplay.Character.Weapon
     protected void GoToStartPosition()
     {
       this.GetComponent<Animator>().SetBool("aim", false);
-      if(transform.FindChild("aim_group") != null)
+      if (transform.FindChild("aim_group") != null)
         transform.FindChild("aim_group").localRotation = Quaternion.EulerAngles(0, 0, 0);
     }
   }

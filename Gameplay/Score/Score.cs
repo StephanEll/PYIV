@@ -223,7 +223,7 @@ namespace PYIV.Gameplay.Score
      */
     private void IncreaseExtraPoints(FlyNoteData fnd)
     {
-      int points = 0;
+
       if (ExtraPointCount.ContainsKey(fnd.Type)) 
       {
         ExtraPointCount[fnd.Type] += fnd.ExtraPoints;
