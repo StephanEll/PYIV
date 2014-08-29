@@ -67,7 +67,7 @@ namespace PYIV.Menu
 			base.UnpackParameter (parameter);
 			
 			attackConfigurationModel = parameter as AttackConfigurationModel;
-			string[] indianIds = { "Amazone", "Indian", "Massai" };
+			string[] indianIds = { "Amazone", "Azteke", "Massai" };
 			indianSelectionFields = (from id in indianIds select new IndianSelectionField(grid, id, attackConfigurationModel)).ToList();
 
 		}
