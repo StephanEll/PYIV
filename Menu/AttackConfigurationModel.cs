@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using PYIV.Gameplay.Enemy;
 using PYIV.Persistence;
 using PYIV.Gameplay.Character;
+using UnityEngine;
 
 namespace PYIV.Menu
 {
@@ -11,25 +12,24 @@ namespace PYIV.Menu
 		
 		private Dictionary<EnemyType, int> buyedEnemys;
 		
-		public delegate void ChangeDelegate();
+		public delegate void ChangeDelegate ();
 		
 		public event ChangeDelegate OnChange;
 		
 		public GameData GameData { get; set; }
 		
 		public int Gold { get; private set; }
-		
 
 		private IndianData selectedIndian;
 		
-    public IndianData SelectedIndian {
-			get	{
+		public IndianData SelectedIndian {
+			get {
 				return selectedIndian;
 			} 
 			
 			set {
 				selectedIndian = value;
-				ExecuteChangeEvent();
+				ExecuteChangeEvent ();
 			}
 		}
 		
@@ -37,81 +37,90 @@ namespace PYIV.Menu
 		
 		public AttackConfigurationModel (GameData gameData)
 		{
-			buyedEnemys = new Dictionary<EnemyType, int>();
+			buyedEnemys = new Dictionary<EnemyType, int> ();
 			this.GameData = gameData;
-			AddFreeRats();
-			InitDictFromList(gameData.MyStatus.LatestRound.SentAttackers);
+			AddFreeRats ();
+			InitDictFromList (gameData.MyStatus.LatestRound.SentAttackers);
 			
 			Gold = GameData.MyStatus.Gold;
 		}
 		
-		public void BuyAttacker(EnemyType enemyType){
-			AddTypeToDict(enemyType);
+		public void BuyAttacker (EnemyType enemyType)
+		{
+			AddTypeToDict (enemyType);
 			Gold -= enemyType.Price;
 			goldSpentForEnemies += enemyType.Price;
-			ExecuteChangeEvent();
+			ExecuteChangeEvent ();
 		}
 		
-		private void AddFreeRats(){
-			AddTypeToDict( EnemyTypeCollection.Instance.GetById("Rat1") );
+		private void AddFreeRats ()
+		{
+			AddTypeToDict (EnemyTypeCollection.Instance.GetById ("Rat1"));
 		}
 		
-		public void ResetAttackers(){
-			buyedEnemys.Clear();
+		public void ResetAttackers ()
+		{
+			buyedEnemys.Clear ();
 
-			AddFreeRats();
+			AddFreeRats ();
 			Gold += goldSpentForEnemies;
 			goldSpentForEnemies = 0;
-			ExecuteChangeEvent();
+			ExecuteChangeEvent ();
 		}
 		
-		public int CountEnemyByType(EnemyType type){
-			try{
-				return buyedEnemys[type];
-			}
-			catch(Exception e){
+		public int CountEnemyByType (EnemyType type)
+		{
+			
+			try {
+				return buyedEnemys [type];
+			} catch (Exception e) {
 				return 0;
 			}
 		}
 		
-		public void ApplyToPlayerStatus(){
+		public void ApplyToPlayerStatus ()
+		{
 			GameData.MyStatus.Gold = Gold;
 			
-			List<EnemyType> attackerList = new List<EnemyType>();
+			List<EnemyType> attackerList = new List<EnemyType> ();
 			
-			foreach(var pair in buyedEnemys){
-				for(int i = 0; i < pair.Value; i++){
-					attackerList.Add(pair.Key);
+			foreach (var pair in buyedEnemys) {
+				for (int i = 0; i < pair.Value; i++) {
+					attackerList.Add (pair.Key);
 				}
 			}
 			
 			GameData.MyStatus.LatestRound.SentAttackers = attackerList;
 			
 			
-			GameData.MyStatus.IndianData = SelectedIndian;
-			
-		}
-		
-		private void InitDictFromList(List<EnemyType> attackerList){
-			
-			foreach(EnemyType type in attackerList){
-				AddTypeToDict(type);
-			}
-			
-			
-		}
-		private void AddTypeToDict(EnemyType type){
-			try{
-				buyedEnemys[type] += 1;
-			}
-			catch(Exception e){
-				buyedEnemys.Add(type, 1);
+			if (GameData.MyStatus.IndianData == null) {
+				GameData.MyStatus.IndianData = SelectedIndian;
 			}
 		}
 		
-		private void ExecuteChangeEvent(){
-			if(OnChange != null)
-				OnChange();
+		private void InitDictFromList (List<EnemyType> attackerList)
+		{
+			
+			foreach (EnemyType type in attackerList) {
+				AddTypeToDict (type);
+			}
+			
+			
+		}
+
+		private void AddTypeToDict (EnemyType type)
+		{
+			try {
+				buyedEnemys [type] += 1;
+			} catch (Exception e) {
+				buyedEnemys.Add (type, 1);
+			}
+		}
+		
+		private void ExecuteChangeEvent ()
+		{
+			if (OnChange != null)
+				OnChange ();
 		}
 		
 	}

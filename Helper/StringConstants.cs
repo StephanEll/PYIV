@@ -13,7 +13,8 @@ namespace PYIV.Helper
 		public const string UNSYNCED_GAME_RESULTS = "You have unsynced game results, that you'll loose through your log-out. ";
 		public const string WANT_TO_LOGOUT = "Do you really want to log out?";
 		public const string QUESTION_START_NEW_GAME = "Do you want to start a new game against this player?";
-		public const string NO_INDIAN_SELECTED = "Please select an indian, before you continue!";
+		public const string NO_INDIAN_SELECTED = "Please select an indian!";
+		public const string DISMISS_CONFIGURATION = "Do you really want to dismiss your configuration and return to the main menu?";
 		
 		
 		/// Strings in Menu

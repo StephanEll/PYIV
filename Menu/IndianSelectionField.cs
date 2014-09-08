@@ -22,7 +22,7 @@ namespace PYIV.Menu
 			this.grid = parent;
 			this.Button = this.grid.transform.Find(indianId).gameObject;
 			this.activeState = this.Button.transform.FindChild("active").gameObject;
-			Debug.Log(grid);
+			Debug.Log(indianId);
 			this.attackConfigurationModel = attackConfigurationModel;
 			this.attackConfigurationModel.OnChange += OnChange;
 			

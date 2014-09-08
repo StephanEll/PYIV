@@ -93,7 +93,14 @@ namespace PYIV.Menu
 		
 		public override void Back ()
 		{
-			
+			if(attackConfigurationModel.GameData.MyStatus.IndianData != null){
+				PopupParam param = new DecisionPopupParam(StringConstants.DISMISS_CONFIGURATION, 
+					(go) => ViewRouter.TheViewRouter.ShowView(typeof(GameListView)), null);
+				ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(DecisionPopup), param);
+			}
+			else{
+				ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), attackConfigurationModel);
+			}
 		}
 	}
 }

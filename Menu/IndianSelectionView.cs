@@ -74,7 +74,8 @@ namespace PYIV.Menu
 		
 		public override void Back ()
 		{
-			
+			PopupParam param = new DecisionPopupParam(StringConstants.DISMISS_CONFIGURATION, (go) => ViewRouter.TheViewRouter.ShowView(typeof(GameListView)), null);
+			ViewRouter.TheViewRouter.ShowPopupWithParameter(typeof(DecisionPopup), param);
 		}
 	}
 }

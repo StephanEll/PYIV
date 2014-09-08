@@ -89,9 +89,8 @@ namespace PYIV.Menu
 
 		
 		private void StartNextRound(GameObject go){
-			Debug.Log("latest round should be unconfigured: " + !gameData.MyStatus.LatestRound.IsConfigured);
 			
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(gameData));
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(EnemySelectionView), new AttackConfigurationModel(gameData));
 		}
 		
 		private void ToMenu(GameObject go){
@@ -101,7 +100,7 @@ namespace PYIV.Menu
 		
 		private void SetTitle ()
 		{
-			/*
+			
 			switch(gameData.State){
 			case GameState.WON:
 				titleLabel.text = StringConstants.GAME_WON;
@@ -113,7 +112,7 @@ namespace PYIV.Menu
 				titleLabel.text = StringConstants.GAME_LOST;
 				break;
 			}
-			*/
+			
 		}
 
 		public override void Back ()

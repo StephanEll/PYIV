@@ -6,37 +6,49 @@ using System.Runtime.Serialization;
 
 namespace PYIV.Gameplay.Enemy
 {
-  [Serializable]
+	[Serializable]
   public class EnemyType : ProductType, ICloneable
-  {
-    [XmlElement()]
-    public int Count { get; set; }
+	{
+		[XmlElement()]
+		public int Count { get; set; }
 
-    [XmlElement()]
-    public string EnemyDataId { get; set; }
+		[XmlElement()]
+		public string EnemyDataId { get; set; }
 
-    public EnemyData EnemyData { get; set; }
+		public EnemyData EnemyData { get; set; }
+
+		public EnemyType ()
+		{
+
+		}
+
+		// Update is called once per frame
+		void Update ()
+		{
+
+		}
+
+		public EnemyType Clone ()
+		{
+			return (EnemyType)this.MemberwiseClone ();
+		}
+
+		object ICloneable.Clone ()
+		{
+			return Clone ();
+		}
+		
+		public override bool Equals (object obj)
+		{
+			return base.Equals (obj);
+		}
+		
+		public override int GetHashCode ()
+		{
+			return base.GetHashCode ();
+		}
+			
 
 
-    public EnemyType()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public EnemyType Clone()
-    {
-      return (EnemyType)this.MemberwiseClone();
-    }
-    object ICloneable.Clone()
-    {
-      return Clone();
-    }
-
-  }
+	}
 }

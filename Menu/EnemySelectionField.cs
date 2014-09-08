@@ -54,7 +54,7 @@ namespace PYIV.Menu
 		
 		
 		private void InitViewComponents(string enemyId){
-			enemyType = EnemyTypeCollection.Instance.GetSubCollection(new string[]{enemyId})[0];
+			enemyType = EnemyTypeCollection.Instance.GetById(enemyId);
 			
 			Button = grid.transform.Find(enemyId).gameObject;
 			countLabel = Button.transform.Find("count").gameObject.GetComponent<UILabel>();
@@ -105,8 +105,7 @@ namespace PYIV.Menu
 		
 		private void OnRoundChanges ()
 		{
-			countLabel.text = attackConfigurationModel.CountEnemyByType(enemyType).ToString();
-			
+			countLabel.text = attackConfigurationModel.CountEnemyByType(enemyType).ToString();			
 			IsActive = ShouldBeActive();
 		}
 		
