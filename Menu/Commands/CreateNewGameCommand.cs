@@ -22,10 +22,7 @@ namespace PYIV.Menu.Commands
 			this.opponent = opponent;
 			this.challenger = challenger;			
 			newGame = new GameData(challenger, opponent);
-			
-			//TODO: Auswahl-View hierfür erstellen
-			newGame.MyStatus.IndianData = IndianDataCollection.Instance.IndianData[1];			
-			newGame.OpponentStatus.IndianData = IndianDataCollection.Instance.IndianData[1];	
+				
 			newGame.MyStatus.AddRound(new Round());
 			newGame.OpponentStatus.AddRound(new Round());
 			
@@ -39,7 +36,7 @@ namespace PYIV.Menu.Commands
 				ViewRouter.TheViewRouter.ShowTextPopup(StringConstants.SELF_MATCH);
 				return;
 			}
-			
+			//ViewRouter.TheViewRouter.ShowView(typeof(GameListView));
 			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(IndianSelectionView), new AttackConfigurationModel(newGame));
 			
 			

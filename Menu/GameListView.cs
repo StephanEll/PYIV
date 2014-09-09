@@ -105,6 +105,7 @@ namespace PYIV.Menu
 
 		private void OnHighscoreButtonClick(GameObject button){
 			// TO-DO
+			ViewRouter.TheViewRouter.ShowView(typeof(HighscoreView));
 			Debug.Log ("Highscore Button angelickt");
 		}
 
