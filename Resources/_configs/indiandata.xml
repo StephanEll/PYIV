@@ -9,7 +9,7 @@
 			<Name>Azteke</Name>
 			<Description>20</Description>
 			<SpriteImageName>massai_icon</SpriteImageName>
-			<Stamina>6</Stamina>
+			<Stamina>5</Stamina>
 			<Strength>15</Strength>
 			<Accuracy>1</Accuracy>
 			<ShotBehaviourClassName>WeaponBlowTube</ShotBehaviourClassName>
