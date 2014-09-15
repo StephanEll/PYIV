@@ -15,14 +15,36 @@ public class PointsHelper : MonoBehaviour {
 
 		// Update is called once per frame
 		void Update () {
+
+
 			if(float.Parse(pointsLabel.text) > points) {
-				float p = float.Parse(pointsLabel.text) - 0.05f;
-				pointsLabel.text = ((int)p).ToString();
+
+				// Bei großem Unterschied in größeren Schritten abziehen
+				if((float.Parse(pointsLabel.text) - points) > 100) {
+
+					float p = float.Parse(pointsLabel.text) - 5f;
+					pointsLabel.text = ((int)p).ToString();
+
+				} else {
+
+					float p = float.Parse(pointsLabel.text) - 0.05f;
+					pointsLabel.text = ((int)p).ToString();
+				}
 			} 
 
 			if(float.Parse(pointsLabel.text) < points) {
-				float p = float.Parse(pointsLabel.text) + 1f;
-				pointsLabel.text = ((int)p).ToString();
+
+				if((points - float.Parse(pointsLabel.text)) > 100) {
+
+					float p = float.Parse(pointsLabel.text) + 5f;
+					pointsLabel.text = ((int)p).ToString();
+
+				} else {
+
+					float p = float.Parse(pointsLabel.text) + 1f;
+					pointsLabel.text = ((int)p).ToString();
+
+				}
 			} 
 		}
 	}
