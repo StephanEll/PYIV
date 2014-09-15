@@ -45,8 +45,9 @@ namespace PYIV.Persistence
 		}
 		
 		
-		public IList<string> Wins {get; set;}
-		public IList<string> Defeats {get; set;}
+		public List<string> Wins {get; set;}
+		public List<string> Defeats {get; set;}
+
 		
 		public String AuthToken { get; set;	}
 

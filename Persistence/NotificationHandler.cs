@@ -49,6 +49,9 @@ namespace PYIV.Persistence
 		}
 		
 		private void OnStoredNotificationsLoaded(CEvent e){
+			
+			Debug.Log ("on stored notifications loaded");
+			
 			var notifications = e.data as List<PushNotificationData>;
 			
 			

@@ -55,7 +55,6 @@ namespace PYIV.Persistence
 		{
 			lock (syncRoot) {
 				Player.DeleteAuthData ();
-				LocalDataPersistence.DeleteFile(LocalDataPersistence.GAMES_FILENAME);
 				instance = null;
 			}
 		}
@@ -66,22 +65,9 @@ namespace PYIV.Persistence
 			if (gameList != null) {
 				OnSuccess (gameList);
 			} else {
-				try {
-					SyncLocalChangesAndSetGameList(OnSuccess, OnError);
-				} catch (IOException e) {
-					FetchCompleteGameList(OnSuccess, OnError);
-				}
+				FetchCompleteGameList(OnSuccess, OnError);
 			}
-		}
 		
-		private void SyncLocalChangesAndSetGameList(Request<GameCollection>.SuccessDelegate OnSuccess, Request<GameCollection>.ErrorDelegate OnError){
-			var unsyncedGames = LocalDataPersistence.Load<List<GameData>> (LocalDataPersistence.GAMES_FILENAME);
-			LocalDataPersistence.DeleteFile(LocalDataPersistence.GAMES_FILENAME);
-			GameCollection gameCollection = new GameCollection (unsyncedGames);
-			gameCollection.Sync ((responseObject) => {
-				this.gameList = gameCollection;
-				OnSuccess (this.gameList);
-			}, OnError, false);
 		}
 		
 		private void FetchCompleteGameList(Request<GameCollection>.SuccessDelegate OnSuccess, Request<GameCollection>.ErrorDelegate OnError){

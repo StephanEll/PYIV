@@ -92,15 +92,7 @@ namespace PYIV.Helper
     private void ApplicationLostFocus()
     {
       GoogleCloudMessageService.instance.SetNotificationEnabled(true);
-      if (LoggedInPlayer.IsLoggedIn())
-      {
-        var gameList = LoggedInPlayer.Instance.GameList;
-        if (gameList != null && gameList.HasUnsyncedGames())
-        {
-          Debug.Log("Save unsynced games");
-          LocalDataPersistence.Save(gameList.UnsyncedGames, LocalDataPersistence.GAMES_FILENAME);
-        }
-      }
+     
     }
     
     private void ApplicationGotFocus()
@@ -109,7 +101,6 @@ namespace PYIV.Helper
 
       if (LoggedInPlayer.IsLoggedIn())
       {
-        LoggedInPlayer.Instance.NotificationHandler.LoadNotificationsFromStore();
         SyncMemoryDataWithServer();
       }
     }
