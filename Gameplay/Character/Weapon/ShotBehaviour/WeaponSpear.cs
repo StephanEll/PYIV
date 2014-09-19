@@ -11,7 +11,7 @@ namespace PYIV.Gameplay.Character.Weapon
     {
       
       bullet.transform.position = this.transform.position;
-      bullet.transform.Translate(new Vector3(0.0f, 0.8f, 0.0f));
+      bullet.transform.Translate(new Vector3(0.0f, 3.2f, 0.0f));
       Invoke("GoToStartPosition", 0.5f);
 
       this.GetComponent<Animator>().SetTrigger("shot");
@@ -24,7 +24,7 @@ namespace PYIV.Gameplay.Character.Weapon
         Destroy(bullet);
       }
 
-      bullet.rigidbody2D.AddForce(delta / duration);
+      bullet.rigidbody2D.AddForce(delta / duration * 1.3f);
 
     }
     
