@@ -20,7 +20,8 @@ namespace PYIV.Persistence
 		
 		public List<GameData> RunningGames { 
 			get {
-				return (from game in ModelList where game.MyStatus.IsChallengeAccepted select game).ToList();
+				var list = (from game in ModelList where game.MyStatus.IsChallengeAccepted select game);
+				return list.OrderByDescending(g=>g.UpdatedAt).ToList();
 			}
 		}
 		
