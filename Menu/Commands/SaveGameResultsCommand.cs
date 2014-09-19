@@ -8,11 +8,12 @@ namespace PYIV.Menu.Commands
 	{
 		
 		private GameData game;
+    private GameObject okButton;
 		
-		public SaveGameResultsCommand (GameData saveGame)
+    public SaveGameResultsCommand (GameData saveGame, GameObject okButton)
 		{
 			this.game = saveGame;
-			
+      this.okButton = okButton;
 		}
 		
 		public void Execute(){
@@ -22,7 +23,7 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void OnSaveSuccess(GameData data){
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), game);
+      okButton.SetActive(true);
 		}
 		
 		

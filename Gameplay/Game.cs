@@ -101,10 +101,8 @@ namespace PYIV.Gameplay
 		{
 			Camera.main.orthographicSize = initialCameraSize;
 			Camera.main.gameObject.transform.position = Vector3.zero;
-
-			gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score.Score> ().GetScoreResult ();
-			ICommand saveResultsCommand = new SaveGameResultsCommand(gameData);
-			saveResultsCommand.Execute();
+      gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score.Score> ().GetScoreResult ();
+      ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(VillageProtectedView), gameData);
 			
 			this.gameObject.SetActive(false);
 		}

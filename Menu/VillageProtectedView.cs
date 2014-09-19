@@ -4,6 +4,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
 using PYIV.Helper;
+using PYIV.Menu.Commands;
 
 namespace PYIV.Menu
 {
@@ -11,7 +12,8 @@ namespace PYIV.Menu
 	{
 
 		private GameData gameData;
-		
+    private GameObject okButton;
+
 		public VillageProtectedView () : base("VillageProtectedPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
@@ -21,13 +23,17 @@ namespace PYIV.Menu
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			InitViewComponents();			
+			InitViewComponents();
+
 		}
 
 		public override void UnpackParameter (object parameter)
 		{
 			base.UnpackParameter (parameter);
 			this.gameData = parameter as GameData;
+
+      ICommand saveResultsCommand = new SaveGameResultsCommand(this.gameData, okButton);
+      saveResultsCommand.Execute();
 		}
 		
 
@@ -38,13 +44,13 @@ namespace PYIV.Menu
 			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
 			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
 
-			GameObject okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
-
+			okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
+      okButton.SetActive(false);
 			UIEventListener.Get(okButton).onClick += OnOKButtonClicked;
 		}
 
 		private void OnOKButtonClicked(GameObject button) {
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(VillageProtectedView), gameData);
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), gameData);
 		}
 		
 		public override bool ShouldBeCached ()
