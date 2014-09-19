@@ -63,7 +63,7 @@ namespace PYIV.Gameplay.Character
       }
       else
       {
-        currentStamina = 0;
+        //currentStamina = 0;
         return false;
       }
     }

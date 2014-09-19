@@ -7,8 +7,8 @@
 	  <menu-prefab value="UI/" />
   </directory>
   <server>
-    <!-- <url value="https://pyiv2014.appspot.com" />-->
-    <url value="http://localhost:9080" /> 
+    <url value="https://pyiv2014.appspot.com" />
+    <!--<url value="http://localhost:9080" /> -->
 	<sender-id value="419590633699" />
   </server>
   <game>

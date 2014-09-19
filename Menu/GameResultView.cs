@@ -15,6 +15,8 @@ namespace PYIV.Menu
 		private PlayerResultBoard playerResultBoard;
 		private PlayerResultBoard opponentResultBoard;
 		private GameObject buttonsParent;
+		private GameObject notPlayedYet;
+		private UILabel roundNr;
 		
 		private GameObject menuButton;
 		private GameData gameData;
@@ -31,6 +33,8 @@ namespace PYIV.Menu
 			var container = panel.transform.Find ("Sprite");
 			titleLabel = container.transform.Find ("TopAnchorLabel/title_label").GetComponent<UILabel> ();
 			boardParent = container.transform.Find ("TopAnchorInteraction").gameObject;
+			roundNr = boardParent.transform.FindChild("RoundNr").gameObject.GetComponent<UILabel>();
+			notPlayedYet = boardParent.transform.FindChild("NotPlayedYet").gameObject;
 			buttonsParent = container.transform.FindChild("BottomAnchorButton").gameObject;
 			menuButton = buttonsParent.transform.FindChild("MenuButton").gameObject;
 			Debug.Log ("MenuButton : " + menuButton);
@@ -60,13 +64,16 @@ namespace PYIV.Menu
 			SetTitle ();
 			
 			playerResultBoard = new PlayerResultBoard (gameData.MyStatus);	
-			playerResultBoard.AddBoardToParent (boardParent, new Vector2 (-280, -200));
-			
+			playerResultBoard.AddBoardToParent (boardParent, new Vector2 (-380, -200));
+			roundNr.text = gameData.MyStatus.Rounds.Count.ToString();
+			notPlayedYet.SetActive(true);
 						
 			if(gameData.State != GameState.OPPONENT_NEEDS_TO_PLAY){
-				
+
+				notPlayedYet.SetActive(false);
+
 				opponentResultBoard = new PlayerResultBoard (gameData.OpponentStatus);
-				opponentResultBoard.AddBoardToParent (boardParent, new Vector2 (415, -200));
+				opponentResultBoard.AddBoardToParent (boardParent, new Vector2 (515, -200));
 				
 				menuButton.transform.localPosition = new Vector3(-320, 0, 0);
 				
@@ -83,7 +90,6 @@ namespace PYIV.Menu
 					};
 				}
 			}
-			
 		}
 		
 
