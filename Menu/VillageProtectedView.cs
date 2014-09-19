@@ -10,6 +10,7 @@ namespace PYIV.Menu
 	public class VillageProtectedView : GuiView
 	{
 
+		private GameData gameData;
 		
 		public VillageProtectedView () : base("VillageProtectedPrefab")
 		{
@@ -22,12 +23,28 @@ namespace PYIV.Menu
 			base.OnPanelCreated ();
 			InitViewComponents();			
 		}
+
+		public override void UnpackParameter (object parameter)
+		{
+			base.UnpackParameter (parameter);
+			this.gameData = parameter as GameData;
+		}
 		
 
 		
 		private void InitViewComponents() {
 			
+			GameObject sprite = panel.transform.FindChild("Sprite").gameObject;
+			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
+			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
 
+			GameObject okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
+
+			UIEventListener.Get(okButton).onClick += OnOKButtonClicked;
+		}
+
+		private void OnOKButtonClicked(GameObject button) {
+			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(VillageProtectedView), gameData);
 		}
 		
 		public override bool ShouldBeCached ()
