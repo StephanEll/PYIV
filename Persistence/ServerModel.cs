@@ -77,13 +77,13 @@ namespace PYIV.Persistence
 		 * Will create a new Model on the server if it has no Id,
 		 * otherwise it will update the existing one
 		 * */
-		public virtual void Save (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
+		public virtual void Save (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError, bool doInBackround=false)
 		{
 			if (this.Id == null) {
-				Create (OnSuccess, OnError);
+				Create (OnSuccess, OnError, doInBackround);
 			}
 			else{
-				Update(OnSuccess, OnError);
+				Update(OnSuccess, OnError, doInBackround);
 			}
 			
 		}
@@ -102,18 +102,18 @@ namespace PYIV.Persistence
 		
 		
 		
-		private void Create (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError)
+		private void Create (Request<T>.SuccessDelegate OnSuccess, Request<T>.ErrorDelegate OnError, bool doInBackground)
 		{
-			var postRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.POST);
+			var postRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.POST, doInBackground);
 			AddCallbacksToRequest(postRequest, OnSuccess, OnError);
 			postRequest.AddBody(this);
 			postRequest.ExecuteAsync();
 		}
 		
-		public void Update (Request<T>.SuccessDelegate onSuccess, Request<T>.ErrorDelegate onError)
+		public void Update (Request<T>.SuccessDelegate onSuccess, Request<T>.ErrorDelegate onError, bool doInBackround)
 		{
 			Debug.Log ("ServerModel :: UPDATE :: send put request to server");
-			var putRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.PUT);
+			var putRequest = new Request<T>(ComputeResourceName(typeof(T)),Method.PUT, doInBackround);
 			AddCallbacksToRequest(putRequest, onSuccess, onError);
 			putRequest.AddBody(this);
 			putRequest.ExecuteAsync();

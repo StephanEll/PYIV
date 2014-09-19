@@ -213,7 +213,7 @@ namespace PYIV.Menu
 		
 		public void Back ()
 		{
-			throw new System.NotImplementedException ();
+			OnPauseButtonClicked(null);
 		}
 
 	}

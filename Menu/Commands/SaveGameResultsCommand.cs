@@ -18,7 +18,7 @@ namespace PYIV.Menu.Commands
 		public void Execute(){
 			
 			game.MyStatus.Gold += game.MyStatus.LatestRound.ScoreResult.Gold;
-			game.Save(OnSaveSuccess, null);
+			game.Save(OnSaveSuccess, null, true);
 		}
 		
 		private void OnSaveSuccess(GameData data){
