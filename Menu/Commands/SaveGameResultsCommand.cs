@@ -8,12 +8,12 @@ namespace PYIV.Menu.Commands
 	{
 		
 		private GameData game;
-    private GameObject okButton;
+		private TweenPosition tp;
 		
-    public SaveGameResultsCommand (GameData saveGame, GameObject okButton)
+    public SaveGameResultsCommand (GameData saveGame, TweenPosition tp)
 		{
 			this.game = saveGame;
-      this.okButton = okButton;
+      		this.tp = tp;
 		}
 		
 		public void Execute(){
@@ -23,7 +23,7 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void OnSaveSuccess(GameData data){
-      okButton.SetActive(true);
+			tp.enabled = true;
 		}
 		
 		

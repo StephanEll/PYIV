@@ -12,7 +12,9 @@ namespace PYIV.Menu
 	{
 
 		private GameData gameData;
-    private GameObject okButton;
+    	private GameObject okButton;
+		private UILabel msgLabel;
+		private TweenPosition tp;
 
 		public VillageProtectedView () : base("VillageProtectedPrefab")
 		{
@@ -32,8 +34,8 @@ namespace PYIV.Menu
 			base.UnpackParameter (parameter);
 			this.gameData = parameter as GameData;
 
-      ICommand saveResultsCommand = new SaveGameResultsCommand(this.gameData, okButton);
-      saveResultsCommand.Execute();
+	      ICommand saveResultsCommand = new SaveGameResultsCommand(this.gameData, tp);
+	      saveResultsCommand.Execute();
 		}
 		
 
@@ -43,15 +45,25 @@ namespace PYIV.Menu
 			GameObject sprite = panel.transform.FindChild("Sprite").gameObject;
 			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
 			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
-
+			msgLabel = topAnchorInteraction.transform.FindChild("VillageProtectedLabel").gameObject.GetComponent<UILabel>();
 			okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
-      okButton.SetActive(false);
+			tp = okButton.GetComponent<TweenPosition>();
+			GameObject test = sprite.transform.FindChild("test").gameObject;
+
+			if(gameData.MyStatus.LatestRound.ScoreResult.IsVillageDestroyed ) {
+				msgLabel.text = StringConstants.VILLAGE_DESTROYED;
+			} else {
+				msgLabel.text = StringConstants.VILLAGE_PROTECTED;
+			}
+
 			UIEventListener.Get(okButton).onClick += OnOKButtonClicked;
+			UIEventListener.Get(test).onClick += OnOKButtonClicked;
 		}
 
 		private void OnOKButtonClicked(GameObject button) {
 			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), gameData);
 		}
+
 		
 		public override bool ShouldBeCached ()
 		{
