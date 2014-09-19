@@ -4,6 +4,7 @@ using PYIV.Persistence;
 using PYIV.Persistence.Errors;
 using PYIV.Menu.Popup;
 using PYIV.Menu.Commands;
+using System.Collections.Generic;
 
 namespace PYIV.Menu
 {
@@ -11,7 +12,8 @@ namespace PYIV.Menu
 	{
 		private GameObject sprite;
 		private UIInput opponentNameInput;
-		
+		private GameObject opponentsListAnchor;
+		private List<Player> randomPlayers;
 		public OpponentSelectionView () : base("OpponentSelectionPrefab")
 		{
 			TouchScreenKeyboard.hideInput = true;
@@ -22,7 +24,27 @@ namespace PYIV.Menu
 		{
 			base.OnPanelCreated ();
 			InitViewComponents();
+			
 
+		}
+		
+		public override void UnpackParameter (object parameter)
+		{
+			base.UnpackParameter (parameter);
+			randomPlayers = parameter as List<Player>;
+			
+			Debug.Log("RAND PLYR: "+randomPlayers[0].ToString());
+			
+			for(int i = 0; i < 3; i++){
+				GameObject opponent_board = opponentsListAnchor.transform.FindChild("opponent_"+(i+1)).gameObject;
+				opponent_board.transform.Find("opponent_"+(i+1)+"_label").GetComponent<UILabel>().text = randomPlayers[i].Name;
+				
+				UIEventListener.Get(opponent_board).onClick += OnRandomAttackClicked;
+				
+				
+			}
+			
+			
 		}
 
 		private void InitViewComponents() {
@@ -32,15 +54,9 @@ namespace PYIV.Menu
 			GameObject searchOpponentButton = TopAnchorInteraction.transform.FindChild("search_button").gameObject;
 			opponentNameInput = TopAnchorInteraction.transform.FindChild("username_search_input").gameObject.GetComponent<UIInput>();
 			
-			GameObject OpponentsListAnchor = sprite.transform.FindChild("OpponentsListAnchor").gameObject;
-			GameObject opponent_1 = OpponentsListAnchor.transform.FindChild("opponent_1").gameObject;
-			GameObject opponent_2 = OpponentsListAnchor.transform.FindChild("opponent_2").gameObject;
-			GameObject opponent_3 = OpponentsListAnchor.transform.FindChild("opponent_3").gameObject;
-
+			opponentsListAnchor = sprite.transform.FindChild("OpponentsListAnchor").gameObject;
 			UIEventListener.Get(searchOpponentButton).onClick += OnSearchOpponentButtonClicked;
-			UIEventListener.Get(opponent_1).onClick += OnOpponent_1_BoardClicked;
-			UIEventListener.Get(opponent_2).onClick += OnOpponent_2_BoardClicked;
-			UIEventListener.Get(opponent_3).onClick += OnOpponent_3_BoardClicked;
+
 
 		}
 
@@ -54,20 +70,10 @@ namespace PYIV.Menu
 			
 		}
 
-		private void OnOpponent_1_BoardClicked(GameObject opponent_1_button) {
-			// TODO
-			Debug.Log("search opponent 1 button clicked");
+		private void OnRandomAttackClicked(GameObject opponent_1_button) {
+			OnPlayerFound(randomPlayers[0]);
 		}
 
-		private void OnOpponent_2_BoardClicked(GameObject opponent_2_button) {
-			// TODO
-			Debug.Log("search opponent 2 button clicked");
-		}
-
-		private void OnOpponent_3_BoardClicked(GameObject opponent_3_button) {
-			// TODO
-			Debug.Log("search opponent 3 button clicked");
-		}
 		
 		public override bool ShouldBeCached ()
 		{

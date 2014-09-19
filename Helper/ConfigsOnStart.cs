@@ -41,6 +41,10 @@ namespace PYIV.Helper
       gcm.SetNotificationEnabled(false);
 
       //CreateTestData();
+			
+			
+		
+			
 
       ShowStartScreen();
 
