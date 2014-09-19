@@ -8,11 +8,12 @@ namespace PYIV.Menu.Commands
 	{
 		
 		private GameData game;
+		private TweenPosition tp;
 		
-		public SaveGameResultsCommand (GameData saveGame)
+    public SaveGameResultsCommand (GameData saveGame, TweenPosition tp)
 		{
 			this.game = saveGame;
-			
+      		this.tp = tp;
 		}
 		
 		public void Execute(){
@@ -22,7 +23,7 @@ namespace PYIV.Menu.Commands
 		}
 		
 		private void OnSaveSuccess(GameData data){
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), game);
+			tp.enabled = true;
 		}
 		
 		
