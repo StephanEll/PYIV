@@ -52,7 +52,7 @@ namespace PYIV.Helper
 			LoggedInPlayer.Login (player2);
 			data = new GameData (player1, player2);
 
-			string[] subCollectionIndian = {"Massai"};
+			string[] subCollectionIndian = {"Amazone"};
 
 			data.MyStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
 			data.OpponentStatus.IndianData = IndianDataCollection.Instance.GetSubCollection (subCollectionIndian) [0];
