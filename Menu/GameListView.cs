@@ -76,7 +76,7 @@ namespace PYIV.Menu
 
 		
 		private void OnNewGameButtonClick(GameObject button){
-			ViewRouter.TheViewRouter.ShowView(typeof(OpponentSelectionView));
+			new ShowOpponentSelectionViewCommand().Execute();
 		}
 
 		private void OnGameBoardClick(GameObject button){
