@@ -25,6 +25,10 @@ namespace PYIV.Helper
 		
 		public const string BUTTON_NEXT_ROUND = "Next round";
 		public const string BUTTON_REPLAY = "Play again";
+
+		public const string VILLAGE_PROTECTED = "Village protected!";
+		public const string VILLAGE_DESTROYED = "Your village was destroyed!";
+
 		/// Strings for Ingame
 		/// 
 		/// 
