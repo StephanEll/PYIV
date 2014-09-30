@@ -8,7 +8,7 @@
 			<Id>Azteke</Id>
 			<Name>Azteke</Name>
 			<Description>20</Description>
-			<SpriteImageName>massai_icon</SpriteImageName>
+			<SpriteImageName>aztec_icon</SpriteImageName>
 			<Stamina>5</Stamina>
 			<Strength>15</Strength>
 			<Accuracy>1</Accuracy>
