@@ -48,16 +48,18 @@ namespace PYIV.Menu
 			msgLabel = topAnchorInteraction.transform.FindChild("VillageProtectedLabel").gameObject.GetComponent<UILabel>();
 			okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
 			tp = okButton.GetComponent<TweenPosition>();
-			GameObject test = sprite.transform.FindChild("test").gameObject;
 
+			/*
+			 * DAS FUNKTIONIERT NICHT?!
+			 * 
 			if(gameData.MyStatus.LatestRound.ScoreResult.IsVillageDestroyed ) {
 				msgLabel.text = StringConstants.VILLAGE_DESTROYED;
 			} else {
 				msgLabel.text = StringConstants.VILLAGE_PROTECTED;
 			}
 
+			*/
 			UIEventListener.Get(okButton).onClick += OnOKButtonClicked;
-			UIEventListener.Get(test).onClick += OnOKButtonClicked;
 		}
 
 		private void OnOKButtonClicked(GameObject button) {
