@@ -4,7 +4,7 @@
     <enemy-config-xml value="_configs/enemydata" />
     <indian-config-xml value="_configs/indiandata" />
     <fly-note-config-xml value="_configs/flynotedata" />
-	  <menu-prefab value="UI/" />
+	<menu-prefab value="UI/" />
   </directory>
   <server>
     <url value="https://pyiv2014.appspot.com" />
@@ -12,7 +12,7 @@
 	<sender-id value="419590633699" />
   </server>
   <game>
-    <max-spawn-time value="10.0"/>
+    <max-spawn-time value="60.0"/>
 	<start-gold value="150" />
     <spawning-height value="0.07" />
     <start-village-livepoints value="500" />

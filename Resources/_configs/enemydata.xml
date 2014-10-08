@@ -30,7 +30,7 @@
 	  <EnemyData>
       		<Id>Eagle</Id>
 	    	<MoveSpeed>5</MoveSpeed>
-	    	<AttackPower>75</AttackPower>
+	    	<AttackPower>60</AttackPower>
 	    	<LivePoints>45</LivePoints>
       		<Fly>true</Fly>
       		<SpawnTime>0.5</SpawnTime>
@@ -75,53 +75,53 @@
 	  <EnemyType>
 	      <Id>Rat1</Id>
 	      <Price>90</Price>
-	      <Name>10 Ratten</Name>
-	      <Description>Kaufe 10 Ratten zum Preis von 50 Goldstücken</Description>
-	      <Count>10</Count>
+	      <Name>8 Ratten</Name>
+	      <Description>Kaufe 8 Ratten zum Preis von 90 Goldstücken</Description>
+	      <Count>8</Count>
 	      <EnemyDataId>Rat</EnemyDataId>
 	  </EnemyType>
 	    
 	  <EnemyType>
 	      <Id>Bat1</Id>
-	      <Price>120</Price>
-	      <Name>7 Fledermäuse</Name>
-	      <Description>Kaufe 7 Fledermäuse zum Preis von 120 Goldstücken</Description>
-	      <Count>7</Count>
+	      <Price>150</Price>
+	      <Name>6 Fledermäuse</Name>
+	      <Description>Kaufe 6 Fledermäuse zum Preis von 150 Goldstücken</Description>
+	      <Count>6</Count>
 	      <EnemyDataId>Bat</EnemyDataId>
 	  </EnemyType>
 	    
 	  <EnemyType>
 	      <Id>Eagle1</Id>
 	      <Price>210</Price>
-	      <Name>5 Adler</Name>
-	      <Description>Kaufe 5 Aler zum Preis von 210 Goldstücken</Description>
-	      <Count>5</Count>
+	      <Name>4 Adler</Name>
+	      <Description>Kaufe 4 Aler zum Preis von 210 Goldstücken</Description>
+	      <Count>4</Count>
 	      <EnemyDataId>Eagle</EnemyDataId>
 	  </EnemyType>
 	    
 	  <EnemyType>
 	      <Id>Panther1</Id>
-	      <Price>360</Price>
-	      <Name>4 Panter</Name>
-	      <Description>Kaufe 4 Panter zum Preis von 360 Goldstücken</Description>
-	      <Count>4</Count>
+	      <Price>390</Price>
+	      <Name>3 Panter</Name>
+	      <Description>Kaufe 3 Panter zum Preis von 390 Goldstücken</Description>
+	      <Count>3</Count>
 	      <EnemyDataId>Panther</EnemyDataId>
 	  </EnemyType>
 	    
 	  <EnemyType>
 	      <Id>Rhino1</Id>
-	      <Price>300</Price>
+	      <Price>360</Price>
 	      <Name>3 Nashörner</Name>
-	      <Description>Kaufe 3 Nashörner zum Preis von 300 Goldstücken</Description>
+	      <Description>Kaufe 3 Nashörner zum Preis von 360 Goldstücken</Description>
 	      <Count>3</Count>
 	      <EnemyDataId>Rhino</EnemyDataId>
 	  </EnemyType>
 	    
 	  <EnemyType>
 	      <Id>Elephant1</Id>
-	      <Price>270</Price>
+	      <Price>300</Price>
 	      <Name>2 Elefanten</Name>
-	      <Description>Kaufe 2 Elefanten zum Preis von 270 Goldstücken</Description>
+	      <Description>Kaufe 2 Elefanten zum Preis von 300 Goldstücken</Description>
 	      <Count>2</Count>
 	      <EnemyDataId>Elephant</EnemyDataId>
 	  </EnemyType>
