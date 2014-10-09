@@ -41,7 +41,11 @@ namespace PYIV.Persistence
 		[IgnoreDataMember]
 		public float ShotEfficiencyPercent { 
 			get {
-				return (float)Math.Round((double)HitCount / AllShots * 100);
+				if(AllShots>0){
+					return (float)Math.Round((double)HitCount / AllShots * 100);
+				}else{
+					return 0.0f;
+				}
 			}
 		}
 		

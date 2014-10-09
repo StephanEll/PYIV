@@ -43,8 +43,13 @@ namespace PYIV.Gameplay
 				gameObject, 
 				ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints"));
 			
-      indian = IndianBuilder.CreateIndian (gameData.MyStatus, this.transform);
+               indian = IndianBuilder.CreateIndian (gameData.MyStatus, this.transform);
 			score.OnScoreChanged += HandleOnScoreChanged;
+
+            GameObject.Find("Config").GetComponent<MusicHelper>().changeToSceneMusic(Resources.Load(gameData.MyStatus.IndianData.GameSound) as AudioClip);
+            
+           // (soundclip?) Resources.Load(gameData.MyStatus.IndianData.GameSound)
+
 		}
 
 		void HandleOnScoreChanged (int newScore)
@@ -99,6 +104,7 @@ namespace PYIV.Gameplay
 
 		private void GameFinished ()
 		{
+            GameObject.Find("Config").GetComponent<MusicHelper>().changeToStandardMusic();
 			Camera.main.orthographicSize = initialCameraSize;
 			Camera.main.gameObject.transform.position = Vector3.zero;
       gameData.MyStatus.LatestRound.ScoreResult = GetComponent<Score.Score> ().GetScoreResult ();
