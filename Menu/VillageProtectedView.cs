@@ -12,7 +12,7 @@ namespace PYIV.Menu
 	{
 
 		private GameData gameData;
-    	private GameObject okButton;
+		private GameObject okButton;
 		private UILabel msgLabel;
 		private TweenPosition tp;
 
@@ -21,11 +21,10 @@ namespace PYIV.Menu
 			TouchScreenKeyboard.hideInput = true;
 		}
 		
-		
 		protected override void OnPanelCreated ()
 		{
 			base.OnPanelCreated ();
-			InitViewComponents();
+			InitViewComponents ();
 
 		}
 
@@ -34,38 +33,36 @@ namespace PYIV.Menu
 			base.UnpackParameter (parameter);
 			this.gameData = parameter as GameData;
 
-	      ICommand saveResultsCommand = new SaveGameResultsCommand(this.gameData, tp);
-	      saveResultsCommand.Execute();
-		}
-		
-
-		
-		private void InitViewComponents() {
+			ICommand saveResultsCommand = new SaveGameResultsCommand (this.gameData, tp);
+			saveResultsCommand.Execute ();
 			
-			GameObject sprite = panel.transform.FindChild("Sprite").gameObject;
-			GameObject bottomAnchorLinks = sprite.transform.FindChild("BottomAnchorLinks").gameObject;
-			GameObject topAnchorInteraction = sprite.transform.FindChild("TopAnchorInteraction").gameObject;
-			msgLabel = topAnchorInteraction.transform.FindChild("VillageProtectedLabel").gameObject.GetComponent<UILabel>();
-			okButton = bottomAnchorLinks.transform.FindChild("ok_button").gameObject;
-			tp = okButton.GetComponent<TweenPosition>();
-
-			/*
-			 * DAS FUNKTIONIERT NICHT?!
-			 * 
-			if(gameData.MyStatus.LatestRound.ScoreResult.IsVillageDestroyed ) {
+			if (gameData.MyStatus.LatestCompletedRound.ScoreResult.IsVillageDestroyed) {
 				msgLabel.text = StringConstants.VILLAGE_DESTROYED;
 			} else {
 				msgLabel.text = StringConstants.VILLAGE_PROTECTED;
 			}
+		}
+		
+		private void InitViewComponents ()
+		{
+			
+			GameObject sprite = panel.transform.FindChild ("Sprite").gameObject;
+			GameObject bottomAnchorLinks = sprite.transform.FindChild ("BottomAnchorLinks").gameObject;
+			GameObject topAnchorInteraction = sprite.transform.FindChild ("TopAnchorInteraction").gameObject;
+			msgLabel = topAnchorInteraction.transform.FindChild ("VillageProtectedLabel").gameObject.GetComponent<UILabel> ();
+			okButton = bottomAnchorLinks.transform.FindChild ("ok_button").gameObject;
+			tp = okButton.GetComponent<TweenPosition> ();
 
-			*/
-			UIEventListener.Get(okButton).onClick += OnOKButtonClicked;
+
+			
+
+			UIEventListener.Get (okButton).onClick += OnOKButtonClicked;
 		}
 
-		private void OnOKButtonClicked(GameObject button) {
-			ViewRouter.TheViewRouter.ShowViewWithParameter(typeof(GameResultView), gameData);
+		private void OnOKButtonClicked (GameObject button)
+		{
+			ViewRouter.TheViewRouter.ShowViewWithParameter (typeof(GameResultView), gameData);
 		}
-
 		
 		public override bool ShouldBeCached ()
 		{

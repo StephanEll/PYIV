@@ -71,6 +71,7 @@ namespace PYIV.Menu
 
 			// zum Menü-Button
 			GameObject to_menu_button = sprite.transform.Find("BottomAnchor/to_menu").gameObject;
+			UIEventListener.Get (to_menu_button).onClick += (go) => Back ();
 
 			// Panels mit den Highscore-Boards
 			firstRanksGrid = sprite.transform.Find("EntryPanel/FirstRanksGrid").gameObject;

@@ -27,8 +27,7 @@ namespace PYIV.Menu
 
 			// Child hinzufügen
 			var highscoreBoardObj = NGUITools.AddChild(parent, highscoreBoard);
-			
-			Debug.Log(highscoreBoardObj);
+
 			
 			// Boardinhalt holen:
 			rank = highscoreBoardObj.transform.Find("rank").gameObject.GetComponent<UILabel>();

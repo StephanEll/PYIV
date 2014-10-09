@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using RestSharp;
 using System;
-
+using System.Runtime.Serialization;
 using PYIV.Persistence.Errors;
 using PYIV.Persistence.Validators;
 using PYIV.Menu.Commands;
@@ -14,10 +14,11 @@ namespace PYIV.Persistence
 	/// <summary>
 	/// Represents a player infront of the phone
 	/// </summary>
+	[DataContract]
 	[Serializable]
 	public class Player : ServerModel<Player>
 	{
-		
+		[DataMember]
 		public string Name {
 			get{
 				
@@ -35,6 +36,7 @@ namespace PYIV.Persistence
 		}
 		
 		private List<String> auth_ids;
+		[DataMember]
 		public List<String> Auth_ids {
 			get{
 				return auth_ids;
@@ -44,16 +46,20 @@ namespace PYIV.Persistence
 			}
 		}
 		
-		
+		[IgnoreDataMember]
 		public List<string> Wins {get; set;}
+		[IgnoreDataMember]
 		public List<string> Defeats {get; set;}
 
-		
+		[DataMember]
 		public String AuthToken { get; set;	}
-
+		[DataMember]
 		public string Mail { get; set;	}
-		
+		[DataMember]
 		public string Password { get; set;	}
+		
+		[IgnoreDataMember]
+		public int Score { get; set; }
 		
 		public Player ()
 		{
@@ -156,6 +162,7 @@ namespace PYIV.Persistence
 			this.Mail = responseObject.Mail;
 			this.Wins = responseObject.Wins;
 			this.Defeats = responseObject.Defeats;
+			this.Score = responseObject.Score;
 			
 			if(responseObject.AuthToken != null)
 				this.AuthToken = responseObject.AuthToken;	

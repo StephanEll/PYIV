@@ -12,7 +12,7 @@ namespace PYIV.Menu
 	{
 		private GameObject sprite;
 		private UIInput opponentNameInput;
-		private GameObject opponentsListAnchor;
+		private GameObject proposalGrid;
 		private List<Player> randomPlayers;
 		public OpponentSelectionView () : base("OpponentSelectionPrefab")
 		{
@@ -35,14 +35,11 @@ namespace PYIV.Menu
 			
 			Debug.Log("RAND PLYR: "+randomPlayers[0].ToString());
 			
-			for(int i = 0; i < 3; i++){
-				GameObject opponent_board = opponentsListAnchor.transform.FindChild("opponent_"+(i+1)).gameObject;
-				opponent_board.transform.Find("opponent_"+(i+1)+"_label").GetComponent<UILabel>().text = randomPlayers[i].Name;
-				
-				UIEventListener.Get(opponent_board).onClick += OnRandomAttackClicked;
-				
-				
+			foreach(Player player in randomPlayers){
+				var board = new OpponentProposalBoard(proposalGrid, player);
 			}
+			
+			
 			
 			
 		}
@@ -54,7 +51,7 @@ namespace PYIV.Menu
 			GameObject searchOpponentButton = TopAnchorInteraction.transform.FindChild("search_button").gameObject;
 			opponentNameInput = TopAnchorInteraction.transform.FindChild("username_search_input").gameObject.GetComponent<UIInput>();
 			
-			opponentsListAnchor = sprite.transform.FindChild("OpponentsListAnchor").gameObject;
+			proposalGrid = sprite.transform.Find("OpponentsListAnchor/ProposalGrid").gameObject;
 			UIEventListener.Get(searchOpponentButton).onClick += OnSearchOpponentButtonClicked;
 
 
@@ -70,9 +67,6 @@ namespace PYIV.Menu
 			
 		}
 
-		private void OnRandomAttackClicked(GameObject opponent_1_button) {
-			OnPlayerFound(randomPlayers[0]);
-		}
 
 		
 		public override bool ShouldBeCached ()
