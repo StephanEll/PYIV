@@ -47,7 +47,7 @@ namespace PYIV.Helper
 			
 
       ShowStartScreen();
-
+      gameObject.AddComponent<MusicHelper>();
       
     }
     

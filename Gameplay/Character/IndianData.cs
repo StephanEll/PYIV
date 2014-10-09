@@ -43,6 +43,9 @@ namespace PYIV.Gameplay.Character
     public string BackgroundPreafabPath { get; set; }
 
     [XmlElement()]
+    public string GameSound { get; set; }
+
+    [XmlElement()]
     public Vector3 ColorateEnemys { get; set; }
     
     public override string ToString()
