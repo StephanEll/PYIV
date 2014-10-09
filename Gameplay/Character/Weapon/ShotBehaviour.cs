@@ -79,7 +79,7 @@ namespace PYIV.Gameplay.Character.Weapon
           GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
           bullet.transform.parent = game.transform;
           Bullet.AddAsComponentTo(bullet, bulletStrength, score);
-        
+          GetComponent<AudioSource>().Play();
           EndSwipeHandler(
             bullet.GetComponent<Bullet>(),
             (startPosition / Screen.width) * 2000,
@@ -108,7 +108,7 @@ namespace PYIV.Gameplay.Character.Weapon
           GameObject bullet = Instantiate(Resources.Load<GameObject>(bulletPreafabPath)) as GameObject;
           bullet.transform.parent = game.transform;
           Bullet.AddAsComponentTo(bullet, bulletStrength, score);
-
+          GetComponent<AudioSource>().Play();
           EndSwipeHandler(
                         bullet.GetComponent<Bullet>(),
                         (startPosition / Screen.width) * 1000,
