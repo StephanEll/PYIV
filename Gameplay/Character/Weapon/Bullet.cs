@@ -76,6 +76,8 @@ namespace PYIV.Gameplay.Character.Weapon
 
         score.AddHit(hitEnemy);
 
+        GetComponent<AudioSource>().Play();
+
         //Reduce Enemy Livepoints here
 
         if (! hitEnemy.Dead)
