@@ -20,8 +20,8 @@ namespace PYIV.Helper
 		/// Strings in Menu
 		public const string UNKNOWN_ERROR = "An unknown error has occured. Please try again or restart the game.";
 		public const string GAME_DRAW = "This fight was a draw!";
-		public const string GAME_LOST = "You lost!";
-		public const string GAME_WON = "Congratulation - you won!";
+		public const string GAME_LOST = "OH NO! - You lost!";
+		public const string GAME_WON = "GREAT! - You won!";
 		
 		public const string BUTTON_NEXT_ROUND = "Next round";
 		public const string BUTTON_REPLAY = "Play again";
