@@ -35,7 +35,7 @@
 			<ShotBehaviourClassName>WeaponBow</ShotBehaviourClassName>
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
-			<BackgroundPreafabPath>Music/MusicTest2</BackgroundPreafabPath>
+			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
       <GameSound>Prefabs/Sound/Azteke</GameSound>
 			<ColorateEnemys>
 				<x>0.745</x>

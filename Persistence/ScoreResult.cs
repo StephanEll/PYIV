@@ -52,9 +52,13 @@ namespace PYIV.Persistence
 		[IgnoreDataMember]
 		public float VillageStatusPercent { 
 			get {
-				int startVillageLifePoints = ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
-				float villageStatus = (float)RemainingVillageLifepoints / startVillageLifePoints * 100;				
-				return (float)Math.Round(villageStatus);
+				if (RemainingVillageLifepoints > 0){
+					int startVillageLifePoints = ConfigReader.Instance.GetSettingAsInt ("game", "start-village-livepoints");
+					float villageStatus = (float)RemainingVillageLifepoints / startVillageLifePoints * 100;				
+					return (float)Math.Round(villageStatus);
+				}else{
+					return 0.0f;
+				}
 			}
 		}
 
