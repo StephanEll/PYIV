@@ -30,21 +30,21 @@ namespace PYIV.Persistence
 
 			
 			if(PlayerPrefs.HasKey(GCM_ID_KEY)){
-				NGUIDebug.Log ("device has already a registration id");
+				Debug.Log ("device has already a registration id");
 				
 				string gcmId = PlayerPrefs.GetString(GCM_ID_KEY);
 				ActivateGcmIdOnServer(gcmId);
 			}
 			else{
 				RegisterForGCM();
-				NGUIDebug.Log("requesting a new registration id from google");
+				Debug.Log("requesting a new registration id from google");
 			}
 			
 		}
 		
 		
 		public void LoadNotificationsFromStore(){
-			NGUIDebug.Log("Load notifications from store");
+			Debug.Log("Load notifications from store");
 			GoogleCloudMessageService.instance.GetStoredNotifications();
 		}
 		
@@ -72,7 +72,7 @@ namespace PYIV.Persistence
 		}
 		
 		private void ProcessNotification(PushNotificationData notificationData, bool isFromStore = false){
-			NGUIDebug.Log("received notification: " + notificationData.message + "::" + notificationData.timestamp);
+			Debug.Log("received notification: " + notificationData.message + "::" + notificationData.timestamp);
 			if(notificationData.NotificationType == NotificationType.SYNC) {
 				HandleSyncNotification(notificationData);
 			}

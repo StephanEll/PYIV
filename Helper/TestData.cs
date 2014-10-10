@@ -32,7 +32,7 @@ namespace PYIV.Helper
 		
 		void OnError (RestException e)
 		{
-			NGUIDebug.Log (e.Message);
+			Debug.Log (e.Message);
 		}
 		
 		void Player1Created (Player player)

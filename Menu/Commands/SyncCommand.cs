@@ -30,7 +30,7 @@ namespace PYIV.Menu.Commands
 				LoggedInPlayer.Instance.GameList.Sync(OnSuccess, OnError, doInBackground);
 			}
 			else{
-				NGUIDebug.Log("skip sync, already up to date");
+				Debug.Log("skip sync, already up to date");
 			}
 		}
 		
