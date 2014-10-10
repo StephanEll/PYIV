@@ -111,11 +111,11 @@ namespace PYIV.Gameplay.Enemy
 
       if (ySin > 0 && flightSwitch)
       {
-        flightHight = Random.Range(20.0f,40.0f);
+        flightHight = Random.Range(40.0f,50.0f);
         flightSwitch = false;
       } else if (ySin < 0 && !flightSwitch)
       {
-        flightHight = Random.Range(20.0f,40.0f);
+        flightHight = Random.Range(40.0f,50.0f);
         flightSwitch = true;
       }
 
