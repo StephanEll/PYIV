@@ -28,6 +28,8 @@ namespace PYIV.Helper
 
 		public const string VILLAGE_PROTECTED = "Village protected!";
 		public const string VILLAGE_DESTROYED = "Village destroyed!";
+		
+		public const string WAITING_FOR_OPPONENT = "Waiting for opponent...";
 
 		/// Strings for Ingame
 		/// 

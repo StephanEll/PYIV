@@ -117,6 +117,8 @@ namespace PYIV.Menu
 			case GameState.LOST:
 				titleLabel.text = StringConstants.GAME_LOST;
 				break;
+			case GameState.OPPONENT_NEEDS_TO_PLAY:
+				titleLabel.text = StringConstants.WAITING_FOR_OPPONENT;
 			}
 			
 		}

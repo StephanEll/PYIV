@@ -111,7 +111,7 @@ namespace PYIV.Helper
     
     private void SyncMemoryDataWithServer()
     {
-      if (LoggedInPlayer.Instance.GameList != null && LoggedInPlayer.Instance.GameList.HasUnsyncedGames())
+      if (LoggedInPlayer.Instance.GameList != null)
       {
         Debug.Log("Sync games in memory");
         var syncCommand = new SyncCommand(true, LoggedInPlayer.Instance.NotificationHandler.CommandQueue);
