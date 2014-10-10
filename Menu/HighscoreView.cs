@@ -45,13 +45,14 @@ namespace PYIV.Menu
 				if(highscoreList[i].Position != i+1){
 					AddDots((i+1).ToString());
 					dotsAdded = true;
+					Debug.Log ("Add dots at pos: "+i);
 				}
 				
 				HighscoreField field = new HighscoreField(firstRanksGrid, highscoreList[i]);
 			}
 			
 			if(!dotsAdded){
-				AddDots("Dots");		
+				AddDots("zDots");		
 			}
 			firstRanksGrid.GetComponent<UIGrid>().Reposition();
 
