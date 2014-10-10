@@ -14,7 +14,6 @@ namespace PYIV.Menu
 		private GameData gameData;
 		private GameObject okButton;
 		private UILabel msgLabel;
-		private TweenPosition tp;
 
 		public VillageProtectedView () : base("VillageProtectedPrefab")
 		{
@@ -33,7 +32,7 @@ namespace PYIV.Menu
 			base.UnpackParameter (parameter);
 			this.gameData = parameter as GameData;
 
-			ICommand saveResultsCommand = new SaveGameResultsCommand (this.gameData, tp);
+			ICommand saveResultsCommand = new SaveGameResultsCommand (this.gameData, okButton);
 			saveResultsCommand.Execute ();
 			
 			if (gameData.MyStatus.LatestCompletedRound.ScoreResult.IsVillageDestroyed) {
@@ -51,18 +50,10 @@ namespace PYIV.Menu
 			GameObject topAnchorInteraction = sprite.transform.FindChild ("TopAnchorInteraction").gameObject;
 			msgLabel = topAnchorInteraction.transform.FindChild ("VillageProtectedLabel").gameObject.GetComponent<UILabel> ();
 			okButton = bottomAnchorLinks.transform.FindChild ("ok_button").gameObject;
-			tp = okButton.GetComponent<TweenPosition> ();
-
-
-			
-
-			UIEventListener.Get (okButton).onClick += OnOKButtonClicked;
+						
 		}
 
-		private void OnOKButtonClicked (GameObject button)
-		{
-			ViewRouter.TheViewRouter.ShowViewWithParameter (typeof(GameResultView), gameData);
-		}
+	
 		
 		public override bool ShouldBeCached ()
 		{

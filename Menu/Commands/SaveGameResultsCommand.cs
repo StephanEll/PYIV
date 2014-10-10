@@ -1,6 +1,9 @@
 using System;
 using PYIV.Persistence;
 using UnityEngine;
+using PYIV.Persistence.Errors;
+using PYIV.Menu.Popup;
+
 
 namespace PYIV.Menu.Commands
 {
@@ -8,22 +11,40 @@ namespace PYIV.Menu.Commands
 	{
 		
 		private GameData game;
-		private TweenPosition tp;
+		private GameObject button;
+		private TweenPosition tweenPos;
 		
-    public SaveGameResultsCommand (GameData saveGame, TweenPosition tp)
+    public SaveGameResultsCommand (GameData saveGame, GameObject button)
 		{
 			this.game = saveGame;
-      		this.tp = tp;
+      		this.button = button;
+			tweenPos = button.GetComponent<TweenPosition>();
 		}
 		
 		public void Execute(){
 			
 			game.MyStatus.Gold += game.MyStatus.LatestRound.ScoreResult.Gold;
-			game.Save(OnSaveSuccess, null, true);
+			game.Save(OnSaveSuccess, OnSaveError, true);
 		}
 		
 		private void OnSaveSuccess(GameData data){
-			tp.enabled = true;
+			tweenPos.enabled = true;
+			
+			UIEventListener.Get(button).onClick += (g) => {
+				ViewRouter.TheViewRouter.ShowViewWithParameter (typeof(GameResultView), game);
+			};
+			
+		}
+		
+		private void OnSaveError(RestException e){
+			tweenPos.enabled = true;
+			
+			UIEventListener.Get(button).onClick += (g) => {
+				ViewRouter.TheViewRouter.ShowView (typeof(GameListView));
+			};
+			
+			ViewRouter.TheViewRouter.ShowTextPopup(e.Message);
+			
 		}
 		
 		
