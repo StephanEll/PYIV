@@ -119,6 +119,7 @@ namespace PYIV.Menu
 				break;
 			case GameState.OPPONENT_NEEDS_TO_PLAY:
 				titleLabel.text = StringConstants.WAITING_FOR_OPPONENT;
+                break;
 			}
 			
 		}

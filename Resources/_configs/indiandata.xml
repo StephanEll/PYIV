@@ -16,7 +16,7 @@
 			<PreafabPath>Prefabs/Characters/Character_Azteke</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_BlowTubeArrow</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_azteke</BackgroundPreafabPath>
-      <GameSound>Music/MusicTest2</GameSound>
+      <GameSound>Music/aztec_song</GameSound>
 			<ColorateEnemys>
 				<x>0.745</x>
 				<y>0.783</y>
@@ -36,7 +36,7 @@
 			<PreafabPath>Prefabs/Characters/Character_Amazone</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Arrow</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_amazone</BackgroundPreafabPath>
-      <GameSound>Prefabs/Sound/Azteke</GameSound>
+      <GameSound>Music/amazon_song</GameSound>
 			<ColorateEnemys>
 				<x>0.745</x>
 				<y>0.783</y>
@@ -56,7 +56,7 @@
 			<PreafabPath>Prefabs/Characters/Character_Massai</PreafabPath>
 			<BulletPreafabPath>Prefabs/Probs/Bullet_Spear</BulletPreafabPath>
 			<BackgroundPreafabPath>Prefabs/Environment/Scene_massai</BackgroundPreafabPath>
-      <GameSound>Music/MusicTest2</GameSound>
+      <GameSound>Music/masai_song</GameSound>
 			<ColorateEnemys>
 				<x>0.745</x>
 				<y>0.745</y>

@@ -19,6 +19,6 @@
     <enemy-die-frames value="100.0" />
   </game>
   <music>
-    <menu value="Music/MusicTest1"/>
+    <menu value="Music/menu_song"/>
   </music>
 </configuration>
