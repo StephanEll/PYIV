@@ -87,7 +87,10 @@ namespace PYIV.Persistence
 			HitCount = hitCount;
 			KillCount = killCount;
 			MissedShotCount = missedShotCount;
-			RemainingVillageLifepoints = remainingVillageLifepoints;
+			if(remainingVillageLifepoints < 0)
+				RemainingVillageLifepoints = 0;
+			else
+				RemainingVillageLifepoints = remainingVillageLifepoints;
       		ExtraPoints = extraPoints;
 		}
 
